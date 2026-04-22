@@ -1775,7 +1775,7 @@ body {
     kakaoHref = 'kakaomap://route?sp=&ep=' + lat + ',' + lng + '&by=CAR';
     naverHref = 'nmap://route/car?dlat=' + lat + '&dlng=' + lng + '&dname=' + name + '&appname=minirun2026';
   } else if (isAOS) {
-    tmapHref  =
+    tmapHref =
       'intent://route?rGoName=' + name + '&rGoX=' + lng + '&rGoY=' + lat +
       '#Intent;scheme=tmap' +
       ';action=android.intent.action.VIEW' +
@@ -1797,6 +1797,7 @@ body {
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
       ';package=com.nhn.android.nmap' +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') +
       ';end';
   } else {
     // PC
@@ -1845,42 +1846,34 @@ body {
       '&appname=minirun2026';
 
   } else if (isAOS) {
-    // T맵 Android: 목적지만
+    // T맵 Android: intent://, 목적지만
     tmapHref2 =
-      'intent://route?rGoName=' + dstN +
-      '&rGoX=' + dst.lng + '&rGoY=' + dst.lat +
+      'intent://route?rGoName=' + dstN + '&rGoX=' + dst.lng + '&rGoY=' + dst.lat +
       '#Intent;scheme=tmap' +
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
       ';package=com.skt.tmap.ku' +
-      ';S.browser_fallback_url=' +
-      encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') +
       ';end';
-
-    // 카카오맵 Android: ep=목적지, vp=경유지 (위도,경도 순)
+    // 카카오 Android: intent://, 경유지 포함
     kakaoHref2 =
-      'intent://route' +
-      '?ep=' + dst.lat + ',' + dst.lng +
-      '&vp=' + via.lat + ',' + via.lng +
-      '&by=CAR' +
+      'intent://route?ep=' + dst.lat + ',' + dst.lng +
+      '&vp=' + via.lat + ',' + via.lng + '&by=CAR' +
       '#Intent;scheme=kakaomap' +
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
       ';package=net.daum.android.map' +
-      ';S.browser_fallback_url=' +
-      encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') +
       ';end';
-
-    // 네이버 Android: v1 경유지 + 목적지
+    // 네이버 Android: intent://, 경유지 포함
     naverHref2 =
-      'intent://route/car' +
-      '?v1lat=' + via.lat + '&v1lng=' + via.lng + '&v1name=' + viaN +
-      '&dlat='  + dst.lat + '&dlng='  + dst.lng + '&dname='  + dstN +
-      '&appname=minirun2026' +
+      'intent://route/car?v1lat=' + via.lat + '&v1lng=' + via.lng + '&v1name=' + viaN +
+      '&dlat=' + dst.lat + '&dlng=' + dst.lng + '&dname=' + dstN + '&appname=minirun2026' +
       '#Intent;scheme=nmap' +
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
       ';package=com.nhn.android.nmap' +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') +
       ';end';
 
   } else {
@@ -1908,14 +1901,30 @@ body {
       k  = 'kakaomap://route?ep=' + p.lat + ',' + p.lng + '&by=CAR';
       nv = 'nmap://route/car?dlat=' + p.lat + '&dlng=' + p.lng + '&dname=' + n + '&appname=minirun2026';
     } else if (isAOS) {
-      t  = 'intent://route?rGoName=' + n + '&rGoX=' + p.lng + '&rGoY=' + p.lat +
-           '#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;S.browser_fallback_url=' +
-           encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') + ';end';
-      k  = 'intent://route?ep=' + p.lat + ',' + p.lng + '&by=CAR' +
-           '#Intent;scheme=kakaomap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=net.daum.android.map;S.browser_fallback_url=' +
-           encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') + ';end';
-      nv = 'intent://route/car?dlat=' + p.lat + '&dlng=' + p.lng + '&dname=' + n + '&appname=minirun2026' +
-           '#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;end';
+      t =
+        'intent://route?rGoName=' + n + '&rGoX=' + p.lng + '&rGoY=' + p.lat +
+        '#Intent;scheme=tmap' +
+        ';action=android.intent.action.VIEW' +
+        ';category=android.intent.category.BROWSABLE' +
+        ';package=com.skt.tmap.ku' +
+        ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') +
+        ';end';
+      k =
+        'intent://route?ep=' + p.lat + ',' + p.lng + '&by=CAR' +
+        '#Intent;scheme=kakaomap' +
+        ';action=android.intent.action.VIEW' +
+        ';category=android.intent.category.BROWSABLE' +
+        ';package=net.daum.android.map' +
+        ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') +
+        ';end';
+      nv =
+        'intent://route/car?dlat=' + p.lat + '&dlng=' + p.lng + '&dname=' + n + '&appname=minirun2026' +
+        '#Intent;scheme=nmap' +
+        ';action=android.intent.action.VIEW' +
+        ';category=android.intent.category.BROWSABLE' +
+        ';package=com.nhn.android.nmap' +
+        ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') +
+        ';end';
     } else {
       t  = 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?goalname=' + n + '&goalx=' + p.lng + '&goaly=' + p.lat;
       k  = 'https://map.kakao.com/link/to/' + n + ',' + p.lat + ',' + p.lng;
