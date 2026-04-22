@@ -1776,7 +1776,7 @@ body {
     naverHref = 'nmap://route/car?dlat=' + lat + '&dlng=' + lng + '&dname=' + name + '&appname=minirun2026';
   } else if (isAOS) {
     tmapHref =
-      'intent://route?rGoName=' + name + '&rGoX=' + lng + '&rGoY=' + lat +
+      'intent://route?goalname=' + name + '&goalx=' + lng + '&goaly=' + lat +
       '#Intent;scheme=tmap' +
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
@@ -1846,9 +1846,9 @@ body {
       '&appname=minirun2026';
 
   } else if (isAOS) {
-    // T맵 Android: intent://, 목적지만
+    // T맵 Android: intent://, 목적지만 (goalname/goalx/goaly)
     tmapHref2 =
-      'intent://route?rGoName=' + dstN + '&rGoX=' + dst.lng + '&rGoY=' + dst.lat +
+      'intent://route?goalname=' + dstN + '&goalx=' + dst.lng + '&goaly=' + dst.lat +
       '#Intent;scheme=tmap' +
       ';action=android.intent.action.VIEW' +
       ';category=android.intent.category.BROWSABLE' +
@@ -1902,7 +1902,7 @@ body {
       nv = 'nmap://route/car?dlat=' + p.lat + '&dlng=' + p.lng + '&dname=' + n + '&appname=minirun2026';
     } else if (isAOS) {
       t =
-        'intent://route?rGoName=' + n + '&rGoX=' + p.lng + '&rGoY=' + p.lat +
+        'intent://route?goalname=' + n + '&goalx=' + p.lng + '&goaly=' + p.lat +
         '#Intent;scheme=tmap' +
         ';action=android.intent.action.VIEW' +
         ';category=android.intent.category.BROWSABLE' +
