@@ -1085,6 +1085,117 @@ body {
 }
 
 /* ══════════════════════════════
+   CHAT CARD (미니런 참가자 단톡방 — theme-card 구조, 카카오 옐로우)
+══════════════════════════════ */
+.chat-card-section {
+  padding: 0;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+}
+.chat-card {
+  position: relative; overflow: hidden;
+  padding: 64px 48px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--black);
+  transition: background 0.4s;
+  text-decoration: none; color: inherit;
+}
+.chat-card:hover { background: #111; }
+
+/* 배경 워터마크 (CHAT) */
+.cc-bg-text {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(120px, 18vw, 220px);
+  font-weight: 900; letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(254,229,0,0.10);
+  pointer-events: none; white-space: nowrap;
+  transition: -webkit-text-stroke-color 0.4s;
+}
+.chat-card:hover .cc-bg-text {
+  -webkit-text-stroke-color: rgba(254,229,0,0.18);
+}
+
+/* 왼쪽 옐로우 라인 */
+.cc-accent {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #FEE500 40%, #FEE500 60%, transparent);
+}
+
+.cc-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.cc-eyebrow {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.45em;
+  color: #FEE500; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cc-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 900; letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--white);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.cc-title-accent { color: #FEE500; }
+.cc-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--gray); margin-top: 14px; letter-spacing: 0.05em;
+}
+
+.cc-preview {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--gray-lt); line-height: 1.85;
+  margin-bottom: 28px;
+}
+.cc-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  background: rgba(254,229,0,0.10);
+  border: 1px solid rgba(254,229,0,0.35);
+  border-radius: 40px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  color: #FEE500;
+  margin-bottom: 18px;
+}
+.cc-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #FEE500;
+}
+.cc-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #FEE500;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(254,229,0,0.4);
+  transition: gap 0.2s, border-color 0.2s;
+}
+.chat-card:hover .cc-cta { gap: 16px; border-color: #FEE500; }
+.cc-arrow { font-size: 16px; transition: transform 0.2s; }
+.chat-card:hover .cc-arrow { transform: translateX(4px); }
+
+@media (max-width: 960px) {
+  .cc-content { grid-template-columns: 1fr; gap: 32px; }
+  .chat-card { padding: 48px 24px; }
+}
+
+/* ══════════════════════════════
    THEME DETAIL PAGE
 ══════════════════════════════ */
 .theme-detail-page {}
@@ -1413,6 +1524,43 @@ body {
           <div class="gc-cta">
             <span>영상으로 보기</span>
             <span class="gc-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- PARTICIPANT CHAT ROOM CARD -->
+  <section class="chat-card-section">
+    <a class="chat-card reveal"
+       href="https://open.kakao.com/o/ghWCULri"
+       target="_blank" rel="noopener">
+      <!-- 배경 워터마크 -->
+      <div class="cc-bg-text">CHAT</div>
+      <!-- 왼쪽 옐로우 라인 -->
+      <div class="cc-accent"></div>
+      <!-- 컨텐츠 -->
+      <div class="cc-content">
+        <div class="cc-left">
+          <span class="cc-eyebrow">Open Kakao Talk</span>
+          <div class="cc-title">
+            <span>참가자</span>
+            <span class="cc-title-accent">오픈 단톡방</span>
+          </div>
+          <p class="cc-sub">함께 달리는 미니런 크루를 위한 공간</p>
+        </div>
+        <div class="cc-right">
+          <span class="cc-badge">
+            <span class="cc-badge-dot"></span>
+            MINI 오너 외 동반인도 입장 가능
+          </span>
+          <p class="cc-preview">
+            2026 MINI RUN 참가자들의 실시간 소통 공간입니다.<br>
+            공지, 집결 안내, 비상 연락까지 한곳에서 확인하세요.
+          </p>
+          <div class="cc-cta">
+            <span>단톡방 입장하기</span>
+            <span class="cc-arrow">→</span>
           </div>
         </div>
       </div>
