@@ -258,6 +258,7 @@ body {
 .days-section {
   padding: 100px 0 120px;
   position: relative;
+  background: var(--black);
 }
 .days-section::before {
   content: 'SCHEDULE';
@@ -287,10 +288,13 @@ body {
 .day-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: rgba(255,255,255,0.06);
+  background: var(--black);
   border-top: 1px solid rgba(255,255,255,0.06);
   border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+/* 카드 사이 구분선 — gap이 아닌 border로 처리 (모바일 흰색 갭 방지) */
+.day-card + .day-card {
+  border-left: 1px solid rgba(255,255,255,0.06);
 }
 
 .day-card {
@@ -584,6 +588,10 @@ body {
 ══════════════════════════════ */
 @media (max-width: 960px) {
   .day-cards { grid-template-columns: 1fr 1fr; }
+  /* 2열 그리드: 3·4번째 카드는 위쪽 border, 짝수 번째는 왼쪽 border 유지 */
+  .day-card + .day-card { border-left: none; }
+  .day-card:nth-child(even) { border-left: 1px solid rgba(255,255,255,0.06); }
+  .day-card:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.06); }
   .days-header { padding: 0 24px; }
   .detail-nav  { padding: 0 24px; }
   .detail-hero { padding: 56px 24px 44px; }
@@ -595,6 +603,9 @@ body {
 @media (max-width: 600px) {
   .day-cards { grid-template-columns: 1fr; }
   .day-card { min-height: 280px; padding: 36px 24px 32px; }
+  /* 1열 그리드: 왼쪽 border 제거, 위 border로만 구분 */
+  .day-card:nth-child(even) { border-left: none; }
+  .day-card + .day-card { border-top: 1px solid rgba(255,255,255,0.06); }
   .tl-item { grid-template-columns: 1fr; gap: 8px 0; }
   .timeline::before { display: none; }
   .tl-item::before { display: none; }
@@ -699,6 +710,16 @@ body {
 }
 
 /* ── 매장 정보 박스 (네비 블록과 유사한 카드형 UI, 녹색 테마) ── */
+.tl-rest-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tl-rest-blocks .tl-rest-block { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .tl-rest-blocks { grid-template-columns: 1fr; }
+}
 .tl-rest-block {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 10px;
@@ -874,6 +895,7 @@ body {
 ══════════════════════════════ */
 .theme-card-section {
   padding: 0;
+  background: var(--black);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -963,6 +985,103 @@ body {
 @media (max-width: 960px) {
   .tc-content { grid-template-columns: 1fr; gap: 32px; }
   .theme-card { padding: 48px 24px; }
+}
+
+/* ══════════════════════════════
+   GUIDE CARD (그룹 드라이빙 가이드 — theme-card와 동일한 flat 구조)
+══════════════════════════════ */
+.guide-card-section {
+  padding: 0;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+}
+.guide-card {
+  position: relative; overflow: hidden;
+  padding: 64px 48px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--black);
+  transition: background 0.4s;
+  text-decoration: none; color: inherit;
+}
+.guide-card:hover { background: #111; }
+
+/* 배경 워터마크 (DRIVE) */
+.gc-bg-text {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(120px, 18vw, 220px);
+  font-weight: 900; letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(77,166,255,0.08);
+  pointer-events: none; white-space: nowrap;
+  transition: -webkit-text-stroke-color 0.4s;
+}
+.guide-card:hover .gc-bg-text {
+  -webkit-text-stroke-color: rgba(77,166,255,0.14);
+}
+
+/* 왼쪽 블루 라인 */
+.gc-accent {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #4da6ff 40%, #4da6ff 60%, transparent);
+}
+
+.gc-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.gc-eyebrow {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.45em;
+  color: #4da6ff; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.gc-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 900; letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--white);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.gc-title-accent { color: #4da6ff; }
+.gc-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--gray); margin-top: 14px; letter-spacing: 0.05em;
+}
+
+.gc-preview {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--gray-lt); line-height: 1.85;
+  margin-bottom: 28px;
+}
+.gc-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #4da6ff;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(77,166,255,0.4);
+  transition: gap 0.2s, border-color 0.2s;
+}
+.guide-card:hover .gc-cta { gap: 16px; border-color: #4da6ff; }
+.gc-arrow { font-size: 16px; transition: transform 0.2s; }
+.guide-card:hover .gc-arrow { transform: translateX(4px); }
+
+@media (max-width: 960px) {
+  .gc-content { grid-template-columns: 1fr; gap: 32px; }
+  .guide-card { padding: 48px 24px; }
 }
 
 /* ══════════════════════════════
@@ -1254,7 +1373,7 @@ body {
         <div class="dc-bottom">
           <div class="dc-line"></div>
           <div class="dc-date">2026. 06. 06 (토)</div>
-          <div class="dc-spots">총 3개 일정</div>
+          <div class="dc-spots">총 5개 일정</div>
           <div class="dc-tags">
             <span class="dc-tag">체크아웃</span>
             <span class="dc-tag">목포항</span>
@@ -1265,6 +1384,39 @@ body {
       </div>
 
     </div>
+  </section>
+
+  <!-- GROUP DRIVING GUIDE CARD -->
+  <section class="guide-card-section">
+    <a class="guide-card reveal"
+       href="https://youtu.be/4VD4xNbif_Y?si=XsBsMllQUXPt35a-"
+       target="_blank" rel="noopener">
+      <!-- 배경 워터마크 -->
+      <div class="gc-bg-text">DRIVE</div>
+      <!-- 왼쪽 블루 라인 -->
+      <div class="gc-accent"></div>
+      <!-- 컨텐츠 -->
+      <div class="gc-content">
+        <div class="gc-left">
+          <span class="gc-eyebrow">Driving Guide</span>
+          <div class="gc-title">
+            <span>그룹 드라이빙</span>
+            <span class="gc-title-accent">주의사항 &amp; 방법</span>
+          </div>
+          <p class="gc-sub">안전한 미니런을 위한 필수 가이드</p>
+        </div>
+        <div class="gc-right">
+          <p class="gc-preview">
+            장거리 조별 운행에 앞서 꼭 알아야 할 그룹 드라이빙의 기본 수칙.<br>
+            대형 유지, 신호 약속, 휴게소 집결 방법까지 한 번에 확인하세요.
+          </p>
+          <div class="gc-cta">
+            <span>영상으로 보기</span>
+            <span class="gc-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
   </section>
 </div>
 
@@ -1884,8 +2036,8 @@ body {
     <div class="dh-label">DAY 4 · 2026. 06. 06 SAT</div>
     <h1 class="dh-title">귀항,<br>목포로</h1>
     <div class="dh-meta">
-      <div class="dh-meta-item"><span class="dh-meta-label">총 일정</span><span class="dh-meta-val">3 Stops</span></div>
-      <div class="dh-meta-item"><span class="dh-meta-label">출발지</span><span class="dh-meta-val">제주도</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">총 일정</span><span class="dh-meta-val">5 Stops</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">출발지</span><span class="dh-meta-val">서귀포 칼호텔</span></div>
       <div class="dh-meta-item"><span class="dh-meta-label">도착지</span><span class="dh-meta-val">목포항</span></div>
     </div>
   </div>
@@ -1893,32 +2045,99 @@ body {
     <div class="timeline-label">TIME TABLE</div>
     <div class="timeline">
 
+      <!-- 11:00 체크아웃 및 집결 -->
       <div class="tl-item">
         <div class="tl-time-col">
           <div class="tl-time">11:00</div>
           <div class="tl-duration">30분</div>
-          <div class="tl-type stay">출발</div>
+          <div class="tl-type stay">집결</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">체크아웃</div>
-          <div class="tl-desc">2026 MINI RUN의 마지막 아침. 숙소를 정리하고 체크아웃합니다. 3박 4일간의 제주 여정이 이제 마무리됩니다.</div>
+          <div class="tl-place">체크아웃 및 집결 — 칼호텔 연회장</div>
+          <div class="tl-desc">2026 MINI RUN의 마지막 아침. 칼호텔 연회장에서 체크아웃 및 전체 집결. 시간 엄수하여 모여주세요.</div>
+          <div class="tl-note-box"><span class="tl-tag-note red">시간 엄수</span></div>
           <div class="tl-tags"><span class="tl-tag">체크아웃</span><span class="tl-tag">짐 정리</span></div>
         </div>
       </div>
 
+      <!-- 11:30 출발 → 제주항 4부두 -->
       <div class="tl-item">
         <div class="tl-time-col">
           <div class="tl-time">11:30</div>
-          <div class="tl-duration">7시간</div>
-          <div class="tl-type drive">귀항</div>
+          <div class="tl-duration">1시간</div>
+          <div class="tl-type drive">출발</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">목포항으로 출발</div>
-          <div class="tl-desc">제주항에서 목포행 배편 탑승. 3박 4일간 함께한 동료들과 마지막 선상 시간을 즐기며 추억을 되새깁니다. MINI와 함께한 제주가 그리워질 거예요.</div>
-          <div class="tl-tags"><span class="tl-tag">제주항 출발</span><span class="tl-tag">선상 이동</span><span class="tl-tag">추억 정리</span></div>
+          <div class="tl-place">출발 — 제주항 4부두</div>
+          <div class="tl-desc">서귀포 칼호텔에서 출발, 제주항 4부두를 향해 조별 운행합니다.</div>
+          <div class="tl-navi-block">
+            <div class="tl-navi-info">
+              <div class="tl-navi-label">📍 네비 포인트</div>
+              <div class="tl-navi-dest">제주항 4부두</div>
+            </div>
+            <div class="tl-navi-btns" id="navibtns-jeju4"></div>
+            <button class="tl-dest-info-btn" onclick="openDestPopup('제주항 4부두', '33.5264', '126.5431', null)">목적지 정보</button>
+          </div>
+          <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
+          <div class="tl-tags"><span class="tl-tag">제주항 방향</span></div>
         </div>
       </div>
 
+      <!-- 12:30 선적 작업 -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">12:30</div>
+          <div class="tl-duration">1시간</div>
+          <div class="tl-type drive">선적</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-place">선적 작업 — 제주항</div>
+          <div class="tl-desc">제주항 4부두에서 차량 선적 작업을 진행합니다. 조별 주차 및 휴식 후 선박 탑승을 준비합니다.</div>
+          <div class="tl-note-box"><span class="tl-tag-note blue">조별 주차</span><span class="tl-tag-note blue">차량 선적</span></div>
+          <div class="tl-tags"><span class="tl-tag">선적</span><span class="tl-tag">탑승 대기</span></div>
+        </div>
+      </div>
+
+      <!-- 13:30 출항 · 퀸제누비아호 -->
+      <div class="tl-item">
+        <div class="tl-time-col">
+          <div class="tl-time">13:30</div>
+          <div class="tl-duration">5시간</div>
+          <div class="tl-type rest">출항</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-place">출항 — 퀸제누비아호</div>
+          <div class="tl-desc">퀸제누비아호에 승선, 목포를 향해 출항합니다. 미리 준비한 제주 로컬 간식으로 점심을 대신하며 선상에서 마지막 제주의 여운을 즐겨보세요.</div>
+          <div class="tl-rest-blocks">
+            <div class="tl-rest-block">
+              <div class="tl-rest-info">
+                <div class="tl-rest-label">🍙 매장 정보</div>
+                <div class="tl-rest-name">오는정 김밥</div>
+              </div>
+              <div class="tl-rest-btns">
+                <a class="tl-rest-btn"
+                   href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%98%A4%EB%8A%94%EC%A0%95%20%EA%B9%80%EB%B0%A5"
+                   target="_blank" rel="noopener">상세정보</a>
+              </div>
+            </div>
+            <div class="tl-rest-block">
+              <div class="tl-rest-info">
+                <div class="tl-rest-label">🍩 매장 정보</div>
+                <div class="tl-rest-name">아베베 도넛</div>
+              </div>
+              <div class="tl-rest-btns">
+                <a class="tl-rest-btn"
+                   href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%95%84%EB%B2%A0%EB%B2%A0%20%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC"
+                   target="_blank" rel="noopener">상세정보</a>
+              </div>
+            </div>
+          </div>
+          <div class="tl-note-box"><span class="tl-tag-note green">점심식사</span></div>
+          <div class="tl-tags"><span class="tl-tag">퀸제누비아호</span><span class="tl-tag">선내 휴식</span></div>
+        </div>
+      </div>
+
+      <!-- 18:30 목포항 도착 -->
       <div class="tl-item">
         <div class="tl-time-col">
           <div class="tl-time">18:30</div>
@@ -1926,8 +2145,9 @@ body {
           <div class="tl-type spot">도착</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">목포항 도착 — 해산</div>
-          <div class="tl-desc">목포항 도착과 함께 2026 MINI RUN이 공식 종료됩니다. 함께해줘서 감사합니다. See you next MINI RUN! 🚗</div>
+          <div class="tl-place">도착 — 목포항</div>
+          <div class="tl-desc">목포항 도착과 함께 2026 MINI RUN이 공식 종료됩니다. 3박 4일 동안 함께해준 모든 분들, 감사합니다. See you next MINI RUN! 🚗</div>
+          <div class="tl-note-box"><span class="tl-tag-note purple">마지막 인사</span></div>
           <div class="tl-tags"><span class="tl-tag">목포항</span><span class="tl-tag">해산</span><span class="tl-tag">See you next run</span></div>
         </div>
       </div>
@@ -2241,7 +2461,8 @@ body {
 
   var PLACES = {
     samhak:   { name: '삼학부두여객선터미널', lat: 34.7830,  lng: 126.3984  },
-    kalhotel: { name: '서귀포 칼호텔',        lat: 33.2465,  lng: 126.5819  }
+    kalhotel: { name: '서귀포 칼호텔',        lat: 33.2465,  lng: 126.5819  },
+    jeju4:    { name: '제주항 4부두',          lat: 33.5264,  lng: 126.5431  }
   };
 
   // DOM 준비 후 실행
@@ -2252,6 +2473,7 @@ body {
       renderHamphyeongNavi();
       renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
       renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
+      renderSimpleNavi('navibtns-jeju4',    PLACES.jeju4);
     });
   } else {
     renderNaviBtns();
@@ -2259,6 +2481,7 @@ body {
     renderHamphyeongNavi();
     renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
     renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
+    renderSimpleNavi('navibtns-jeju4',    PLACES.jeju4);
   }
 })();
 
