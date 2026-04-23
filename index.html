@@ -697,6 +697,178 @@ body {
   font-size: 10px; color: var(--gray);
   margin-top: 3px; letter-spacing: 0.02em;
 }
+
+/* ── 매장 정보 박스 (네비 블록과 유사한 카드형 UI, 녹색 테마) ── */
+.tl-rest-block {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+  background: rgba(60,200,100,0.06);
+  border: 1px solid rgba(60,200,100,0.25);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+.tl-rest-info { display: flex; flex-direction: column; gap: 3px; }
+.tl-rest-label {
+  font-size: 10px; letter-spacing: 0.12em;
+  color: #7deea8; text-transform: uppercase;
+}
+.tl-rest-name {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.02em;
+}
+.tl-rest-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.tl-rest-btn {
+  padding: 9px 16px; border-radius: 6px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer; border: none;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: 0.02em; white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #03c75a; color: #fff;
+}
+.tl-rest-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.tl-rest-btn:active { transform: scale(0.97); }
+
+.tl-dest-info-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  background: transparent;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  color: var(--gray-lt); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  text-transform: uppercase;
+}
+.tl-dest-info-btn::before {
+  content: '📍';
+  font-size: 12px;
+}
+.tl-dest-info-btn:hover {
+  border-color: var(--red);
+  color: var(--white);
+  background: rgba(232,40,26,0.08);
+}
+
+/* 팝업 오버레이 */
+.dest-popup-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+.dest-popup-overlay.active { display: flex; }
+
+/* 팝업 박스 */
+.dest-popup {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  width: 100%; max-width: 420px;
+  overflow: hidden;
+  animation: popupIn 0.2s ease both;
+}
+@keyframes popupIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 팝업 헤더 */
+.dest-popup-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.dest-popup-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--red);
+}
+.dest-popup-close {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%; background: none; cursor: pointer;
+  color: var(--gray); font-size: 14px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.dest-popup-close:hover { border-color: var(--red); color: var(--white); }
+
+/* 팝업 바디 */
+.dest-popup-body { padding: 20px; }
+.dest-popup-name {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: -0.02em;
+  color: var(--white); margin-bottom: 16px; line-height: 1.2;
+}
+.dest-popup-via {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 14px;
+}
+.dest-popup-via-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red); white-space: nowrap; padding-top: 2px;
+}
+.dest-popup-via-val {
+  font-size: 14px; font-weight: 300; color: var(--gray-lt); line-height: 1.6;
+}
+
+/* 좌표 행 */
+.dest-popup-coords {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.dest-popup-coord {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.05em; color: var(--gray-lt);
+}
+.dest-popup-coord span {
+  font-size: 10px; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase;
+}
+
+/* 앱 아이콘 행 */
+.dest-popup-apps {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.dest-popup-app {
+  flex: 1; min-width: 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 10px 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  font-size: 11px; color: var(--gray); letter-spacing: 0.03em;
+}
+.dest-popup-app-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.dot-tmap  { background: #0068FF; box-shadow: 0 0 6px rgba(0,104,255,0.6); }
+.dot-kakao { background: #FAE100; box-shadow: 0 0 6px rgba(250,225,0,0.6); }
+.dot-naver { background: #03C75A; box-shadow: 0 0 6px rgba(3,199,90,0.6); }
+
+/* 팝업 푸터 */
+.dest-popup-footer {
+  padding: 12px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 11px; color: var(--gray); letter-spacing: 0.03em;
+  text-align: center;
+}
 /* ══════════════════════════════
    THEME CARD (메인 진입점)
 ══════════════════════════════ */
@@ -1133,6 +1305,7 @@ body {
 
     <!-- 인트로 인용문 -->
     <p class="td-intro-quote">
+      20년이 흘렀습니다.<br>
       이번엔 달리지 않아도 괜찮습니다.<br>
       그냥 <em>잠시 멈춰도</em> 됩니다.
     </p>
@@ -1162,8 +1335,9 @@ body {
           속도를 내려놓고, 창문을 열고, 그저 바람을 느끼는 것만으로도 충분합니다.
         </p>
         <p>
+          20주년 MINI RUN은 단순한 드라이브가 아닙니다.
           제주의 하늘을 함께 보고, 오름에 올라 바람을 맞고,
-          소중한 사람들과 같은 식탁에 앉는 마주보는 것.
+          소중한 사람들과 같은 식탁에 앉는 것.
           그 <strong>평범하고 소소한 순간들</strong>이 이번 여정의 전부입니다.
         </p>
       </div>
@@ -1180,8 +1354,8 @@ body {
           목적지보다는 <strong>가는 길의 풍경</strong>을 즐기는 것.
         </p>
         <p>
-          MINI RUN을 함께하는 여러분 모두에게
-          — 단 한 가지만 기억하면 됩니다.
+          그동안 MINI RUN을 함께해온 여러분 모두에게,
+          그리고 처음 함께하는 분들에게도 — 이번 제주는 단 한 가지만 기억하면 됩니다.
           <strong>그냥 쉬어도 괜찮습니다.</strong>
         </p>
       </div>
@@ -1241,7 +1415,7 @@ body {
           <div class="tl-type drive">집결</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">행담도 휴게소 — 1차 집결</div>
+          <div class="tl-place">1차 집결 — 행담도 휴게소</div>
           <div class="tl-desc">2026 MINI RUN의 대장정이 시작됩니다. 새벽 1시, 행담도 휴게소에서 1차 집결. 조별 주차 후 목포를 향해 출발합니다.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
@@ -1249,9 +1423,9 @@ body {
               <div class="tl-navi-dest">행담도휴게소 목포방향</div>
             </div>
             <div class="tl-navi-btns" id="navibtns"></div>
+            <button class="tl-dest-info-btn" onclick="openDestPopup('행담도휴게소 목포방향', '36.9712', '126.7801', null)">목적지 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차</span></div>
-          <div class="tl-tags"><span class="tl-tag">1차 집결</span></div>
         </div>
       </div>
 
@@ -1263,14 +1437,16 @@ body {
           <div class="tl-type drive">출발</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">출발 — 함평천지 휴게소로</div>
+          <div class="tl-place">출발 — 함평천지휴게소</div>
           <div class="tl-desc">행담도에서 출발, 함평천지 휴게소를 향해 조별 운행합니다. 약 3시간 30분 거리의 야간 드라이브.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">함평천지휴게소 목포방향</div>
+              <div class="tl-navi-label">📍 경유 · 목적지</div>
+              <div class="tl-navi-dest">군산휴게소 목포방향 → 함평천지휴게소 목포방향</div>
+              <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>T맵: 목적지만 설정 (경유지는 앱에서 직접 추가)<br>카카오 · 네이버: 경유지 + 목적지 자동 설정</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-hamphyeong"></div>
+            <button class="tl-dest-info-btn" onclick="openDestPopup('함평천지휴게소 목포방향', '35.0697', '126.4782', '군산휴게소 목포방향 (36.018831, 126.797698)')">목적지 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
         </div>
@@ -1284,14 +1460,14 @@ body {
           <div class="tl-type rest">휴식</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">함평천지 휴게소 — 2차 집결</div>
+          <div class="tl-place">2차 집결 — 함평천지휴게소</div>
           <div class="tl-desc">함평천지 휴게소에서 2차 집결. 조별 주차 및 잠시 휴식을 취한 후 삼학부두를 향해 출발합니다.</div>
           <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차 및 휴식</span></div>
           <div class="tl-tags"><span class="tl-tag">2차 집결</span><span class="tl-tag">차량 확인</span></div>
         </div>
       </div>
 
-      <!-- 05:30 출발 → 삼학부두 -->
+      <!-- 05:30 출발 → 목포항 (삼학부두) -->
       <div class="tl-item">
         <div class="tl-time-col">
           <div class="tl-time">05:30</div>
@@ -1299,14 +1475,15 @@ body {
           <div class="tl-type drive">출발</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">출발 — 삼학부두 여객선터미널로</div>
-          <div class="tl-desc">함평천지 휴게소에서 출발, 삼학부두 여객선터미널을 향해 조별 운행합니다.</div>
+          <div class="tl-place">출발 — 목포항</div>
+          <div class="tl-desc">함평천지 휴게소에서 출발, 목포항(삼학부두 여객선터미널)을 향해 조별 운행합니다.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
               <div class="tl-navi-dest">삼학부두여객선터미널</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-samhak"></div>
+            <button class="tl-dest-info-btn" onclick="openDestPopup('삼학부두여객선터미널', '34.7830', '126.3984', null)">목적지 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
           <div class="tl-tags"><span class="tl-tag">목포 도착</span></div>
@@ -1321,7 +1498,7 @@ body {
           <div class="tl-type drive">집결</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">삼학부두 여객선터미널 — 3차 집결</div>
+          <div class="tl-place">3차 집결 — 삼학부두 여객선터미널</div>
           <div class="tl-desc">삼학부두 여객선터미널에서 전체 집결 후 차량을 선적합니다. 배편 탑승 준비를 완료하세요.</div>
           <div class="tl-note-box"><span class="tl-tag-note blue">차량 선적</span><span class="tl-tag-note blue">탑승 준비</span></div>
           <div class="tl-tags"><span class="tl-tag">3차 집결</span></div>
@@ -1336,7 +1513,7 @@ body {
           <div class="tl-type rest">출항</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">퀸제누비아호 — 출항</div>
+          <div class="tl-place">출항 — 퀸제누비아호</div>
           <div class="tl-desc">퀸제누비아호에 승선, 제주를 향해 출항합니다. 선내 식당에서 아침식사 후 다인침대에서 충분한 휴식을 취하세요. 샤워시설 이용 가능합니다.</div>
           <div class="tl-note-box"><span class="tl-tag-note green">아침식사</span><span class="tl-tag-note green">다인침대</span><span class="tl-tag-note green">샤워 가능</span></div>
           <div class="tl-tags"><span class="tl-tag">퀸제누비아호</span><span class="tl-tag">선내 휴식</span></div>
@@ -1351,7 +1528,7 @@ body {
           <div class="tl-type spot">도착</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">제주항 — 제주 도착</div>
+          <div class="tl-place">제주 도착 — 제주항</div>
           <div class="tl-desc">드디어 제주도! 배에서 차량을 하선합니다. MINI와 함께 제주 땅을 밟는 특별한 순간.</div>
           <div class="tl-note-box"><span class="tl-tag-note blue">차량 하선</span></div>
           <div class="tl-tags"><span class="tl-tag">제주 상륙</span></div>
@@ -1366,7 +1543,7 @@ body {
           <div class="tl-type meal">점심</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">제주도 — 조별 점심식사</div>
+          <div class="tl-place">점심식사 — 제주도</div>
           <div class="tl-desc">조별로 자유롭게 점심식사를 즐깁니다. 조별 조율 후 가까운 식당에서 식사하며 오후 일정을 준비하세요.</div>
           <div class="tl-note-box"><span class="tl-tag-note yellow">조별 조율 후 식사</span></div>
           <div class="tl-tags"><span class="tl-tag">자유식사</span></div>
@@ -1381,14 +1558,15 @@ body {
           <div class="tl-type drive">집결</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">제주 칼호텔 — 주차장 집결</div>
-          <div class="tl-desc">제주 칼호텔 주차장에서 전체 집결합니다. 도착 전 주유를 반드시 완료하세요. 시간 엄수 필수!</div>
+          <div class="tl-place">칼호텔 집결 — 서귀포 칼호텔</div>
+          <div class="tl-desc">서귀포 칼호텔 주차장에서 전체 집결합니다. 도착 전 주유를 반드시 완료하세요. 시간 엄수 필수!</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">제주 칼호텔</div>
+              <div class="tl-navi-dest">서귀포 칼호텔</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-kalhotel"></div>
+            <button class="tl-dest-info-btn" onclick="openDestPopup('서귀포 칼호텔', '33.2465', '126.5819', null)">목적지 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note red">⛽ 주유 필수</span><span class="tl-tag-note red">시간 엄수</span></div>
           <div class="tl-tags"><span class="tl-tag">전체 집결</span><span class="tl-tag">주차장</span></div>
@@ -1403,7 +1581,7 @@ body {
           <div class="tl-type spot">OT</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">칼호텔 메인홀 — 미니런 OT</div>
+          <div class="tl-place">미니런 OT — 칼호텔 메인홀</div>
           <div class="tl-desc">2026 MINI RUN 공식 오리엔테이션. 스탭 소개와 3박 4일 전체 일정 브리핑이 진행됩니다. 중요한 공지사항을 반드시 확인하세요.</div>
           <div class="tl-note-box"><span class="tl-tag-note purple">스탭 소개</span><span class="tl-tag-note purple">일정 브리핑</span></div>
           <div class="tl-tags"><span class="tl-tag">공식 OT</span><span class="tl-tag">칼호텔 메인홀</span></div>
@@ -1418,8 +1596,19 @@ body {
           <div class="tl-type meal">저녁</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">서귀포 흑돈 — 저녁식사</div>
+          <div class="tl-place">저녁식사 — 서귀포 흑돈</div>
           <div class="tl-desc">제주 Day 1의 마무리는 서귀포 흑돼지! 흑돼지 세트로 첫날을 화려하게 마무리합니다.</div>
+          <div class="tl-rest-block">
+            <div class="tl-rest-info">
+              <div class="tl-rest-label">🍽 매장 정보</div>
+              <div class="tl-rest-name">서귀포 흑돈</div>
+            </div>
+            <div class="tl-rest-btns">
+              <a class="tl-rest-btn"
+                 href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88/place/36016256?placePath=/home?bk_query=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&from=map&fromPanelNum=2&timestamp=202604231601&locale=ko&svcName=map_pcv5&searchText=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&entry=pll&from=map&fromNxList=true&fromPanelNum=2&timestamp=202604231554&locale=ko&svcName=map_pcv5&searchText=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&searchType=place&c=15.00,0,0,2,dh"
+                 target="_blank" rel="noopener">상세정보</a>
+            </div>
+          </div>
           <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 세트</span></div>
           <div class="tl-tags"><span class="tl-tag">단체 식사</span><span class="tl-tag">서귀포</span></div>
         </div>
@@ -1751,6 +1940,33 @@ body {
   </div>
 </div>
 
+<!-- 목적지 정보 팝업 -->
+<div class="dest-popup-overlay" id="destPopupOverlay" onclick="closeDestPopup(event)">
+  <div class="dest-popup">
+    <div class="dest-popup-header">
+      <span class="dest-popup-title">목적지 정보</span>
+      <button class="dest-popup-close" onclick="closeDestPopup()">✕</button>
+    </div>
+    <div class="dest-popup-body">
+      <div class="dest-popup-name" id="popupName">—</div>
+      <div class="dest-popup-via" id="popupViaRow" style="display:none">
+        <span class="dest-popup-via-label">경유지</span>
+        <span class="dest-popup-via-val" id="popupVia">—</span>
+      </div>
+      <div class="dest-popup-coords">
+        <div class="dest-popup-coord"><span>위도</span><span id="popupLat">—</span></div>
+        <div class="dest-popup-coord"><span>경도</span><span id="popupLng">—</span></div>
+      </div>
+      <div class="dest-popup-apps">
+        <div class="dest-popup-app"><div class="dest-popup-app-dot dot-tmap"></div>T맵</div>
+        <div class="dest-popup-app"><div class="dest-popup-app-dot dot-kakao"></div>카카오내비</div>
+        <div class="dest-popup-app"><div class="dest-popup-app-dot dot-naver"></div>네이버지도</div>
+      </div>
+    </div>
+    <div class="dest-popup-footer">네비 버튼을 눌러 앱을 바로 실행하세요</div>
+  </div>
+</div>
+
 <script>
 // ══════════════════════════════════════════
 // 네비 연동 — 행담도휴게소 목포방향
@@ -1890,7 +2106,89 @@ body {
       '<a class="tl-navi-btn tl-navi-naver" href="' + naverHref2 + '">네이버지도</a>';
   }
 
-  // ── 함평천지휴게소 목포방향 (lat 35.0697, lng 126.4782)
+  // ── 함평천지휴게소 코스
+  // 출발: 현재 위치 (sp/slat 생략 → 앱이 자동으로 현위치 사용)
+  // 경유: 군산휴게소 목포방향
+  // 목적: 함평천지휴게소 목포방향
+  var hamVia = { name: '군산휴게소 목포방향',    lat: 36.018831, lng: 126.797698 };
+  var hamDst = { name: '함평천지휴게소 목포방향', lat: 35.0697,   lng: 126.4782  };
+  var hamViaN = encodeURIComponent(hamVia.name);
+  var hamDstN = encodeURIComponent(hamDst.name);
+
+  var hamTmap, hamKakao, hamNaver;
+  if (isIOS) {
+    // T맵 iOS: 경유지 미지원 → 목적지만
+    hamTmap  = 'tmap://route?rGoName=' + hamDstN + '&rGoX=' + hamDst.lng + '&rGoY=' + hamDst.lat;
+    // 카카오맵 iOS: 출발지=현위치(sp 생략), vp=경유지, ep=목적지, by=car
+    hamKakao =
+      'kakaomap://route' +
+      '?vp=' + hamVia.lat + ',' + hamVia.lng +
+      '&ep=' + hamDst.lat + ',' + hamDst.lng +
+      '&by=car';
+    // 네이버 iOS: 출발지=현위치(slat 생략), v1=경유지, dlat/dlng=목적지
+    // ※ appname은 실제 접근 가능한 URL 형식이어야 네이버가 파라미터를 신뢰함
+    hamNaver =
+      'nmap://route/car' +
+      '?v1lat=' + hamVia.lat + '&v1lng=' + hamVia.lng + '&v1name=' + hamViaN +
+      '&dlat='  + hamDst.lat + '&dlng='  + hamDst.lng + '&dname='  + hamDstN +
+      '&appname=' + encodeURIComponent(location.host || 'minirun-2026.local');
+  } else if (isAOS) {
+    // T맵 Android: 경유지 미지원 → 목적지만
+    hamTmap =
+      'intent://route?goalname=' + hamDstN + '&goalx=' + hamDst.lng + '&goaly=' + hamDst.lat +
+      '#Intent;scheme=tmap' +
+      ';action=android.intent.action.VIEW' +
+      ';category=android.intent.category.BROWSABLE' +
+      ';package=com.skt.tmap.ku' +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') +
+      ';end';
+    // 카카오맵 Android: 출발지=현위치(sp 생략), vp=경유지, ep=목적지, by=car
+    hamKakao =
+      'intent://route' +
+      '?vp=' + hamVia.lat + ',' + hamVia.lng +
+      '&ep=' + hamDst.lat + ',' + hamDst.lng + '&by=car' +
+      '#Intent;scheme=kakaomap' +
+      ';action=android.intent.action.VIEW' +
+      ';category=android.intent.category.BROWSABLE' +
+      ';package=net.daum.android.map' +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') +
+      ';end';
+    // 네이버 Android: 출발지=현위치(slat 생략), v1=경유지, dlat/dlng=목적지
+    hamNaver =
+      'intent://route/car' +
+      '?v1lat=' + hamVia.lat + '&v1lng=' + hamVia.lng + '&v1name=' + hamViaN +
+      '&dlat='  + hamDst.lat + '&dlng='  + hamDst.lng + '&dname='  + hamDstN +
+      '&appname=' + encodeURIComponent(location.host || 'minirun-2026.local') +
+      '#Intent;scheme=nmap' +
+      ';action=android.intent.action.VIEW' +
+      ';category=android.intent.category.BROWSABLE' +
+      ';package=com.nhn.android.nmap' +
+      ';S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') +
+      ';end';
+  } else {
+    // PC 웹 — T맵은 경유지 미지원
+    hamTmap  = 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?goalname=' + hamDstN + '&goalx=' + hamDst.lng + '&goaly=' + hamDst.lat;
+    // 카카오맵 PC: 모바일웹 스킴, 출발지=현위치(sp 생략), vp+ep+by=car
+    hamKakao =
+      'https://m.map.kakao.com/scheme/route' +
+      '?vp=' + hamVia.lat + ',' + hamVia.lng +
+      '&ep=' + hamDst.lat + ',' + hamDst.lng +
+      '&by=car';
+    // 네이버지도 PC: 경유지 URL 미지원 → 목적지만 표시
+    hamNaver =
+      'https://map.naver.com/p/directions' +
+      '/-/' + hamDst.lng + ',' + hamDst.lat + ',' + hamDstN + ',,PLACE_POI/-/car';
+  }
+
+  function renderHamphyeongNavi() {
+    var wrap = document.getElementById('navibtns-hamphyeong');
+    if (!wrap) return;
+    wrap.innerHTML =
+      '<a class="tl-navi-btn tl-navi-tmap"  href="' + hamTmap  + '">T맵</a>' +
+      '<a class="tl-navi-btn tl-navi-kakao" href="' + hamKakao + '">카카오내비</a>' +
+      '<a class="tl-navi-btn tl-navi-naver" href="' + hamNaver + '">네이버지도</a>';
+  }
+
   function makeNaviHrefs(p) {
     var n = encodeURIComponent(p.name);
     var t, k, nv;
@@ -1942,9 +2240,8 @@ body {
   }
 
   var PLACES = {
-    hamphyeong: { name: '함평천지휴게소 목포방향', lat: 35.0697, lng: 126.4782 },
-    samhak:     { name: '삼학부두여객선터미널',     lat: 34.7830, lng: 126.3984 },
-    kalhotel:   { name: '제주 칼호텔',              lat: 33.5058, lng: 126.5263 }
+    samhak:   { name: '삼학부두여객선터미널', lat: 34.7830,  lng: 126.3984  },
+    kalhotel: { name: '서귀포 칼호텔',        lat: 33.2465,  lng: 126.5819  }
   };
 
   // DOM 준비 후 실행
@@ -1952,16 +2249,16 @@ body {
     document.addEventListener('DOMContentLoaded', function() {
       renderNaviBtns();
       renderNaviBtns2();
-      renderSimpleNavi('navibtns-hamphyeong', PLACES.hamphyeong);
-      renderSimpleNavi('navibtns-samhak',     PLACES.samhak);
-      renderSimpleNavi('navibtns-kalhotel',   PLACES.kalhotel);
+      renderHamphyeongNavi();
+      renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
+      renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
     });
   } else {
     renderNaviBtns();
     renderNaviBtns2();
-    renderSimpleNavi('navibtns-hamphyeong', PLACES.hamphyeong);
-    renderSimpleNavi('navibtns-samhak',     PLACES.samhak);
-    renderSimpleNavi('navibtns-kalhotel',   PLACES.kalhotel);
+    renderHamphyeongNavi();
+    renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
+    renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
   }
 })();
 
@@ -1971,7 +2268,11 @@ let currentPage = 'main';
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // smooth scroll은 페이지 전환 시 검은 화면(빈 영역)이 길게 보이는 원인이 됨
+  // → 즉시 최상단으로 이동
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   currentPage = id;
 }
 
@@ -1987,6 +2288,11 @@ function goMain() {
 
 // ── Scroll reveal ──
 function triggerReveal() {
+  // IntersectionObserver 미지원 브라우저 fallback — 모든 reveal 즉시 표시
+  if (typeof IntersectionObserver === 'undefined') {
+    document.querySelectorAll('#page-main .reveal').forEach(el => el.classList.add('in'));
+    return;
+  }
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
@@ -1997,7 +2303,36 @@ function triggerReveal() {
     obs.observe(el);
   });
 }
-triggerReveal();
+
+// 페이지 로드 시 reveal 옵저버 시작 — 호출이 없으면 .reveal 요소들이
+// opacity:0 상태로 영원히 남아 메인 페이지가 검은 화면처럼 보임
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', triggerReveal);
+} else {
+  triggerReveal();
+}
+
+// ── 목적지 정보 팝업 ──
+function openDestPopup(name, lat, lng, via) {
+  document.getElementById('popupName').textContent = name;
+  document.getElementById('popupLat').textContent  = lat;
+  document.getElementById('popupLng').textContent  = lng;
+  var viaRow = document.getElementById('popupViaRow');
+  if (via) {
+    document.getElementById('popupVia').textContent = via;
+    viaRow.style.display = 'flex';
+  } else {
+    viaRow.style.display = 'none';
+  }
+  document.getElementById('destPopupOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDestPopup(e) {
+  if (e && e.target !== document.getElementById('destPopupOverlay')) return;
+  document.getElementById('destPopupOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
