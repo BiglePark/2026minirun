@@ -946,40 +946,42 @@ body {
 
 /* 팝업 바디 */
 .dest-popup-body { padding: 20px; }
-.dest-popup-name {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 22px; font-weight: 800; letter-spacing: -0.02em;
-  color: var(--white); margin-bottom: 16px; line-height: 1.2;
-}
-.dest-popup-via {
-  display: flex; align-items: flex-start; gap: 10px;
-  margin-bottom: 14px;
-}
-.dest-popup-via-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--red); white-space: nowrap; padding-top: 2px;
-}
-.dest-popup-via-val {
-  font-size: 14px; font-weight: 300; color: var(--gray-lt); line-height: 1.6;
-}
 
-/* 좌표 행 */
-.dest-popup-coords {
-  display: flex; gap: 8px; flex-wrap: wrap;
+/* 네비포인트 리스트 (경유지·목적지 통합 표시) */
+.dest-popup-points {
+  display: flex; flex-direction: column; gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px; overflow: hidden;
   margin-bottom: 20px;
 }
-.dest-popup-coord {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 3px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; letter-spacing: 0.05em; color: var(--gray-lt);
+.dest-popup-point {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px;
+  background: #141414;
 }
-.dest-popup-coord span {
-  font-size: 10px; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase;
+.dest-popup-point-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  white-space: nowrap; padding-top: 3px;
+  min-width: 56px;
+  color: var(--gray);
+}
+.dest-popup-point.via .dest-popup-point-tag { color: #FEE500; }
+.dest-popup-point.dest .dest-popup-point-tag { color: var(--red); }
+.dest-popup-point-body { flex: 1; min-width: 0; }
+.dest-popup-point-name {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.01em;
+  line-height: 1.35; margin-bottom: 4px;
+  word-break: keep-all;
+}
+.dest-popup-point.dest .dest-popup-point-name { font-size: 17px; font-weight: 800; }
+.dest-popup-point-coord {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.05em;
+  color: var(--gray);
 }
 
 /* 앱 아이콘 행 — 실제 클릭 가능한 네비 실행 버튼 */
@@ -2086,9 +2088,8 @@ body {
 
     <!-- 인트로 인용문 -->
     <p class="td-intro-quote">
-      20년이 흘렀습니다.<br>
       이번엔 달리지 않아도 괜찮습니다.<br>
-      그냥 <em>잠시 멈춰도</em> 됩니다.
+      <em>잠시 멈춰도</em> 됩니다.
     </p>
 
     <!-- 섹션 1 -->
@@ -2204,7 +2205,7 @@ body {
               <div class="tl-navi-dest">행담도휴게소 목포방향</div>
             </div>
             <div class="tl-navi-btns" id="navibtns"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('행담도휴게소 목포방향', '36.9712', '126.7801', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'행담도휴게소 목포방향', lat:'36.9712', lng:'126.7801'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차</span></div>
         </div>
@@ -2227,7 +2228,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>T맵: 목적지만 설정 (경유지는 앱에서 직접 추가)<br>카카오 · 네이버: 경유지 + 목적지 자동 설정</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-hamphyeong"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('함평천지휴게소 목포방향', '35.0697', '126.4782', '군산휴게소 목포방향 (36.018831, 126.797698)')">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'함평천지휴게소 목포방향', lat:'35.0697', lng:'126.4782'}, [{name:'군산휴게소 목포방향', lat:'36.018831', lng:'126.797698'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
         </div>
@@ -2264,7 +2265,7 @@ body {
               <div class="tl-navi-dest">삼학부두여객선터미널</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-samhak"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('삼학부두여객선터미널', '34.7830', '126.3984', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'삼학부두여객선터미널', lat:'34.7830', lng:'126.3984'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
           <div class="tl-tags"><span class="tl-tag">목포 도착</span></div>
@@ -2347,7 +2348,7 @@ body {
               <div class="tl-navi-dest">서귀포 칼호텔</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-kalhotel"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('서귀포 칼호텔', '33.2465', '126.5819', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포 칼호텔', lat:'33.2465', lng:'126.5819'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note red">⛽ 주유 필수</span><span class="tl-tag-note red">시간 엄수</span></div>
           <div class="tl-tags"><span class="tl-tag">전체 집결</span><span class="tl-tag">주차장</span></div>
@@ -2528,7 +2529,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day2-d3"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('더클리프', '33.2437', '126.4055', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'더클리프', lat:'33.2437', lng:'126.4055'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span></div>
           <div class="tl-tags"><span class="tl-tag">A · B팀 합류</span></div>
@@ -2578,7 +2579,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day2-d4"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('새별오름 주차장', '33.3694', '126.3572', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'새별오름 주차장', lat:'33.3694', lng:'126.3572'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span></div>
           <div class="tl-tags"><span class="tl-tag">야간 이동</span></div>
@@ -2613,11 +2614,11 @@ body {
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">서귀포 칼호텔 주차장2</div>
+              <div class="tl-navi-dest">서귀포 칼호텔 주차장</div>
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day2-d5"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('서귀포 칼호텔 주차장2', '33.2462', '126.5822', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포 칼호텔 주차장', lat:'33.2462', lng:'126.5822'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span><span class="tl-tag-note red">야간 주행</span></div>
           <div class="tl-tags"><span class="tl-tag">칼호텔 복귀</span></div>
@@ -2699,7 +2700,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d1"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('휴애리 자연생활공원 주차장1', '33.3344', '126.6728', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'휴애리 자연생활공원 주차장1', lat:'33.3344', lng:'126.6728'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span></div>
           <div class="tl-tags"><span class="tl-tag">조별 운행</span></div>
@@ -2738,7 +2739,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>카카오 · 네이버: 경유지 + 목적지 자동 설정<br>T맵: 목적지만 (경유지는 앱에서 추가)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d2"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('산굼부리 소형주차장', '33.4346', '126.6828', '하례리 산21-10 (33.2876, 126.6345)')">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'산굼부리 소형주차장', lat:'33.4346', lng:'126.6828'}, [{name:'하례리 산21-10', lat:'33.2876', lng:'126.6345'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span><span class="tl-tag-note purple">와인딩</span></div>
           <div class="tl-tags"><span class="tl-tag">하례리</span><span class="tl-tag">산굼부리</span></div>
@@ -2777,7 +2778,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>카카오 · 네이버: 3개 경유지 모두 자동 설정<br>T맵: 목적지만 (경유지는 앱에서 추가)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d3"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('김녕해수욕장 주차장', '33.5597', '126.7572', '송당리 · 김녕리산70-8 · 김녕리369')">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'김녕해수욕장 주차장', lat:'33.5597', lng:'126.7572'}, [{name:'송당리 2233-1', lat:'33.4637', lng:'126.7508'}, {name:'김녕리 산 70-8', lat:'33.5462', lng:'126.7641'}, {name:'김녕리 369', lat:'33.5582', lng:'126.7549'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span><span class="tl-tag-note purple">오솔길</span></div>
           <div class="tl-tags"><span class="tl-tag">송당리</span><span class="tl-tag">김녕</span></div>
@@ -2855,7 +2856,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>카카오 · 네이버: 3개 경유지 모두 자동 설정<br>T맵: 목적지만 (경유지는 앱에서 추가)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d4"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('평대리 3344 (드라이빙 집결지)', '33.5121', '126.8645', '월정리 · 행원리 · 평대리1947-8')">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'평대리 3344 (드라이빙 집결지)', lat:'33.5121', lng:'126.8645'}, [{name:'월정리 1400-34', lat:'33.5558', lng:'126.7944'}, {name:'행원리 24-3', lat:'33.5461', lng:'126.8241'}, {name:'평대리 1947-8', lat:'33.5172', lng:'126.8587'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span><span class="tl-tag-note purple">해안도로</span></div>
           <div class="tl-tags"><span class="tl-tag">월정리</span><span class="tl-tag">행원</span><span class="tl-tag">평대</span></div>
@@ -2894,7 +2895,7 @@ body {
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d5"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('제주 동화마을', '33.4152', '126.8822', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주 동화마을', lat:'33.4152', lng:'126.8822'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note green">자유 시간</span><span class="tl-tag-note purple">숲길</span></div>
           <div class="tl-tags"><span class="tl-tag">동화마을</span></div>
@@ -2929,11 +2930,11 @@ body {
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 경유 · 목적지</div>
-              <div class="tl-navi-dest">가시리 3083-2 → 서귀포 칼호텔 주차장2</div>
+              <div class="tl-navi-dest">가시리 3083-2 → 서귀포 칼호텔 주차장</div>
               <div class="tl-navi-note">출발지: 현재 위치 (자동)<br>카카오 · 네이버: 경유지 + 목적지 자동 설정<br>T맵: 목적지만 (경유지는 앱에서 추가)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d6"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('서귀포 칼호텔 주차장2', '33.2462', '126.5822', '가시리 3083-2 (33.3737, 126.7722)')">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포 칼호텔 주차장', lat:'33.2462', lng:'126.5822'}, [{name:'가시리 3083-2', lat:'33.3737', lng:'126.7722'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note green">자유 시간</span><span class="tl-tag-note purple">녹산로</span></div>
           <div class="tl-tags"><span class="tl-tag">가시리</span><span class="tl-tag">귀환</span></div>
@@ -3029,7 +3030,7 @@ body {
               <div class="tl-navi-dest">제주항 4부두</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-jeju4"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup('제주항 4부두', '33.5264', '126.5431', null)">목적지 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주항 4부두', lat:'33.5264', lng:'126.5431'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
           <div class="tl-tags"><span class="tl-tag">제주항 방향</span></div>
@@ -3113,22 +3114,16 @@ body {
   </div>
 </div>
 
-<!-- 목적지 정보 팝업 -->
+<!-- 네비포인트 정보 팝업 -->
 <div class="dest-popup-overlay" id="destPopupOverlay" onclick="closeDestPopup(event)">
   <div class="dest-popup">
     <div class="dest-popup-header">
-      <span class="dest-popup-title">목적지 정보</span>
+      <span class="dest-popup-title">네비포인트 정보</span>
       <button class="dest-popup-close" onclick="closeDestPopup()">✕</button>
     </div>
     <div class="dest-popup-body">
-      <div class="dest-popup-name" id="popupName">—</div>
-      <div class="dest-popup-via" id="popupViaRow" style="display:none">
-        <span class="dest-popup-via-label">경유지</span>
-        <span class="dest-popup-via-val" id="popupVia">—</span>
-      </div>
-      <div class="dest-popup-coords">
-        <div class="dest-popup-coord"><span>위도</span><span id="popupLat">—</span></div>
-        <div class="dest-popup-coord"><span>경도</span><span id="popupLng">—</span></div>
+      <div class="dest-popup-points" id="popupPoints">
+        <!-- JS가 동적으로 경유지/목적지 행 생성 -->
       </div>
       <div class="dest-popup-apps">
         <a class="dest-popup-app" id="destPopupKakao" href="#" target="_blank" rel="noopener">
@@ -3578,7 +3573,7 @@ body {
     pyeongdae_3344:  { name: '평대리 3344 (드라이빙 집결지)', lat: 33.5121, lng: 126.8645 },
     fairy_village:   { name: '제주 동화마을',              lat: 33.4152, lng: 126.8822 },
     gasiri:          { name: '가시리 3083-2 (녹산로)',     lat: 33.3737, lng: 126.7722 },
-    kal_p2:          { name: '서귀포 칼호텔 주차장2',       lat: 33.2462, lng: 126.5822 },
+    kal_p2:          { name: '서귀포 칼호텔 주차장',       lat: 33.2462, lng: 126.5822 },
     // ── DAY 2 ──
     podo_museum:     { name: '포도뮤지엄',                 lat: 33.3068, lng: 126.3486 },
     healing_forest:  { name: '서귀포 자연휴양림',          lat: 33.3268, lng: 126.5056 },
@@ -3607,7 +3602,7 @@ body {
     ]);
     // Drive V  (14:30) : → 제주 동화마을
     renderSimpleNavi('navibtns-day3-d5', PLACES.fairy_village);
-    // Drive VI (15:40) : 가시리 3083-2 경유 → 서귀포 칼호텔 주차장2
+    // Drive VI (15:40) : 가시리 3083-2 경유 → 서귀포 칼호텔 주차장
     renderMultiViaNavi('navibtns-day3-d6', PLACES.kal_p2, [
       PLACES.gasiri
     ]);
@@ -3626,7 +3621,7 @@ body {
     // ── DAY 2 공통 목적지 네비 ──
     renderSimpleNavi('navibtns-day2-d3', PLACES.thecliff);   // 17:30 → 더클리프
     renderSimpleNavi('navibtns-day2-d4', PLACES.saebyeol);   // 20:30 → 새별오름 주차장
-    renderSimpleNavi('navibtns-day2-d5', PLACES.kal_p2);     // 23:00 → 칼호텔 주차장2
+    renderSimpleNavi('navibtns-day2-d5', PLACES.kal_p2);     // 23:00 → 칼호텔 주차장
   });
 } else {
   renderNaviBtns();
@@ -3736,25 +3731,130 @@ function makeSingleDestHrefs(name, lat, lng) {
   return { k: kHref, nv: nHref, t: tHref };
 }
 
-// ── 목적지 정보 팝업 ──
-function openDestPopup(name, lat, lng, via) {
-  document.getElementById('popupName').textContent = name;
-  document.getElementById('popupLat').textContent  = lat;
-  document.getElementById('popupLng').textContent  = lng;
-  var viaRow = document.getElementById('popupViaRow');
-  if (via) {
-    document.getElementById('popupVia').textContent = via;
-    viaRow.style.display = 'flex';
+// ══════════════════════════════════════════
+// 다중 경유지 네비 URL 생성 — OS별 분기
+// 카카오: vp, vp2~vp5 (최대 5개) / 네이버: v1~v5 / T맵: 목적지만
+// dest : {name, lat, lng}
+// vias : [{name, lat, lng}, ...] (1~5개, 빈 좌표는 스킵)
+// ══════════════════════════════════════════
+function makeMultiPointHrefs(dest, vias) {
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua);
+  var isAOS = /Android/.test(ua);
+  var dName = encodeURIComponent(dest.name);
+  var appname = encodeURIComponent((typeof location !== 'undefined' && location.host) || 'minirun-2026.local');
+
+  // 좌표 있는 경유지만 추출
+  var validVias = (vias || []).filter(function (v) { return v.lat && v.lng; });
+
+  // 카카오: 첫 번째는 vp, 그 다음은 vp2~vp5
+  var kakaoVp = validVias.map(function (v, i) {
+    var key = (i === 0) ? 'vp' : ('vp' + (i + 1));
+    return key + '=' + v.lat + ',' + v.lng;
+  }).join('&');
+  var kakaoQuery = (kakaoVp ? kakaoVp + '&' : '') + 'ep=' + dest.lat + ',' + dest.lng + '&by=car';
+
+  // 네이버: v1~v5
+  var naverV = validVias.map(function (v, i) {
+    var idx = i + 1;
+    return 'v' + idx + 'lat=' + v.lat + '&v' + idx + 'lng=' + v.lng + '&v' + idx + 'name=' + encodeURIComponent(v.name);
+  }).join('&');
+  var naverQuery = (naverV ? naverV + '&' : '') +
+    'dlat=' + dest.lat + '&dlng=' + dest.lng + '&dname=' + dName + '&appname=' + appname;
+
+  var k, nv, t;
+  if (isIOS) {
+    t  = 'tmap://route?rGoName=' + dName + '&rGoX=' + dest.lng + '&rGoY=' + dest.lat;
+    k  = 'kakaomap://route?' + kakaoQuery;
+    nv = 'nmap://route/car?' + naverQuery;
+  } else if (isAOS) {
+    t = 'intent://route?goalname=' + dName + '&goalx=' + dest.lng + '&goaly=' + dest.lat +
+      '#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') + ';end';
+    k = 'intent://route?' + kakaoQuery +
+      '#Intent;scheme=kakaomap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=net.daum.android.map;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') + ';end';
+    nv = 'intent://route/car?' + naverQuery +
+      '#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') + ';end';
   } else {
-    viaRow.style.display = 'none';
+    t  = 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?goalname=' + dName + '&goalx=' + dest.lng + '&goaly=' + dest.lat;
+    k  = 'https://m.map.kakao.com/scheme/route?' + kakaoQuery;
+    nv = 'https://map.naver.com/p/directions/-/' + dest.lng + ',' + dest.lat + ',' + dName + ',,PLACE_POI/-/car';
   }
-  // 네비 앱 링크 주입 (OS별 자동 분기)
-  var hrefs = makeSingleDestHrefs(name, lat, lng);
+  return { k: k, nv: nv, t: t };
+}
+
+// HTML 이스케이프 헬퍼 (innerHTML 주입 시 XSS 방어)
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// ── 네비포인트 정보 팝업 ──
+// dest : {name, lat, lng} — 목적지 (필수)
+// vias : [{name, lat, lng}, ...] — 경유지 배열 (선택, 0~5개)
+//
+// 호환성: 옛 시그니처 openDestPopup(name, lat, lng, via_string) 도 지원
+function openDestPopup(dest, vias) {
+  // 옛 시그니처 호환 처리: (name, lat, lng, via) 형태로 호출된 경우
+  if (typeof dest === 'string') {
+    var oldName = dest;
+    var oldLat  = arguments[1];
+    var oldLng  = arguments[2];
+    var oldVia  = arguments[3];
+    dest = { name: oldName, lat: oldLat, lng: oldLng };
+    vias = [];
+    if (oldVia) {
+      // "장소명 (lat, lng)" 형태에서 좌표 추출 시도
+      var m = String(oldVia).match(/^(.*?)\s*\(([^,]+),\s*([^)]+)\)\s*$/);
+      if (m) {
+        vias = [{ name: m[1].trim(), lat: m[2].trim(), lng: m[3].trim() }];
+      } else {
+        // 좌표 못 찾으면 이름만 표시 (좌표 빈칸)
+        vias = [{ name: String(oldVia), lat: '', lng: '' }];
+      }
+    }
+  }
+
+  vias = vias || [];
+
+  // 포인트 리스트 동적 렌더링
+  var pointsEl = document.getElementById('popupPoints');
+  var html = '';
+  vias.forEach(function (v, i) {
+    html +=
+      '<div class="dest-popup-point via">' +
+        '<div class="dest-popup-point-tag">경유지 ' + (i + 1) + '</div>' +
+        '<div class="dest-popup-point-body">' +
+          '<div class="dest-popup-point-name">' + escapeHtml(v.name) + '</div>' +
+          (v.lat && v.lng ? '<div class="dest-popup-point-coord">' + v.lat + ', ' + v.lng + '</div>' : '') +
+        '</div>' +
+      '</div>';
+  });
+  html +=
+    '<div class="dest-popup-point dest">' +
+      '<div class="dest-popup-point-tag">목적지</div>' +
+      '<div class="dest-popup-point-body">' +
+        '<div class="dest-popup-point-name">' + escapeHtml(dest.name) + '</div>' +
+        '<div class="dest-popup-point-coord">' + dest.lat + ', ' + dest.lng + '</div>' +
+      '</div>' +
+    '</div>';
+  pointsEl.innerHTML = html;
+
+  // 네비 앱 링크 주입 — 경유지 있으면 다중 경유지 URL, 없으면 단일 목적지 URL
+  var hrefs;
+  if (vias.length && vias[0].lat && vias[0].lng) {
+    hrefs = makeMultiPointHrefs(dest, vias);
+  } else {
+    hrefs = makeSingleDestHrefs(dest.name, dest.lat, dest.lng);
+  }
   document.getElementById('destPopupKakao').href = hrefs.k;
   document.getElementById('destPopupNaver').href = hrefs.nv;
   document.getElementById('destPopupTmap').href  = hrefs.t;
-  // 좌표 검증 버튼 URL 설정
-  document.getElementById('popupVerifyBtn').href = makeCoordVerifyUrl(lat, lng, name);
+  // 좌표 검증 버튼 — 목적지 기준
+  document.getElementById('popupVerifyBtn').href = makeCoordVerifyUrl(dest.lat, dest.lng, dest.name);
   document.getElementById('destPopupOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
