@@ -1766,6 +1766,165 @@ body {
   color: var(--red);
 }
 
+/* 비밀 칩 — 평소엔 일반 칩과 동일, hover 시 미세하게 빛남 */
+.td-chip-secret {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s, border-color 0.3s, background 0.3s, letter-spacing 0.3s;
+  user-select: none;
+}
+.td-chip-secret:hover {
+  color: #f5c842;
+  border-color: rgba(245,200,66,0.5);
+  background: rgba(245,200,66,0.08);
+  letter-spacing: 0.12em;
+}
+.td-chip-secret:active { transform: scale(0.96); }
+
+/* ══════════════════════════════
+   STAFF ROLL — 비밀 페이지 (영화 엔드 크레딧 풍)
+══════════════════════════════ */
+#page-staffroll {
+  background: #000;
+}
+.staffroll-nav {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  z-index: 10;
+}
+.staffroll-nav-back {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: var(--gray-lt); background: none; border: none;
+  letter-spacing: 0.1em; cursor: pointer;
+  transition: color 0.2s;
+}
+.staffroll-nav-back:hover { color: var(--white); }
+.staffroll-nav-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: #f5c842; text-transform: uppercase;
+}
+
+/* Hero — 영화 타이틀 풍 */
+.staffroll-hero {
+  min-height: 60vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 80px 48px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.staffroll-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(245,200,66,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.staffroll-hero-secret-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.5em;
+  color: #f5c842; text-transform: uppercase;
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  border: 1px solid rgba(245,200,66,0.4);
+  border-radius: 40px;
+  background: rgba(245,200,66,0.06);
+  position: relative; z-index: 1;
+}
+.staffroll-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(64px, 11vw, 144px);
+  font-weight: 900; letter-spacing: 0.04em;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+  text-shadow: 0 0 60px rgba(245,200,66,0.15);
+}
+.staffroll-hero-title .accent { color: #f5c842; }
+.staffroll-hero-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--gray-lt); letter-spacing: 0.1em;
+  position: relative; z-index: 1;
+  max-width: 480px;
+}
+.staffroll-hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+  margin-top: 40px;
+  position: relative; z-index: 1;
+}
+.staffroll-hero-meta-item {
+  display: flex; flex-direction: column; gap: 4px;
+  text-align: center;
+}
+.staffroll-hero-meta-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.25em;
+  color: var(--gray); text-transform: uppercase;
+}
+.staffroll-hero-meta-val {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--white); letter-spacing: 0.02em;
+}
+
+/* 본문 영역 (스태프 일정 들어갈 자리) */
+.staffroll-body {
+  padding: 80px 48px 120px;
+  max-width: 1200px; margin: 0 auto;
+}
+.staffroll-placeholder {
+  text-align: center;
+  padding: 80px 24px;
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 12px;
+  background: rgba(245,200,66,0.02);
+}
+.staffroll-placeholder-icon {
+  font-size: 40px; margin-bottom: 20px; display: block;
+}
+.staffroll-placeholder-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: -0.02em;
+  color: var(--white); margin-bottom: 12px;
+}
+.staffroll-placeholder-desc {
+  font-size: 14px; color: var(--gray-lt); line-height: 1.7; font-weight: 300;
+  max-width: 480px; margin: 0 auto;
+}
+
+/* 하단 시그니처 */
+.staffroll-signature {
+  text-align: center;
+  padding: 60px 48px 80px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.staffroll-signature-line {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: var(--gray); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.staffroll-signature-mark {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.04em;
+}
+.staffroll-signature-mark .accent { color: #f5c842; }
+
+@media (max-width: 768px) {
+  .staffroll-nav { padding: 16px 24px; }
+  .staffroll-hero { padding: 60px 24px 48px; min-height: 50vh; }
+  .staffroll-body { padding: 56px 24px 80px; }
+  .staffroll-hero-meta { gap: 20px; }
+}
+
 @media (max-width: 960px) {
   .td-hero { padding: 60px 24px 48px; }
   .td-body { padding: 60px 24px 80px; }
@@ -2219,6 +2378,68 @@ body {
 </div>
 
 <!-- ════════════════════════════
+     STAFF ROLL — 비밀 페이지 🎬
+     테마 상세 페이지의 # 20주년 칩에서 진입
+════════════════════════════ -->
+<div class="page detail-page" id="page-staffroll">
+
+  <!-- 상단 네비 (간소화) -->
+  <nav class="staffroll-nav">
+    <button class="staffroll-nav-back" onclick="showPage('page-theme')">← THEME</button>
+    <span class="staffroll-nav-title">🎬 SECRET</span>
+    <button class="staffroll-nav-back" onclick="goMain()">MAIN →</button>
+  </nav>
+
+  <!-- Hero — 영화 엔딩 크레딧 풍 -->
+  <div class="staffroll-hero">
+    <span class="staffroll-hero-secret-tag">★ Easter Egg Discovered</span>
+    <h1 class="staffroll-hero-title">
+      STAFF<br>
+      <span class="accent">ROLL</span>
+    </h1>
+    <p class="staffroll-hero-sub">
+      MINI RUN 2026의 막을 올린<br>
+      운영진들의 숨은 여정
+    </p>
+    <div class="staffroll-hero-meta">
+      <div class="staffroll-hero-meta-item">
+        <span class="staffroll-hero-meta-label">Edition</span>
+        <span class="staffroll-hero-meta-val">20th Anniversary</span>
+      </div>
+      <div class="staffroll-hero-meta-item">
+        <span class="staffroll-hero-meta-label">Period</span>
+        <span class="staffroll-hero-meta-val">2006 — 2026</span>
+      </div>
+      <div class="staffroll-hero-meta-item">
+        <span class="staffroll-hero-meta-label">Crew</span>
+        <span class="staffroll-hero-meta-val">6 Members</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 본문 — 스태프 일정 (추후 사용자가 공유 예정) -->
+  <div class="staffroll-body">
+    <div class="staffroll-placeholder">
+      <span class="staffroll-placeholder-icon">📋</span>
+      <h2 class="staffroll-placeholder-title">스태프 일정 준비 중</h2>
+      <p class="staffroll-placeholder-desc">
+        운영진의 사전 답사 · 준비 일정 · 비하인드 스토리가<br>
+        곧 이 자리를 채울 예정입니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- 시그니처 -->
+  <div class="staffroll-signature">
+    <div class="staffroll-signature-line">— FIN —</div>
+    <div class="staffroll-signature-mark">
+      MINI RUN <span class="accent">2026</span> · 20TH
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════
      THEME DETAIL PAGE
 ════════════════════════════ -->
 <div class="page detail-page theme-detail-page" id="page-theme">
@@ -2318,7 +2539,7 @@ body {
       <span class="td-chip"># 새별오름</span>
       <span class="td-chip"># 별 구경</span>
       <span class="td-chip"># 3박 4일</span>
-      <span class="td-chip"># 20주년</span>
+      <span class="td-chip td-chip-secret" onclick="showPage('page-staffroll')" title="">#&nbsp;20주년</span>
       <span class="td-chip"># 2006–2026</span>
     </div>
 
