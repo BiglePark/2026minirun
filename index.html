@@ -1804,6 +1804,281 @@ body {
 }
 
 /* ══════════════════════════════
+   DRIVING DETAIL PAGE (그룹 드라이빙 가이드 상세)
+══════════════════════════════ */
+.driving-detail-section {
+  padding: 56px 48px 100px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* 1. 영상 가이드 박스 (유튜브 링크) */
+.driving-video-block {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 24px 28px;
+  background: rgba(77,166,255,0.05);
+  border: 1px solid rgba(77,166,255,0.25);
+  border-radius: 12px;
+  margin-bottom: 56px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.driving-video-block:hover {
+  background: rgba(77,166,255,0.10);
+  border-color: rgba(77,166,255,0.5);
+  transform: translateY(-2px);
+}
+.driving-video-icon {
+  width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  background: #ff0000;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.driving-video-icon svg {
+  width: 28px; height: 28px;
+  color: #fff;
+  margin-left: 3px;
+}
+.driving-video-body { min-width: 0; }
+.driving-video-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.3em;
+  color: #4da6ff; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.driving-video-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.driving-video-desc {
+  font-size: 13px; color: var(--gray-lt);
+  font-weight: 300; line-height: 1.5;
+}
+.driving-video-arrow {
+  font-size: 18px; color: #4da6ff;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.driving-video-block:hover .driving-video-arrow { transform: translateX(4px); }
+
+/* 섹션 헤딩 (사고 대처법 / FAQ 공용) */
+.driving-section {
+  margin-bottom: 64px;
+}
+.driving-section-header {
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.driving-section-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em;
+  color: #4da6ff; text-transform: uppercase;
+  margin-bottom: 8px; display: block;
+}
+.driving-section-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 900; letter-spacing: -0.03em;
+  color: var(--white);
+}
+.driving-section-title .accent { color: var(--red); }
+.driving-section-intro {
+  margin-top: 16px;
+  font-size: 14px; color: var(--gray-lt); line-height: 1.7; font-weight: 300;
+}
+
+/* 2. 사고 대처법 - 6단계 절차 */
+.accident-steps {
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.accident-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px; align-items: center;
+  padding: 18px 22px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  position: relative;
+  transition: border-color 0.3s, background 0.3s;
+}
+.accident-step:hover {
+  border-color: rgba(232,40,26,0.3);
+  background: rgba(232,40,26,0.04);
+}
+.accident-step-num {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,40,26,0.12);
+  border: 1px solid rgba(232,40,26,0.4);
+  border-radius: 50%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--red);
+  flex-shrink: 0;
+}
+.accident-step-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14.5px; font-weight: 500;
+  color: var(--gray-lt); line-height: 1.6;
+}
+.accident-step-text .accent {
+  color: var(--red); font-weight: 700;
+}
+
+/* 사고 대처법 요약 박스 */
+.accident-summary {
+  margin-top: 24px;
+  padding: 24px 28px;
+  background: rgba(232,40,26,0.05);
+  border: 1px solid rgba(232,40,26,0.3);
+  border-radius: 10px;
+}
+.accident-summary-label {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--red);
+  border-radius: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em;
+  color: #fff; font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.accident-summary-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; line-height: 1.85;
+  color: var(--gray-lt);
+}
+.accident-summary-text .accent { color: var(--red); font-weight: 700; }
+.accident-summary-text strong { color: var(--white); font-weight: 700; }
+
+/* 3. FAQ — 잠.깐.만 */
+.faq-hero {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(232,40,26,0.04);
+  border: 1px dashed rgba(232,40,26,0.3);
+  border-radius: 12px;
+}
+.faq-hero-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,40,26,0.1);
+  border: 1px solid rgba(232,40,26,0.3);
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 28px;
+}
+.faq-hero-body { min-width: 0; }
+.faq-hero-tag {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 22px; font-weight: 900;
+  color: var(--red); letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.faq-hero-sub {
+  font-size: 13px; color: var(--gray-lt); font-weight: 400;
+}
+
+.faq-list {
+  display: flex; flex-direction: column;
+  gap: 18px;
+}
+.faq-item {
+  padding: 22px 26px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  transition: border-color 0.3s, background 0.3s;
+}
+.faq-item:hover {
+  border-color: rgba(77,166,255,0.3);
+  background: rgba(77,166,255,0.04);
+}
+.faq-question {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+.faq-question-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--red); text-transform: uppercase;
+  padding: 4px 10px;
+  background: rgba(232,40,26,0.1);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.faq-question-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--white); line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+.faq-question-text .accent { color: var(--red); }
+.faq-answer {
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.faq-answer-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  color: #4da6ff; text-transform: uppercase;
+  padding: 4px 10px;
+  background: rgba(77,166,255,0.1);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.faq-answer-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--gray-lt); line-height: 1.7;
+}
+.faq-answer-text .accent { color: #4da6ff; font-weight: 700; }
+.faq-answer-text strong { color: var(--white); font-weight: 700; }
+
+/* 푸터 메시지 */
+.driving-footer-msg {
+  margin-top: 48px;
+  padding: 28px;
+  text-align: center;
+  background: rgba(77,166,255,0.05);
+  border: 1px dashed rgba(77,166,255,0.3);
+  border-radius: 10px;
+  font-size: 13px; color: var(--gray-lt);
+  line-height: 1.7;
+}
+.driving-footer-msg .accent {
+  color: #4da6ff; font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .driving-video-block { grid-template-columns: 56px 1fr; gap: 14px; padding: 18px 20px; }
+  .driving-video-icon { width: 48px; height: 48px; }
+  .driving-video-icon svg { width: 22px; height: 22px; }
+  .driving-video-arrow { display: none; }
+  .accident-step { grid-template-columns: 44px 1fr; gap: 14px; padding: 14px 18px; }
+  .accident-step-num { width: 32px; height: 32px; font-size: 15px; }
+  .accident-step-text { font-size: 13.5px; }
+  .faq-hero { padding: 18px; gap: 14px; }
+  .faq-hero-icon { width: 44px; height: 44px; font-size: 22px; }
+  .faq-hero-tag { font-size: 18px; }
+  .faq-question-tag, .faq-answer-tag { font-size: 10px; padding: 3px 8px; }
+}
+@media (max-width: 640px) {
+  .driving-detail-section { padding: 40px 24px 80px; }
+}
+
+/* ══════════════════════════════
    POINT DETAIL PAGE (주의사항 상세)
 ══════════════════════════════ */
 .point-detail-section {
@@ -2572,9 +2847,7 @@ body {
 
   <!-- GROUP DRIVING GUIDE CARD -->
   <section class="guide-card-section">
-    <a class="guide-card reveal"
-       href="https://youtu.be/4VD4xNbif_Y?si=XsBsMllQUXPt35a-"
-       target="_blank" rel="noopener">
+    <a class="guide-card reveal" href="javascript:void(0)" onclick="showPage('page-driving'); return false;">
       <!-- 배경 워터마크 -->
       <div class="gc-bg-text">DRIVE</div>
       <!-- 왼쪽 블루 라인 -->
@@ -2585,17 +2858,17 @@ body {
           <span class="gc-eyebrow">Driving Guide</span>
           <div class="gc-title">
             <span>그룹 드라이빙</span>
-            <span class="gc-title-accent">주의사항 &amp; 방법</span>
+            <span class="gc-title-accent">주의사항 &amp; 사고 대처법</span>
           </div>
           <p class="gc-sub">안전한 미니런을 위한 필수 가이드</p>
         </div>
         <div class="gc-right">
           <p class="gc-preview">
-            장거리 조별 운행에 앞서 꼭 알아야 할 그룹 드라이빙의 기본 수칙.<br>
-            대형 유지, 신호 약속, 휴게소 집결 방법까지 한 번에 확인하세요.
+            장거리 조별 운행 전 꼭 알아야 할 그룹 드라이빙 수칙과,<br>
+            만약의 사고 발생 시 행동 지침까지 한곳에서 확인하세요.
           </p>
           <div class="gc-cta">
-            <span>영상으로 보기</span>
+            <span>가이드 확인하기</span>
             <span class="gc-arrow">→</span>
           </div>
         </div>
@@ -3228,6 +3501,184 @@ body {
           </button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 하단 네비 -->
+  <div class="detail-bottom-nav">
+    <button class="nav-btn prev" onclick="goMain()">BACK TO MAIN</button>
+    <button class="nav-btn next" onclick="openDay(1)">DAY 1 보기</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     DRIVING DETAIL PAGE (그룹 드라이빙 가이드)
+════════════════════════════ -->
+<div class="page detail-page" id="page-driving">
+
+  <!-- 상단 네비 -->
+  <nav class="detail-nav">
+    <button class="back-btn" onclick="goMain()">MINI RUN 2026</button>
+    <div class="detail-nav-title">2026 MINI RUN</div>
+    <div class="detail-nav-day" style="color:#4da6ff;letter-spacing:0.2em;font-size:11px;">DRIVING</div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="detail-hero" data-day-num="!">
+    <div class="dh-label">GROUP DRIVING GUIDE</div>
+    <h1 class="dh-title">그룹 드라이빙<br>주의사항 &amp; 사고 대처법</h1>
+    <div class="dh-meta">
+      <div class="dh-meta-item"><span class="dh-meta-label">영상 가이드</span><span class="dh-meta-val">YouTube</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">사고 대처</span><span class="dh-meta-val">6단계 절차</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">FAQ</span><span class="dh-meta-val">잠.깐.만</span></div>
+    </div>
+  </div>
+
+  <!-- 본문 -->
+  <section class="driving-detail-section">
+
+    <!-- 1. 영상 가이드 -->
+    <a class="driving-video-block"
+       href="https://youtu.be/4VD4xNbif_Y?si=XsBsMllQUXPt35a-"
+       target="_blank" rel="noopener">
+      <div class="driving-video-icon">
+        <!-- YouTube Play -->
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 5V19L19 12L8 5Z"/>
+        </svg>
+      </div>
+      <div class="driving-video-body">
+        <div class="driving-video-eyebrow">▶ Video Guide</div>
+        <div class="driving-video-title">그룹 드라이빙 방법 · 주의사항 (영상)</div>
+        <div class="driving-video-desc">
+          대형 유지, 신호 약속, 휴게소 집결 방법까지<br>
+          영상으로 한 번에 확인하세요
+        </div>
+      </div>
+      <span class="driving-video-arrow">→</span>
+    </a>
+
+    <!-- 2. 사고 대처법 -->
+    <div class="driving-section">
+      <div class="driving-section-header">
+        <span class="driving-section-eyebrow">⚠ Emergency</span>
+        <h2 class="driving-section-title">그룹 드라이빙 중 <span class="accent">사고 대처법</span></h2>
+        <p class="driving-section-intro">
+          조별 이동 중 사고가 발생할 수 있습니다.<br>
+          이때 행동 지침을 알려 드립니다.
+        </p>
+      </div>
+
+      <div class="accident-steps">
+        <div class="accident-step">
+          <div class="accident-step-num">1</div>
+          <div class="accident-step-text">
+            조장(선두 차량)은 <span class="accent">운영진(패트롤)에게 사고 소식을 전달</span>합니다.
+          </div>
+        </div>
+        <div class="accident-step">
+          <div class="accident-step-num">2</div>
+          <div class="accident-step-text">
+            조장(선두 차량)은 <span class="accent">후미차량과 사고차량을 제외한 조원을 이끌고 계획대로 진행</span>합니다.
+          </div>
+        </div>
+        <div class="accident-step">
+          <div class="accident-step-num">3</div>
+          <div class="accident-step-text">
+            <span class="accent">후미차량은 사고 지점으로 이동하여 사고차량과 함께 수습</span>을 돕습니다.
+          </div>
+        </div>
+        <div class="accident-step">
+          <div class="accident-step-num">4</div>
+          <div class="accident-step-text">
+            운영진(패트롤)은 사고 지점으로 이동합니다.
+          </div>
+        </div>
+        <div class="accident-step">
+          <div class="accident-step-num">5</div>
+          <div class="accident-step-text">
+            <span class="accent">운영진(패트롤)이 도착하면 후미차량은 조원이 있는 곳으로 합류</span>합니다.
+          </div>
+        </div>
+        <div class="accident-step">
+          <div class="accident-step-num">6</div>
+          <div class="accident-step-text">
+            사고 차량과 운영진(패트롤)은 사고 처리를 마무리합니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 요약 박스 -->
+      <div class="accident-summary">
+        <span class="accident-summary-label">정리</span>
+        <p class="accident-summary-text">
+          사고 발생 시 <strong>조장은 운영진에게 사고 소식을 알리고</strong> 조의 후미를 제외한 나머지 조원은 계획대로 운행을 합니다.<br>
+          <strong>조의 후미는 운영진(패트롤)이 올 때까지 사고 수습을 도우며</strong>, 운영진(패트롤) <span class="accent">도착 시 조에 합류</span>합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. FAQ — 잠.깐.만 -->
+    <div class="driving-section">
+      <div class="driving-section-header">
+        <span class="driving-section-eyebrow">❓ FAQ</span>
+        <h2 class="driving-section-title">이런 경우 <span class="accent">어떻게?</span></h2>
+      </div>
+
+      <!-- 잠.깐.만 인트로 -->
+      <div class="faq-hero">
+        <div class="faq-hero-icon">🤔</div>
+        <div class="faq-hero-body">
+          <div class="faq-hero-tag">잠 . 깐 . 만</div>
+          <div class="faq-hero-sub">자주 묻는 사고 처리 질문 모음</div>
+        </div>
+      </div>
+
+      <div class="faq-list">
+
+        <!-- 사례 1 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-tag">사례 1</span>
+            <div class="faq-question-text">
+              <span class="accent">차량을 바꿔 운전</span>하거나 <span class="accent">운전자 대신 운전</span>을 해주다 사고가 났어요. 어쩌죠?
+            </div>
+          </div>
+          <div class="faq-answer">
+            <span class="faq-answer-tag">답안</span>
+            <div class="faq-answer-text">
+              보험 없는 차량을 운행하다 사고가 발생한다면 <strong>책임은 전적으로 운전자에게 있습니다.</strong>
+              구제할 방법이 전혀 없으며, 운전자의 비용으로 사고 처리를 해야 합니다.<br><br>
+              때문에 다른 회원이 운전할 여지가 있다면 여행 전 <span class="accent">'누구나 보험'에 가입</span>하시기 바라며,
+              회원 역시 보험이 없는 차량은 운행하지 마시길 바랍니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- 사례 2 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-tag">사례 2</span>
+            <div class="faq-question-text">
+              미니런 참여 중 다른 회원 차를 <span class="accent">'쿵'</span> 했어요.
+              우린 남이 아니잖아요. 대충 봐주면 안 되나요?
+            </div>
+          </div>
+          <div class="faq-answer">
+            <span class="faq-answer-tag">답안</span>
+            <div class="faq-answer-text">
+              <strong>우리는 철저히 남입니다.</strong>
+              <span class="accent">절차대로 보험접수</span> 하시고 처리 바랍니다.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="driving-footer-msg">
+      안전한 운행이 곧 즐거운 여정입니다.<br>
+      <span class="accent">사고 없이, 모두 함께</span> 마지막 도착지까지 함께해요.
     </div>
   </section>
 
