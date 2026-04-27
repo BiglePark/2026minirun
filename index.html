@@ -1713,6 +1713,208 @@ body {
 }
 
 /* ══════════════════════════════
+   POINT CARD (주의사항 — theme-card 구조, 퍼플)
+══════════════════════════════ */
+.point-card-section {
+  padding: 0;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+}
+.point-card {
+  position: relative; overflow: hidden;
+  padding: 64px 48px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--black);
+  transition: background 0.4s;
+  text-decoration: none; color: inherit;
+}
+.point-card:hover { background: #111; }
+
+.pt-bg-text {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(120px, 18vw, 220px);
+  font-weight: 900; letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(168,85,247,0.10);
+  pointer-events: none; white-space: nowrap;
+  transition: -webkit-text-stroke-color 0.4s;
+}
+.point-card:hover .pt-bg-text {
+  -webkit-text-stroke-color: rgba(168,85,247,0.18);
+}
+.pt-accent {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #a855f7 40%, #a855f7 60%, transparent);
+}
+.pt-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.pt-eyebrow {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.45em;
+  color: #a855f7; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.pt-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 900; letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--white);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.pt-title-accent { color: #a855f7; }
+.pt-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--gray); margin-top: 14px; letter-spacing: 0.05em;
+}
+.pt-preview {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--gray-lt); line-height: 1.85;
+  margin-bottom: 28px;
+}
+.pt-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #a855f7;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(168,85,247,0.4);
+  transition: gap 0.2s, border-color 0.2s;
+}
+.point-card:hover .pt-cta { gap: 16px; border-color: #a855f7; }
+.pt-arrow { font-size: 16px; transition: transform 0.2s; }
+.point-card:hover .pt-arrow { transform: translateX(4px); }
+
+@media (max-width: 960px) {
+  .pt-content { grid-template-columns: 1fr; gap: 32px; }
+  .point-card { padding: 48px 24px; }
+}
+
+/* ══════════════════════════════
+   POINT DETAIL PAGE (주의사항 상세)
+══════════════════════════════ */
+.point-detail-section {
+  padding: 56px 48px 100px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* "POINT" 거대 타이틀 (이미지 톤 모방) */
+.point-mega-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(72px, 14vw, 160px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-align: center;
+  margin: 20px 0 56px;
+  line-height: 0.9;
+}
+.point-mega-title .accent {
+  color: var(--red);
+}
+
+.point-intro {
+  margin-bottom: 48px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.point-intro-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em;
+  color: #a855f7; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.point-intro-desc {
+  font-size: 14px; color: var(--gray-lt);
+  line-height: 1.7; font-weight: 300;
+  max-width: 520px; margin: 0 auto;
+}
+
+/* 8개 그리드 (2칼럼) */
+.point-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 32px;
+}
+.point-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 18px; align-items: center;
+  padding: 18px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.3s;
+}
+.point-row:hover {
+  background: rgba(168,85,247,0.04);
+}
+.point-row-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.point-row-icon svg {
+  width: 44px; height: 44px;
+  color: var(--white);
+}
+.point-row.warn .point-row-icon svg {
+  color: var(--red);
+}
+.point-row-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: var(--gray-lt); line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+.point-row-text::before {
+  content: '·';
+  color: var(--gray);
+  margin-right: 8px;
+  font-weight: 700;
+}
+.point-row-text .accent {
+  color: var(--red); font-weight: 700;
+}
+
+/* 푸터 메시지 */
+.point-footer-msg {
+  margin-top: 56px;
+  padding: 28px;
+  text-align: center;
+  background: rgba(168,85,247,0.05);
+  border: 1px dashed rgba(168,85,247,0.3);
+  border-radius: 10px;
+  font-size: 13px; color: var(--gray-lt);
+  line-height: 1.7;
+}
+.point-footer-msg .accent {
+  color: #c084fc; font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .point-grid { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 640px) {
+  .point-detail-section { padding: 40px 24px 80px; }
+  .point-row { padding: 16px 0; gap: 14px; grid-template-columns: 50px 1fr; }
+  .point-row-icon { width: 48px; height: 48px; }
+  .point-row-icon svg { width: 36px; height: 36px; }
+  .point-row-text { font-size: 13.5px; }
+}
+
+/* ══════════════════════════════
    GROUP DETAIL PAGE (조 명단 상세)
 ══════════════════════════════ */
 .group-detail-section {
@@ -2499,6 +2701,212 @@ body {
       </div>
     </a>
   </section>
+
+  <!-- POINT (주의사항) CARD -->
+  <section class="point-card-section">
+    <a class="point-card reveal" href="javascript:void(0)" onclick="showPage('page-point'); return false;">
+      <!-- 배경 워터마크 -->
+      <div class="pt-bg-text">POINT</div>
+      <!-- 왼쪽 퍼플 라인 -->
+      <div class="pt-accent"></div>
+      <!-- 컨텐츠 -->
+      <div class="pt-content">
+        <div class="pt-left">
+          <span class="pt-eyebrow">Safety Points</span>
+          <div class="pt-title">
+            <span>2026 MINI RUN</span>
+            <span class="pt-title-accent">주의사항</span>
+          </div>
+          <p class="pt-sub">함께 즐기기 위한 8가지 약속</p>
+        </div>
+        <div class="pt-right">
+          <p class="pt-preview">
+            모두의 안전과 즐거운 여정을 위해 미니런 참가자가 꼭 지켜야 할 8가지.<br>
+            출발 전 한 번씩 확인해주세요.
+          </p>
+          <div class="pt-cta">
+            <span>주의사항 확인하기</span>
+            <span class="pt-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+</div>
+
+<!-- ════════════════════════════
+     POINT DETAIL PAGE (주의사항)
+════════════════════════════ -->
+<div class="page detail-page" id="page-point">
+
+  <!-- 상단 네비 -->
+  <nav class="detail-nav">
+    <button class="back-btn" onclick="goMain()">MINI RUN 2026</button>
+    <div class="detail-nav-title">2026 MINI RUN</div>
+    <div class="detail-nav-day" style="color:#a855f7;letter-spacing:0.2em;font-size:11px;">POINT</div>
+  </nav>
+
+  <!-- 거대 POINT 타이틀 -->
+  <section class="point-detail-section">
+    <h1 class="point-mega-title">
+      <span class="accent">P</span>OINT
+    </h1>
+
+    <div class="point-intro">
+      <div class="point-intro-label">⚠ Safety Rules</div>
+      <p class="point-intro-desc">
+        미니런 참가자가 꼭 지켜야 할 8가지 약속입니다.<br>
+        모두의 안전과 즐거운 여정을 위해 함께 지켜주세요.
+      </p>
+    </div>
+
+    <!-- 8개 POINT 그리드 -->
+    <div class="point-grid">
+
+      <!-- 1. 공지 전달중에는 집중 -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Megaphone -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 10C3 9.4 3.4 9 4 9H7L13 5V19L7 15H4C3.4 15 3 14.6 3 14V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M16 9C17.1 9.9 17.7 10.9 17.7 12C17.7 13.1 17.1 14.1 16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M19 6C20.9 7.6 22 9.7 22 12C22 14.3 20.9 16.4 19 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          <span class="accent">공지</span> 전달 중에는 <span class="accent">집중</span>
+        </div>
+      </div>
+
+      <!-- 2. 갓길 주행 등 위험한 행동 불가 -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Camera -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8C3 7.4 3.4 7 4 7H7L8.5 5H15.5L17 7H20C20.6 7 21 7.4 21 8V18C21 18.6 20.6 19 20 19H4C3.4 19 3 18.6 3 18V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="17.5" cy="10" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          촬영 등을 이유로 갓길 주행 등 <span class="accent">위험한 행동</span> 불가
+        </div>
+      </div>
+
+      <!-- 3. 그룹드라이빙 추월 금지 -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Steering wheel -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 14.5V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9.8 11L4 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14.2 11L20 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          그룹드라이빙 중 다른 <span class="accent">조(그룹)</span> 추월 금지
+        </div>
+      </div>
+
+      <!-- 4. 낮에도 라이트 ON -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Headlight -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8C3 6.9 3.9 6 5 6H10C11.1 6 12 6.9 12 8V16C12 17.1 11.1 18 10 18H5C3.9 18 3 17.1 3 16V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M15 8H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M15 12H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M15 16H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          낮에도 <span class="accent">라이트는 항상 ON</span>
+        </div>
+      </div>
+
+      <!-- 5. 여성객실 남성 입장 불가 -->
+      <div class="point-row warn">
+        <div class="point-row-icon">
+          <!-- No person -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="8.5" r="2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M7.5 17C7.5 14.5 9.5 12.5 12 12.5C14.5 12.5 16.5 14.5 16.5 17V18H7.5V17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <line x1="5.5" y1="18.5" x2="18.5" y2="5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          <span class="accent">여성객실에 남성 입장 불가</span>
+        </div>
+      </div>
+
+      <!-- 6. GoBack 금지 -->
+      <div class="point-row warn">
+        <div class="point-row-icon">
+          <!-- No GoBack (X with arrow) -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M14 8L8 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M8 8L14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16 16L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          <span class="accent">GoBack</span> 금지
+        </div>
+      </div>
+
+      <!-- 7. 비행 금지 구역 드론 금지 -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Drone -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="9" y="11" width="6" height="3" rx="0.5" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="5" cy="8" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="8" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="5" cy="16" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="16" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 9L9.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 9L14.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 15L9.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 15L14.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          <span class="accent">비행 금지 구역</span>에서 <span class="accent">드론 비행</span> 금지
+        </div>
+      </div>
+
+      <!-- 8. 과도한 소음 금지 -->
+      <div class="point-row">
+        <div class="point-row-icon">
+          <!-- Mute -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 10C3 9.4 3.4 9 4 9H7L12 5V19L7 15H4C3.4 15 3 14.6 3 14V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="point-row-text">
+          과도한 <span class="accent">소음</span> 금지
+        </div>
+      </div>
+
+    </div>
+
+    <div class="point-footer-msg">
+      위 8가지를 함께 지켜주시면<br>
+      <span class="accent">모두가 안전하고 즐거운 미니런</span>이 됩니다.
+    </div>
+  </section>
+
+  <!-- 하단 네비 -->
+  <div class="detail-bottom-nav">
+    <button class="nav-btn prev" onclick="goMain()">BACK TO MAIN</button>
+    <button class="nav-btn next" onclick="openDay(1)">DAY 1 보기</button>
+  </div>
 </div>
 
 <!-- ════════════════════════════
