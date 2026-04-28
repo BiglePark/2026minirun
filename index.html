@@ -1804,279 +1804,238 @@ body {
 }
 
 /* ══════════════════════════════
-   DRIVING DETAIL PAGE (그룹 드라이빙 가이드 상세)
+   DRIVING DETAIL PAGE (심플 미니멀 디자인)
 ══════════════════════════════ */
 .driving-detail-section {
   padding: 56px 48px 100px;
-  max-width: 1100px; margin: 0 auto;
+  max-width: 920px; margin: 0 auto;
 }
 
-/* 1. 영상 가이드 박스 (유튜브 링크) */
-.driving-video-block {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 20px;
-  align-items: center;
-  padding: 24px 28px;
-  background: rgba(77,166,255,0.05);
-  border: 1px solid rgba(77,166,255,0.25);
-  border-radius: 12px;
-  margin-bottom: 56px;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
-}
-.driving-video-block:hover {
-  background: rgba(77,166,255,0.10);
-  border-color: rgba(77,166,255,0.5);
-  transform: translateY(-2px);
-}
-.driving-video-icon {
-  width: 64px; height: 64px;
-  display: flex; align-items: center; justify-content: center;
-  background: #ff0000;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.driving-video-icon svg {
-  width: 28px; height: 28px;
-  color: #fff;
-  margin-left: 3px;
-}
-.driving-video-body { min-width: 0; }
-.driving-video-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; letter-spacing: 0.3em;
-  color: #4da6ff; text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.driving-video-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 17px; font-weight: 700;
-  color: var(--white); letter-spacing: -0.01em;
-  margin-bottom: 4px;
-}
-.driving-video-desc {
-  font-size: 13px; color: var(--gray-lt);
-  font-weight: 300; line-height: 1.5;
-}
-.driving-video-arrow {
-  font-size: 18px; color: #4da6ff;
-  flex-shrink: 0;
-  transition: transform 0.2s;
-}
-.driving-video-block:hover .driving-video-arrow { transform: translateX(4px); }
-
-/* 섹션 헤딩 (사고 대처법 / FAQ 공용) */
+/* 섹션 공통 헤딩 (3개 섹션 모두 동일 스타일) */
 .driving-section {
-  margin-bottom: 64px;
+  margin-bottom: 72px;
 }
 .driving-section-header {
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
 }
 .driving-section-eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.35em;
-  color: #4da6ff; text-transform: uppercase;
-  margin-bottom: 8px; display: block;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: var(--gray); text-transform: uppercase;
+  margin-bottom: 10px; display: block;
 }
 .driving-section-title {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(26px, 4vw, 36px);
-  font-weight: 900; letter-spacing: -0.03em;
+  font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 800; letter-spacing: -0.02em;
   color: var(--white);
+  line-height: 1.3;
 }
 .driving-section-title .accent { color: var(--red); }
 .driving-section-intro {
-  margin-top: 16px;
+  margin-top: 14px;
   font-size: 14px; color: var(--gray-lt); line-height: 1.7; font-weight: 300;
 }
 
-/* 2. 사고 대처법 - 6단계 절차 */
+/* 영상 가이드 박스 — 단순한 가로 링크 */
+.driving-video-block {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.driving-video-block:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+}
+.driving-video-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: #ff0000;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.driving-video-icon svg {
+  width: 18px; height: 18px;
+  color: #fff;
+  margin-left: 2px;
+}
+.driving-video-body { flex: 1; min-width: 0; }
+.driving-video-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--white); margin-bottom: 2px;
+}
+.driving-video-desc {
+  font-size: 12px; color: var(--gray);
+}
+.driving-video-arrow {
+  font-size: 16px; color: var(--gray);
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+.driving-video-block:hover .driving-video-arrow {
+  transform: translateX(3px); color: var(--white);
+}
+
+/* 사고 대처법 — 깔끔한 줄 형식 (카드 X) */
 .accident-steps {
   display: flex; flex-direction: column;
-  gap: 12px;
 }
 .accident-step {
   display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 18px; align-items: center;
-  padding: 18px 22px;
-  background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  position: relative;
-  transition: border-color 0.3s, background 0.3s;
+  grid-template-columns: 32px 1fr;
+  gap: 16px; align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.accident-step:hover {
-  border-color: rgba(232,40,26,0.3);
-  background: rgba(232,40,26,0.04);
-}
+.accident-step:first-child { padding-top: 0; }
+.accident-step:last-child { border-bottom: none; }
 .accident-step-num {
-  width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(232,40,26,0.12);
-  border: 1px solid rgba(232,40,26,0.4);
-  border-radius: 50%;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 18px; font-weight: 700;
-  color: var(--red);
+  color: var(--gray);
+  line-height: 1.4;
   flex-shrink: 0;
 }
 .accident-step-text {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 14.5px; font-weight: 500;
-  color: var(--gray-lt); line-height: 1.6;
+  font-size: 14.5px; font-weight: 400;
+  color: var(--gray-lt); line-height: 1.7;
 }
 .accident-step-text .accent {
-  color: var(--red); font-weight: 700;
+  color: var(--white); font-weight: 600;
 }
 
-/* 사고 대처법 요약 박스 */
+/* 사고 요약 박스 — 좌측 라인만 있는 단순 인용 */
 .accident-summary {
-  margin-top: 24px;
-  padding: 24px 28px;
-  background: rgba(232,40,26,0.05);
-  border: 1px solid rgba(232,40,26,0.3);
-  border-radius: 10px;
+  margin-top: 32px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--red);
+  background: rgba(255,255,255,0.02);
 }
 .accident-summary-label {
   display: inline-block;
-  padding: 4px 12px;
-  background: var(--red);
-  border-radius: 4px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.2em;
-  color: #fff; font-weight: 700;
+  font-size: 10px; letter-spacing: 0.25em;
+  color: var(--red); font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .accident-summary-text {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 14px; line-height: 1.85;
+  font-size: 13.5px; line-height: 1.8;
   color: var(--gray-lt);
 }
-.accident-summary-text .accent { color: var(--red); font-weight: 700; }
-.accident-summary-text strong { color: var(--white); font-weight: 700; }
+.accident-summary-text strong {
+  color: var(--white); font-weight: 600;
+}
+.accident-summary-text .accent {
+  color: var(--white); font-weight: 600;
+}
 
-/* 3. FAQ — 잠.깐.만 */
+/* FAQ — 잠.깐.만 (단순화) */
 .faq-hero {
-  display: flex; align-items: center; gap: 20px;
-  margin-bottom: 32px;
-  padding: 24px;
-  background: rgba(232,40,26,0.04);
-  border: 1px dashed rgba(232,40,26,0.3);
-  border-radius: 12px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
 }
 .faq-hero-icon {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(232,40,26,0.1);
-  border: 1px solid rgba(232,40,26,0.3);
-  border-radius: 50%;
+  font-size: 20px;
   flex-shrink: 0;
-  font-size: 28px;
 }
 .faq-hero-body { min-width: 0; }
 .faq-hero-tag {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 22px; font-weight: 900;
-  color: var(--red); letter-spacing: 0.05em;
-  margin-bottom: 4px;
+  font-size: 14px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.04em;
+  margin-bottom: 2px;
 }
 .faq-hero-sub {
-  font-size: 13px; color: var(--gray-lt); font-weight: 400;
+  font-size: 12px; color: var(--gray); font-weight: 400;
 }
 
 .faq-list {
   display: flex; flex-direction: column;
-  gap: 18px;
 }
 .faq-item {
-  padding: 22px 26px;
-  background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  transition: border-color 0.3s, background 0.3s;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.faq-item:hover {
-  border-color: rgba(77,166,255,0.3);
-  background: rgba(77,166,255,0.04);
-}
+.faq-item:first-child { padding-top: 0; }
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+
 .faq-question {
   display: flex; align-items: flex-start; gap: 12px;
   margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px dashed rgba(255,255,255,0.08);
 }
 .faq-question-tag {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-  color: var(--red); text-transform: uppercase;
-  padding: 4px 10px;
-  background: rgba(232,40,26,0.1);
-  border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--gray); text-transform: uppercase;
+  padding-top: 4px;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 .faq-question-text {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
   font-size: 15px; font-weight: 600;
-  color: var(--white); line-height: 1.5;
+  color: var(--white); line-height: 1.55;
   letter-spacing: -0.01em;
 }
 .faq-question-text .accent { color: var(--red); }
+
 .faq-answer {
   display: flex; align-items: flex-start; gap: 12px;
+  padding-left: 0;
 }
 .faq-answer-tag {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-  color: #4da6ff; text-transform: uppercase;
-  padding: 4px 10px;
-  background: rgba(77,166,255,0.1);
-  border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--gray); text-transform: uppercase;
+  padding-top: 4px;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 .faq-answer-text {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
   font-size: 14px; font-weight: 400;
-  color: var(--gray-lt); line-height: 1.7;
+  color: var(--gray-lt); line-height: 1.75;
 }
-.faq-answer-text .accent { color: #4da6ff; font-weight: 700; }
-.faq-answer-text strong { color: var(--white); font-weight: 700; }
+.faq-answer-text strong { color: var(--white); font-weight: 600; }
+.faq-answer-text .accent { color: var(--white); font-weight: 600; }
 
-/* 푸터 메시지 */
+/* 페이지 푸터 — 단순 한 줄 */
 .driving-footer-msg {
-  margin-top: 48px;
-  padding: 28px;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
   text-align: center;
-  background: rgba(77,166,255,0.05);
-  border: 1px dashed rgba(77,166,255,0.3);
-  border-radius: 10px;
   font-size: 13px; color: var(--gray-lt);
-  line-height: 1.7;
+  line-height: 1.7; font-weight: 300;
 }
 .driving-footer-msg .accent {
-  color: #4da6ff; font-weight: 700;
+  color: var(--white); font-weight: 600;
 }
 
 @media (max-width: 768px) {
-  .driving-video-block { grid-template-columns: 56px 1fr; gap: 14px; padding: 18px 20px; }
-  .driving-video-icon { width: 48px; height: 48px; }
-  .driving-video-icon svg { width: 22px; height: 22px; }
-  .driving-video-arrow { display: none; }
-  .accident-step { grid-template-columns: 44px 1fr; gap: 14px; padding: 14px 18px; }
-  .accident-step-num { width: 32px; height: 32px; font-size: 15px; }
+  .driving-detail-section { padding: 48px 24px 80px; }
+  .driving-section { margin-bottom: 56px; }
+  .driving-video-block { padding: 14px 16px; gap: 12px; }
+  .accident-step { padding: 16px 0; gap: 12px; }
   .accident-step-text { font-size: 13.5px; }
-  .faq-hero { padding: 18px; gap: 14px; }
-  .faq-hero-icon { width: 44px; height: 44px; font-size: 22px; }
-  .faq-hero-tag { font-size: 18px; }
-  .faq-question-tag, .faq-answer-tag { font-size: 10px; padding: 3px 8px; }
+  .accident-summary { padding: 16px 20px; }
+  .faq-question-tag, .faq-answer-tag { font-size: 9px; }
+  .faq-question-text { font-size: 14px; }
+  .faq-answer-text { font-size: 13.5px; }
 }
-@media (max-width: 640px) {
-  .driving-detail-section { padding: 40px 24px 80px; }
-}
+
 
 /* ══════════════════════════════
    POINT DETAIL PAGE (주의사항 상세)
@@ -2769,7 +2728,7 @@ body {
         <div class="dc-bottom">
           <div class="dc-line"></div>
           <div class="dc-date">2026. 06. 03 (수)</div>
-          <div class="dc-spots">총 11개 일정</div>
+          <div class="dc-spots">총 10개 일정</div>
           <div class="dc-tags">
             <span class="dc-tag">목포항</span>
             <span class="dc-tag">퀸제누비아호</span>
@@ -3537,26 +3496,33 @@ body {
   <!-- 본문 -->
   <section class="driving-detail-section">
 
-    <!-- 1. 영상 가이드 -->
-    <a class="driving-video-block"
-       href="https://youtu.be/4VD4xNbif_Y?si=XsBsMllQUXPt35a-"
-       target="_blank" rel="noopener">
-      <div class="driving-video-icon">
-        <!-- YouTube Play -->
-        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M8 5V19L19 12L8 5Z"/>
-        </svg>
-      </div>
-      <div class="driving-video-body">
-        <div class="driving-video-eyebrow">▶ Video Guide</div>
-        <div class="driving-video-title">그룹 드라이빙 방법 · 주의사항 (영상)</div>
-        <div class="driving-video-desc">
+    <!-- 1. 그룹 드라이빙 방법 · 주의사항 (영상) -->
+    <div class="driving-section">
+      <div class="driving-section-header">
+        <span class="driving-section-eyebrow">▶ Video Guide</span>
+        <h2 class="driving-section-title">그룹 드라이빙 <span class="accent">방법 · 주의사항</span></h2>
+        <p class="driving-section-intro">
           대형 유지, 신호 약속, 휴게소 집결 방법까지<br>
-          영상으로 한 번에 확인하세요
-        </div>
+          영상으로 한 번에 확인하세요.
+        </p>
       </div>
-      <span class="driving-video-arrow">→</span>
-    </a>
+
+      <a class="driving-video-block"
+         href="https://youtu.be/4VD4xNbif_Y?si=XsBsMllQUXPt35a-"
+         target="_blank" rel="noopener">
+        <div class="driving-video-icon">
+          <!-- YouTube Play -->
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 5V19L19 12L8 5Z"/>
+          </svg>
+        </div>
+        <div class="driving-video-body">
+          <div class="driving-video-title">YouTube에서 영상 보기</div>
+          <div class="driving-video-desc">새 탭에서 열림</div>
+        </div>
+        <span class="driving-video-arrow">→</span>
+      </a>
+    </div>
 
     <!-- 2. 사고 대처법 -->
     <div class="driving-section">
@@ -3677,8 +3643,7 @@ body {
     </div>
 
     <div class="driving-footer-msg">
-      안전한 운행이 곧 즐거운 여정입니다.<br>
-      <span class="accent">사고 없이, 모두 함께</span> 마지막 도착지까지 함께해요.
+      <span class="accent">사고 없이, 모두 함께</span> 마지막 도착지까지.
     </div>
   </section>
 
@@ -3880,7 +3845,7 @@ body {
     <div class="dh-label">DAY 1 · 2026. 06. 03 WED</div>
     <h1 class="dh-title">시작,<br>그리고 제주</h1>
     <div class="dh-meta">
-      <div class="dh-meta-item"><span class="dh-meta-label">총 일정</span><span class="dh-meta-val">11 Stops</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">총 일정</span><span class="dh-meta-val">10 Stops</span></div>
       <div class="dh-meta-item"><span class="dh-meta-label">출발지</span><span class="dh-meta-val">행담도</span></div>
       <div class="dh-meta-item"><span class="dh-meta-label">도착지</span><span class="dh-meta-val">제주도</span></div>
     </div>
@@ -3907,20 +3872,20 @@ body {
             <div class="tl-navi-btns" id="navibtns"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'행담도휴게소 목포방향', lat:'36.9712', lng:'126.7801'})">네비포인트 정보</button>
           </div>
-          <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차</span><span class="tl-tag-note green">웰컴킷 수령</span><span class="tl-tag-note red">시간 엄수</span></div>
         </div>
       </div>
 
-      <!-- 01:30 출발 → 함평천지 -->
+      <!-- 02:00 출발 → 함평천지 -->
       <div class="tl-item">
         <div class="tl-time-col">
-          <div class="tl-time">01:30</div>
-          <div class="tl-duration">3시간 30분</div>
+          <div class="tl-time">02:00</div>
+          <div class="tl-duration">3시간</div>
           <div class="tl-type drive">출발</div>
         </div>
         <div class="tl-body">
           <div class="tl-place">출발 — 함평천지휴게소</div>
-          <div class="tl-desc">행담도에서 출발, 함평천지 휴게소를 향해 조별 운행합니다. 약 3시간 30분 거리의 야간 드라이브.</div>
+          <div class="tl-desc">행담도에서 출발, 함평천지 휴게소를 향해 조별 운행합니다. 약 3시간 거리의 야간 드라이브.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 경유 · 목적지</div>
@@ -3930,14 +3895,14 @@ body {
             <div class="tl-navi-btns" id="navibtns-hamphyeong"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'함평천지휴게소 목포방향', lat:'35.0697', lng:'126.4782'}, [{name:'군산휴게소 목포방향', lat:'36.018831', lng:'126.797698'}])">네비포인트 정보</button>
           </div>
-          <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note orange">조별 운행</span><span class="tl-tag-note purple">야간 운전</span><span class="tl-tag-note red">안전 운전</span></div>
         </div>
       </div>
 
-      <!-- 05:00 함평천지 2차 집결 -->
+      <!-- 05:30 함평천지 2차 집결 -->
       <div class="tl-item">
         <div class="tl-time-col">
-          <div class="tl-time">05:00</div>
+          <div class="tl-time">05:30</div>
           <div class="tl-duration">30분</div>
           <div class="tl-type rest">휴식</div>
         </div>
@@ -3949,16 +3914,16 @@ body {
         </div>
       </div>
 
-      <!-- 05:30 출발 → 목포항 (삼학부두) -->
+      <!-- 06:00 출발 → 삼학부두여객선터미널 -->
       <div class="tl-item">
         <div class="tl-time-col">
-          <div class="tl-time">05:30</div>
-          <div class="tl-duration">1시간</div>
+          <div class="tl-time">06:00</div>
+          <div class="tl-duration">30분</div>
           <div class="tl-type drive">출발</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">출발 — 목포항</div>
-          <div class="tl-desc">함평천지 휴게소에서 출발, 목포항(삼학부두 여객선터미널)을 향해 조별 운행합니다.</div>
+          <div class="tl-place">출발 — 삼학부두여객선터미널</div>
+          <div class="tl-desc">함평천지 휴게소에서 출발, 삼학부두 여객선터미널을 향해 조별 운행합니다.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
@@ -3997,38 +3962,23 @@ body {
         <div class="tl-body">
           <div class="tl-place">출항 — 퀸제누비아호</div>
           <div class="tl-desc">퀸제누비아호에 승선, 제주를 향해 출항합니다. 선내 식당에서 아침식사 후 다인침대에서 충분한 휴식을 취하세요. 샤워시설 이용 가능합니다.</div>
-          <div class="tl-note-box"><span class="tl-tag-note green">아침식사</span><span class="tl-tag-note green">다인침대</span><span class="tl-tag-note green">샤워 가능</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note green">아침식사</span><span class="tl-tag-note green">다인침대</span><span class="tl-tag-note green">샤워 가능 (샤워 용품 지참)</span></div>
           <div class="tl-tags"><span class="tl-tag">퀸제누비아호</span><span class="tl-tag">선내 휴식</span></div>
         </div>
       </div>
 
-      <!-- 14:00 제주항 도착 -->
+      <!-- 14:00 제주 도착 + 조별 점심 식사 -->
       <div class="tl-item">
         <div class="tl-time-col">
           <div class="tl-time">14:00</div>
-          <div class="tl-duration">—</div>
-          <div class="tl-type spot">도착</div>
-        </div>
-        <div class="tl-body">
-          <div class="tl-place">제주 도착 — 제주항</div>
-          <div class="tl-desc">드디어 제주도! 배에서 차량을 하선합니다. MINI와 함께 제주 땅을 밟는 특별한 순간.</div>
-          <div class="tl-note-box"><span class="tl-tag-note blue">차량 하선</span></div>
-          <div class="tl-tags"><span class="tl-tag">제주 상륙</span></div>
-        </div>
-      </div>
-
-      <!-- 14:30 조별 점심 -->
-      <div class="tl-item">
-        <div class="tl-time-col">
-          <div class="tl-time">14:30</div>
-          <div class="tl-duration">약 1시간 30분</div>
+          <div class="tl-duration">약 2시간</div>
           <div class="tl-type meal">점심</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">점심식사 — 제주도</div>
+          <div class="tl-place">제주 도착 — 조별 점심 식사 진행</div>
           <div class="tl-desc">조별로 자유롭게 점심식사를 즐깁니다. 조별 조율 후 가까운 식당에서 식사하며 오후 일정을 준비하세요.</div>
-          <div class="tl-note-box"><span class="tl-tag-note yellow">조별 조율 후 식사</span></div>
-          <div class="tl-tags"><span class="tl-tag">자유식사</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note blue">차량 하선</span><span class="tl-tag-note yellow">조별 조율 후 식사</span></div>
+          <div class="tl-tags"><span class="tl-tag">제주 상륙</span><span class="tl-tag">자유식사</span></div>
         </div>
       </div>
 
@@ -4063,10 +4013,10 @@ body {
           <div class="tl-type spot">OT</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">미니런 OT — 칼호텔 메인홀</div>
+          <div class="tl-place">미니런 OT — 칼호텔 다이아몬드홀</div>
           <div class="tl-desc">2026 MINI RUN 공식 오리엔테이션. 스탭 소개와 3박 4일 전체 일정 브리핑이 진행됩니다. 중요한 공지사항을 반드시 확인하세요.</div>
-          <div class="tl-note-box"><span class="tl-tag-note purple">스탭 소개</span><span class="tl-tag-note purple">일정 브리핑</span></div>
-          <div class="tl-tags"><span class="tl-tag">공식 OT</span><span class="tl-tag">칼호텔 메인홀</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note purple">스탭 소개</span><span class="tl-tag-note purple">일정 브리핑</span><span class="tl-tag-note yellow">룸키 수령</span></div>
+          <div class="tl-tags"><span class="tl-tag">공식 OT</span><span class="tl-tag">칼호텔 다이아몬드홀</span></div>
         </div>
       </div>
 
@@ -4091,7 +4041,7 @@ body {
                  target="_blank" rel="noopener">상세정보</a>
             </div>
           </div>
-          <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 세트</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 세트</span><span class="tl-tag-note yellow">조별 착석</span><span class="tl-tag-note orange">음료 · 주류 별도 계산</span></div>
           <div class="tl-tags"><span class="tl-tag">단체 식사</span><span class="tl-tag">서귀포</span></div>
         </div>
       </div>
@@ -4392,15 +4342,15 @@ body {
         </div>
         <div class="tl-body">
           <div class="tl-place">Drive I — 집결지 이동</div>
-          <div class="tl-desc">첫 번째 드라이브 코스. 휴애리 자연생활공원 주차장까지 조별 운행합니다.</div>
+          <div class="tl-desc">첫 번째 드라이브 코스. 제주테크노파크 생물종다양성연구소까지 조별 운행합니다.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">휴애리 자연생활공원 (주차장1)</div>
+              <div class="tl-navi-dest">제주테크노파크 생물종다양성연구소</div>
               <div class="tl-navi-note">출발지: 현재 위치 (자동)</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d1"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'휴애리 자연생활공원 주차장1', lat:'33.3094', lng:'126.6354'})">네비포인트 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주테크노파크 생물종다양성연구소', lat:'33.3088', lng:'126.6680'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span></div>
           <div class="tl-tags"><span class="tl-tag">조별 운행</span></div>
@@ -4415,8 +4365,8 @@ body {
           <div class="tl-type stay">도착</div>
         </div>
         <div class="tl-body">
-          <div class="tl-place">도착 — 휴애리 주차장</div>
-          <div class="tl-desc">휴애리 주차장에서 주행 대기. 다음 드라이브 출발까지 잠시 정비합니다.</div>
+          <div class="tl-place">도착 — 제주테크노파크 생물종다양성연구소</div>
+          <div class="tl-desc">생물종다양성연구소에서 주행 대기. 다음 드라이브 출발까지 잠시 정비합니다.</div>
           <div class="tl-note-box"><span class="tl-tag-note blue">주행 대기</span></div>
           <div class="tl-tags"><span class="tl-tag">정비</span></div>
         </div>
@@ -4455,7 +4405,7 @@ body {
         </div>
         <div class="tl-body">
           <div class="tl-place">도착 — 산굼부리</div>
-          <div class="tl-desc">산굼부리에서 사진 촬영 및 화장실 이용. MINI와 함께 산굼부리 분화구를 배경으로 인증샷 남겨보세요.</div>
+          <div class="tl-desc">산굼부리에서 사진 촬영 및 화장실 이용.</div>
           <div class="tl-note-box"><span class="tl-tag-note green">사진 촬영</span><span class="tl-tag-note orange">화장실 이용</span></div>
           <div class="tl-tags"><span class="tl-tag">산굼부리</span><span class="tl-tag">분화구</span></div>
         </div>
@@ -4494,7 +4444,7 @@ body {
         </div>
         <div class="tl-body">
           <div class="tl-place">점심식사 — 자유시간</div>
-          <div class="tl-desc">김녕 일대에서 자유 점심. 제주 명물 전복죽이나 해안 카페에서 휴식을 취해보세요.</div>
+          <div class="tl-desc">김녕 카페에서 점심식사 &amp; 티타임 그리고 해안 휴식을 취해보세요.</div>
           <div class="tl-rest-blocks">
             <div class="tl-rest-block">
               <div class="tl-rest-info">
@@ -4510,11 +4460,11 @@ body {
             <div class="tl-rest-block">
               <div class="tl-rest-info">
                 <div class="tl-rest-label">☕ 매장 정보</div>
-                <div class="tl-rest-name">카페음료</div>
+                <div class="tl-rest-name">김녕카페</div>
               </div>
               <div class="tl-rest-btns">
                 <a class="tl-rest-btn"
-                   href="https://map.naver.com/p/search/%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98"
+                   href="https://map.naver.com/p/search/%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98/place/1755702918?c=14.00,0,0,2,dh&placePath=/home?fromPanelNum=2&timestamp=202604272159&locale=ko&svcName=map_pcv5&searchText=%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98&timestamp=202604272159&locale=ko&svcName=map_pcv5&searchText=%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98&fromPanelNum=2"
                    target="_blank" rel="noopener">상세정보</a>
               </div>
             </div>
@@ -4587,7 +4537,7 @@ body {
         </div>
         <div class="tl-body">
           <div class="tl-place">Drive V — 숲길 드라이브</div>
-          <div class="tl-desc">제주 동화마을을 향한 숲길 드라이브. 자유 주행으로 각자만의 루트로 달려보세요.</div>
+          <div class="tl-desc">제주 동화마을을 향한 숲길 드라이브. 안전에 주의하세요.</div>
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
@@ -4611,7 +4561,7 @@ body {
         </div>
         <div class="tl-body">
           <div class="tl-place">도착 — 동화마을 주차장</div>
-          <div class="tl-desc">동화마을 주차장에서 잠시 주행 대기. 마지막 드라이브 준비합니다.</div>
+          <div class="tl-desc">자유시간 후 주차장으로 다시 집결</div>
           <div class="tl-note-box"><span class="tl-tag-note blue">주행 대기</span></div>
           <div class="tl-tags"><span class="tl-tag">동화마을</span></div>
         </div>
