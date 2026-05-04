@@ -1011,6 +1011,37 @@ body {
   color: var(--gray);
 }
 
+/* 복사 버튼 — 각 포인트 우측 */
+.dest-popup-copy-btn {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 11px; font-weight: 600;
+  color: var(--gray-lt);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  align-self: center;
+}
+.dest-popup-copy-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.25);
+  color: var(--white);
+}
+.dest-popup-copy-btn:active { transform: scale(0.95); }
+.dest-popup-copy-btn.copied {
+  background: rgba(34,197,94,0.15);
+  border-color: rgba(34,197,94,0.5);
+  color: #4ade80;
+}
+.dest-popup-copy-btn-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
 /* ── 통화 연결 토스트 알림 (PC/맥에서 번호 복사 안내용) ── */
 .call-toast {
   position: fixed;
@@ -2401,6 +2432,395 @@ body {
 
 
 /* ══════════════════════════════
+   RULE CARD (2026 MINI RUN RULE — theme-card 구조, 인디고)
+══════════════════════════════ */
+.rule-card-section {
+  padding: 0;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+}
+.rule-card {
+  position: relative; overflow: hidden;
+  padding: 64px 48px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--black);
+  transition: background 0.4s;
+  text-decoration: none; color: inherit;
+}
+.rule-card:hover { background: #111; }
+
+.rl-bg-text {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(120px, 18vw, 220px);
+  font-weight: 900; letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(99,102,241,0.10);
+  pointer-events: none; white-space: nowrap;
+  transition: -webkit-text-stroke-color 0.4s;
+}
+.rule-card:hover .rl-bg-text {
+  -webkit-text-stroke-color: rgba(99,102,241,0.20);
+}
+.rl-accent {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #6366f1 40%, #6366f1 60%, transparent);
+}
+.rl-content {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.rl-eyebrow {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.45em;
+  color: #818cf8; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.rl-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 900; letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--white);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.rl-title-accent { color: #818cf8; }
+.rl-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--gray); margin-top: 14px; letter-spacing: 0.05em;
+}
+.rl-preview {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--gray-lt); line-height: 1.85;
+  margin-bottom: 28px;
+}
+.rl-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #818cf8;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(129,140,248,0.4);
+  transition: gap 0.2s, border-color 0.2s;
+}
+.rule-card:hover .rl-cta { gap: 16px; border-color: #818cf8; }
+.rl-arrow { font-size: 16px; transition: transform 0.2s; }
+.rule-card:hover .rl-arrow { transform: translateX(4px); }
+
+@media (max-width: 960px) {
+  .rl-content { grid-template-columns: 1fr; gap: 32px; }
+  .rule-card { padding: 48px 24px; }
+}
+
+/* ══════════════════════════════
+   RULE DETAIL PAGE (3개 카테고리 + POINT 통합)
+══════════════════════════════ */
+.rule-detail-section {
+  padding: 56px 48px 100px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* 거대 RULE 타이틀 */
+.rule-mega-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(72px, 14vw, 160px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-align: center;
+  margin: 20px 0 16px;
+  line-height: 0.9;
+  color: var(--white);
+}
+.rule-mega-sub {
+  text-align: center;
+  font-size: 14px; color: var(--gray-lt);
+  font-weight: 300; line-height: 1.85;
+  max-width: 580px; margin: 0 auto 56px;
+}
+.rule-mega-sub .accent { color: #818cf8; font-weight: 700; }
+.rule-mega-sub .accent-red { color: var(--red); font-weight: 700; }
+.rule-mega-sub .accent-purple { color: #a855f7; font-weight: 700; }
+
+.rule-section-divider {
+  margin: 56px 0 32px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+.rule-section-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.35em;
+  color: #818cf8; text-transform: uppercase;
+}
+.rule-section-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 900; letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+/* 3개 RULE 카테고리 그리드 */
+.rule-menus {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.rule-menu {
+  position: relative;
+  padding: 32px 28px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+  display: flex; flex-direction: column;
+  text-align: left;
+  font-family: inherit;
+}
+.rule-menu:hover {
+  border-color: rgba(99,102,241,0.5);
+  background: rgba(99,102,241,0.06);
+  transform: translateY(-3px);
+}
+.rule-menu:active { transform: scale(0.98); }
+.rule-menu-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+.rule-menu-icon svg {
+  width: 26px; height: 26px;
+  color: #818cf8;
+}
+.rule-menu-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 0.3em;
+  color: #818cf8; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.rule-menu-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.rule-menu-desc {
+  font-size: 13px; color: var(--gray-lt);
+  line-height: 1.6; font-weight: 300;
+  flex: 1;
+}
+.rule-menu-arrow {
+  margin-top: 20px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #818cf8;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(99,102,241,0.4);
+  align-self: flex-start;
+}
+.rule-menu-arrow-icon {
+  font-size: 14px; transition: transform 0.2s;
+}
+.rule-menu:hover .rule-menu-arrow-icon { transform: translateX(4px); }
+
+/* RULE 팝업 - INFO 팝업과 동일 구조, 인디고 톤 */
+.rule-popup-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9300;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+.rule-popup-overlay.active { display: flex; }
+.rule-popup {
+  position: relative;
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  width: 100%; max-width: 640px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  animation: popupIn 0.25s ease both;
+}
+.rule-popup-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.rule-popup-header-left {
+  display: flex; align-items: center; gap: 12px;
+}
+.rule-popup-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: #818cf8; text-transform: uppercase; font-weight: 700;
+}
+.rule-popup-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.01em;
+}
+.rule-popup-close {
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  background: none; color: var(--gray); cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.rule-popup-close:hover { border-color: var(--white); color: var(--white); }
+.rule-popup-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* RULE 항목 리스트 */
+.rule-list {
+  display: flex; flex-direction: column;
+  gap: 22px;
+}
+.rule-list-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px; align-items: flex-start;
+}
+.rule-list-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: #818cf8;
+  line-height: 1.3;
+}
+.rule-list-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14.5px; font-weight: 400;
+  color: var(--gray-lt); line-height: 1.7;
+}
+.rule-list-text strong { color: var(--white); font-weight: 700; }
+.rule-list-text .accent-red { color: var(--red); font-weight: 700; }
+.rule-list-text .accent-orange { color: #f97316; font-weight: 700; }
+.rule-list-text .accent-green { color: #22c55e; font-weight: 700; }
+.rule-list-text .accent-indigo { color: #818cf8; font-weight: 700; }
+.rule-list-text em {
+  color: var(--gray); font-style: normal;
+  font-size: 13px;
+}
+.rule-sub-line {
+  display: block;
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: rgba(34,197,94,0.06);
+  border-left: 2px solid #22c55e;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #4ade80;
+  line-height: 1.6;
+}
+.rule-sub-line.warn {
+  background: rgba(232,40,26,0.06);
+  border-left-color: var(--red);
+  color: #ff6b5e;
+}
+.rule-sub-quote {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--gray-lt);
+  line-height: 1.7;
+}
+.rule-sub-quote-mini {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--gray);
+  font-style: italic;
+}
+
+/* 팝업 푸터 - 위반 시 안내 */
+.rule-popup-footer-warn {
+  margin: 18px 0 -6px;
+  padding: 12px 16px;
+  background: rgba(232,40,26,0.08);
+  border: 1px solid rgba(232,40,26,0.3);
+  border-radius: 6px;
+  font-size: 13px;
+  color: #ff6b5e;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* POINT 통합 섹션 — 8 항목 */
+.rule-point-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 28px;
+  margin-top: 8px;
+}
+.rule-point-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px; align-items: center;
+  padding: 14px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.rule-point-row-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.rule-point-row-icon svg {
+  width: 32px; height: 32px;
+  color: var(--white);
+}
+.rule-point-row.warn .rule-point-row-icon svg { color: var(--red); }
+.rule-point-row-text {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--gray-lt); line-height: 1.5;
+}
+.rule-point-row-text::before {
+  content: '·';
+  color: var(--gray);
+  margin-right: 6px;
+  font-weight: 700;
+}
+.rule-point-row-text .accent { color: var(--red); font-weight: 700; }
+
+@media (max-width: 768px) {
+  .rule-point-grid { grid-template-columns: 1fr; gap: 0; }
+  .rule-popup { max-height: 92vh; }
+}
+@media (max-width: 640px) {
+  .rule-detail-section { padding: 40px 24px 80px; }
+  .rule-point-row { padding: 12px 0; gap: 12px; grid-template-columns: 36px 1fr; }
+  .rule-point-row-icon { width: 32px; height: 32px; }
+  .rule-point-row-icon svg { width: 26px; height: 26px; }
+  .rule-point-row-text { font-size: 13px; }
+}
+
+
+/* ══════════════════════════════
    POINT DETAIL PAGE (주의사항 상세)
 ══════════════════════════════ */
 .point-detail-section {
@@ -3195,6 +3615,34 @@ body {
     </a>
   </section>
 
+  <!-- RULE CARD (2026 MINI RUN RULE) -->
+  <section class="rule-card-section">
+    <a class="rule-card reveal" href="javascript:void(0)" onclick="showPage('page-rule'); return false;">
+      <div class="rl-bg-text">RULE</div>
+      <div class="rl-accent"></div>
+      <div class="rl-content">
+        <div class="rl-left">
+          <span class="rl-eyebrow">MINI RUN Rules</span>
+          <div class="rl-title">
+            <span>2026 MINI RUN</span>
+            <span class="rl-title-accent">RULE</span>
+          </div>
+          <p class="rl-sub">함께 즐기기 위한 약속</p>
+        </div>
+        <div class="rl-right">
+          <p class="rl-preview">
+            미니런의 원활한 운영을 위해 단체 활동에 필요한 몇 가지 규칙입니다.<br>
+            운영 · 운전 · 미풍양속까지 출발 전 꼭 숙지해주세요.
+          </p>
+          <div class="rl-cta">
+            <span>규칙 확인하기</span>
+            <span class="rl-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
   <!-- GROUP DRIVING GUIDE CARD -->
   <section class="guide-card-section">
     <a class="guide-card reveal" href="javascript:void(0)" onclick="showPage('page-driving'); return false;">
@@ -3427,6 +3875,244 @@ body {
       <button class="info-popup-close" onclick="closeInfoPopup()">✕</button>
     </div>
     <div class="info-popup-body" id="infoPopupBody">
+      <!-- JS가 동적으로 채움 -->
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     RULE DETAIL PAGE (3개 카테고리 + 8 POINT 통합)
+════════════════════════════ -->
+<div class="page detail-page" id="page-rule">
+
+  <nav class="detail-nav">
+    <button class="back-btn" onclick="goMain()">MINI RUN 2026</button>
+    <div class="detail-nav-title">2026 MINI RUN</div>
+    <div class="detail-nav-day" style="color:#818cf8;letter-spacing:0.2em;font-size:11px;">RULE</div>
+  </nav>
+
+  <section class="rule-detail-section">
+    <!-- 거대 RULE 타이틀 -->
+    <h1 class="rule-mega-title">RULE.</h1>
+    <p class="rule-mega-sub">
+      <span class="accent">미니런의 원활한 운영</span>을 위해 단체 활동에 필요한
+      <span class="accent-red">몇 가지 규칙</span>을 정하였습니다.<br>
+      <span class="accent-purple">숙지하시길</span> 바라며 이에 따른 피해가 없으시길 바랍니다.
+    </p>
+
+    <!-- 3개 카테고리 메뉴 -->
+    <div class="rule-menus">
+      <!-- 운영 규칙 = 단체 활동 -->
+      <button class="rule-menu" type="button" onclick="openRulePopup('operation')">
+        <div class="rule-menu-icon">
+          <!-- People / Group -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="17" cy="9" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 19C3 16 5.7 13.5 9 13.5C12.3 13.5 15 16 15 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M16 14.5C18.5 14.5 21 16.3 21 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-menu-eyebrow">01</div>
+        <div class="rule-menu-title">운영 규칙</div>
+        <div class="rule-menu-desc">단체 활동을 위한 4가지 약속. 공지·통솔·집중·소통 안내</div>
+        <span class="rule-menu-arrow">
+          <span>자세히 보기</span>
+          <span class="rule-menu-arrow-icon">→</span>
+        </span>
+      </button>
+
+      <!-- 운전 규칙 = 안전 운행 -->
+      <button class="rule-menu" type="button" onclick="openRulePopup('driving')">
+        <div class="rule-menu-icon">
+          <!-- Steering Wheel -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 14.5V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9.8 11L4 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14.2 11L20 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-menu-eyebrow">02</div>
+        <div class="rule-menu-title">운전 규칙</div>
+        <div class="rule-menu-desc">안전 운행 6가지. 라이트·추월·비상등·문콕·갓길·개별 운행</div>
+        <span class="rule-menu-arrow">
+          <span>자세히 보기</span>
+          <span class="rule-menu-arrow-icon">→</span>
+        </span>
+      </button>
+
+      <!-- 미풍 양속 -->
+      <button class="rule-menu" type="button" onclick="openRulePopup('morality')">
+        <div class="rule-menu-icon">
+          <!-- Heart-shield / Manners -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 21C12 21 4 16.5 4 10V5L12 3L20 5V10C20 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M9 11.5C9 10.4 9.9 9.5 11 9.5C11.6 9.5 12 9.8 12 9.8C12 9.8 12.4 9.5 13 9.5C14.1 9.5 15 10.4 15 11.5C15 13.5 12 15.5 12 15.5C12 15.5 9 13.5 9 11.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="rule-menu-eyebrow">03</div>
+        <div class="rule-menu-title">미풍 양속</div>
+        <div class="rule-menu-desc">함께 즐기기 위한 매너. 객실·반려동물·음주·소음·이성 관련 안내</div>
+        <span class="rule-menu-arrow">
+          <span>자세히 보기</span>
+          <span class="rule-menu-arrow-icon">→</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- 하단: 2026 MINI RUN 주의사항 (8 POINT 통합) -->
+    <div class="rule-section-divider">
+      <span class="rule-section-eyebrow">⚠ Safety Points</span>
+      <h2 class="rule-section-title">2026 MINI RUN 주의사항</h2>
+    </div>
+
+    <div class="rule-point-grid">
+      <!-- 1. 공지 전달중에는 집중 -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 10C3 9.4 3.4 9 4 9H7L13 5V19L7 15H4C3.4 15 3 14.6 3 14V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M16 9C17.1 9.9 17.7 10.9 17.7 12C17.7 13.1 17.1 14.1 16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M19 6C20.9 7.6 22 9.7 22 12C22 14.3 20.9 16.4 19 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          <span class="accent-red">공지</span> 전달 중에는 <span class="accent-red">집중</span>
+        </div>
+      </div>
+
+      <!-- 2. 갓길 위험 행동 -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8C3 7.4 3.4 7 4 7H7L8.5 5H15.5L17 7H20C20.6 7 21 7.4 21 8V18C21 18.6 20.6 19 20 19H4C3.4 19 3 18.6 3 18V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="17.5" cy="10" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          촬영 등을 이유로 갓길 주행 등 <span class="accent-red">위험한 행동</span> 불가
+        </div>
+      </div>
+
+      <!-- 3. 추월 금지 -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 14.5V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9.8 11L4 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14.2 11L20 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          그룹드라이빙 중 다른 <span class="accent-red">조(그룹)</span> 추월 금지
+        </div>
+      </div>
+
+      <!-- 4. 라이트 ON -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8C3 6.9 3.9 6 5 6H10C11.1 6 12 6.9 12 8V16C12 17.1 11.1 18 10 18H5C3.9 18 3 17.1 3 16V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M15 8H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M15 12H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M15 16H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          낮에도 <span class="accent-red">라이트는 항상 ON</span>
+        </div>
+      </div>
+
+      <!-- 5. 여성객실 남성 입장 불가 (warn) -->
+      <div class="rule-point-row warn">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="8.5" r="2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M7.5 17C7.5 14.5 9.5 12.5 12 12.5C14.5 12.5 16.5 14.5 16.5 17V18H7.5V17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <line x1="5.5" y1="18.5" x2="18.5" y2="5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          <span class="accent-red">여성객실에 남성 입장 불가</span>
+        </div>
+      </div>
+
+      <!-- 6. GoBack 금지 (warn) -->
+      <div class="rule-point-row warn">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M14 8L8 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M8 8L14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16 16L18 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          <span class="accent-red">GoBack</span> 금지
+        </div>
+      </div>
+
+      <!-- 7. 드론 비행 금지 -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="9" y="11" width="6" height="3" rx="0.5" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="5" cy="8" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="8" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="5" cy="16" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="19" cy="16" r="2.2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 9L9.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 9L14.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 15L9.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 15L14.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          <span class="accent-red">비행 금지 구역</span>에서 <span class="accent-red">드론 비행</span> 금지
+        </div>
+      </div>
+
+      <!-- 8. 소음 금지 -->
+      <div class="rule-point-row">
+        <div class="rule-point-row-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 10C3 9.4 3.4 9 4 9H7L12 5V19L7 15H4C3.4 15 3 14.6 3 14V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="rule-point-row-text">
+          과도한 <span class="accent-red">소음</span> 금지
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="detail-bottom-nav">
+    <button class="nav-btn prev" onclick="goMain()">BACK TO MAIN</button>
+    <button class="nav-btn next" onclick="openDay(1)">DAY 1 보기</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     RULE POPUP (운영/운전/미풍양속 공통)
+════════════════════════════ -->
+<div class="rule-popup-overlay" id="rulePopupOverlay" onclick="closeRulePopup(event)">
+  <div class="rule-popup">
+    <div class="rule-popup-header">
+      <div class="rule-popup-header-left">
+        <span class="rule-popup-tag" id="rulePopupTag">RULE</span>
+        <span class="rule-popup-title" id="rulePopupTitle">규칙</span>
+      </div>
+      <button class="rule-popup-close" onclick="closeRulePopup()">✕</button>
+    </div>
+    <div class="rule-popup-body" id="rulePopupBody">
       <!-- JS가 동적으로 채움 -->
     </div>
   </div>
@@ -5609,6 +6295,67 @@ body {
       '<a class="tl-navi-btn tl-navi-kakao" href="' + h.k + '">카카오맵으로 길찾기</a>';
   }
 
+  // ════════════════════════════════════════════════════════════════════
+  // 🐛 [DEBUG v5] iOS 카카오맵 — 경유지 개수별 정밀 임계점 테스트
+  //              0개 ✅ / 3개 ❌ 확정. 1개·2개 정확한 동작 확인
+  // ════════════════════════════════════════════════════════════════════
+  function renderMultiViaNaviDebug(id, dst, vias) {
+    var wrap = document.getElementById(id);
+    if (!wrap) return;
+    var v = vias || [];
+
+    function buildVp(list) {
+      return list.map(function(p, i) {
+        var key = (i === 0) ? 'vp' : ('vp' + (i + 1));
+        return key + '=' + p.lat + ',' + p.lng;
+      }).join('&');
+    }
+    function makeKakaoUrl(viasList) {
+      var vp = buildVp(viasList);
+      return 'kakaomap://route?' + (vp ? vp + '&' : '') + 'ep=' + dst.lat + ',' + dst.lng + '&by=car';
+    }
+    function btn(label, url, color) {
+      return '<a class="tl-navi-btn tl-navi-kakao" style="font-size:11px;padding:9px;text-align:left;' +
+             (color ? 'background:' + color + ';' : '') +
+             '" href="' + url + '">' + label + '</a>';
+    }
+
+    var url0  = makeKakaoUrl([]);
+    var url1a = makeKakaoUrl([v[0]]);
+    var url1b = makeKakaoUrl([v[1]]);
+    var url1c = makeKakaoUrl([v[2]]);
+    var url2a = makeKakaoUrl([v[0], v[1]]);
+    var url2b = makeKakaoUrl([v[0], v[2]]);
+    var url2c = makeKakaoUrl([v[1], v[2]]);
+    var url3  = makeKakaoUrl(v);
+
+    wrap.innerHTML =
+      '<div style="display:flex;flex-direction:column;gap:8px;width:100%">' +
+        '<div style="font-size:12px;color:#FEE500;margin-bottom:2px;line-height:1.5;font-weight:700">' +
+          '🔬 v5 — 경유지 개수별 정밀 테스트' +
+        '</div>' +
+        '<div style="font-size:10px;color:#aaa;margin-bottom:6px;line-height:1.5">' +
+          '각 버튼 → 카카오맵 진입 → 안내시작 응답 여부 확인' +
+        '</div>' +
+
+        '<div style="font-size:10px;color:#22c55e;margin-top:8px;letter-spacing:0.05em;font-weight:700">📍 경유지 0개 (대조군 — 작동 확인됨)</div>' +
+        btn('① 도착 → 김녕해수욕장 (경유 없음)', url0) +
+
+        '<div style="font-size:10px;color:#FEE500;margin-top:12px;letter-spacing:0.05em;font-weight:700">🔍 경유지 1개</div>' +
+        btn('② 송당리 → 도착', url1a) +
+        btn('③ 김녕리 산 70-8 → 도착', url1b) +
+        btn('④ 김녕리 369 → 도착', url1c) +
+
+        '<div style="font-size:10px;color:#f97316;margin-top:12px;letter-spacing:0.05em;font-weight:700">🔍 경유지 2개</div>' +
+        btn('⑤ 송당리 → 김녕산 → 도착', url2a) +
+        btn('⑥ 송당리 → 김녕369 → 도착', url2b) +
+        btn('⑦ 김녕산 → 김녕369 → 도착', url2c) +
+
+        '<div style="font-size:10px;color:#ef4444;margin-top:12px;letter-spacing:0.05em;font-weight:700">❌ 경유지 3개 (현재 - 무응답 확인됨)</div>' +
+        btn('⑧ 송당리 → 김녕산 → 김녕369 → 도착', url3, 'rgba(239,68,68,0.15)') +
+      '</div>';
+  }
+
   var PLACES = {
     samhak:   { name: '삼학부두여객선터미널', lat: 34.7830,  lng: 126.3984  },
     kalhotel: { name: '서귀포 칼호텔',        lat: 33.2465,  lng: 126.5818  },
@@ -5643,7 +6390,8 @@ body {
       PLACES.harye_san
     ]);
     // Drive III(10:30) : 송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장 주차장
-    renderMultiViaNavi('navibtns-day3-d3', PLACES.kimnyeong_beach, [
+    // 🐛 iOS 다중 경유지 안내시작 버튼 미응답 버그 디버그용 — 4가지 URL 방식 비교
+    renderMultiViaNaviDebug('navibtns-day3-d3', PLACES.kimnyeong_beach, [
       PLACES.songdang,
       PLACES.kimnyeong_san,
       PLACES.kimnyeong_369
@@ -5878,6 +6626,7 @@ function openDestPopup(dest, vias) {
   var pointsEl = document.getElementById('popupPoints');
   var html = '';
   vias.forEach(function (v, i) {
+    var copyText = v.lat && v.lng ? (v.name + ' (' + v.lat + ', ' + v.lng + ')') : v.name;
     html +=
       '<div class="dest-popup-point via">' +
         '<div class="dest-popup-point-tag">경유지 ' + (i + 1) + '</div>' +
@@ -5885,8 +6634,13 @@ function openDestPopup(dest, vias) {
           '<div class="dest-popup-point-name">' + escapeHtml(v.name) + '</div>' +
           (v.lat && v.lng ? '<div class="dest-popup-point-coord">' + v.lat + ', ' + v.lng + '</div>' : '') +
         '</div>' +
+        '<button class="dest-popup-copy-btn" type="button" onclick="copyPlaceInfo(this, ' + JSON.stringify(copyText).replace(/"/g, '&quot;') + ')">' +
+          '<span class="dest-popup-copy-btn-icon">📋</span>' +
+          '<span class="dest-popup-copy-btn-label">복사</span>' +
+        '</button>' +
       '</div>';
   });
+  var destCopyText = dest.name + ' (' + dest.lat + ', ' + dest.lng + ')';
   html +=
     '<div class="dest-popup-point dest">' +
       '<div class="dest-popup-point-tag">목적지</div>' +
@@ -5894,6 +6648,10 @@ function openDestPopup(dest, vias) {
         '<div class="dest-popup-point-name">' + escapeHtml(dest.name) + '</div>' +
         '<div class="dest-popup-point-coord">' + dest.lat + ', ' + dest.lng + '</div>' +
       '</div>' +
+      '<button class="dest-popup-copy-btn" type="button" onclick="copyPlaceInfo(this, ' + JSON.stringify(destCopyText).replace(/"/g, '&quot;') + ')">' +
+        '<span class="dest-popup-copy-btn-icon">📋</span>' +
+        '<span class="dest-popup-copy-btn-label">복사</span>' +
+      '</button>' +
     '</div>';
   pointsEl.innerHTML = html;
 
@@ -5905,6 +6663,55 @@ function closeDestPopup(e) {
   if (e && e.target !== document.getElementById('destPopupOverlay')) return;
   document.getElementById('destPopupOverlay').classList.remove('active');
   document.body.style.overflow = '';
+}
+
+// ── 네비포인트 정보 - 장소명+좌표 복사 ──
+// btn  : 클릭된 버튼 엘리먼트 (UI 피드백용)
+// text : 복사할 텍스트 ("장소명 (lat, lng)")
+function copyPlaceInfo(btn, text) {
+  if (!text) return;
+  var done = function () {
+    if (!btn) return;
+    var label = btn.querySelector('.dest-popup-copy-btn-label');
+    var icon  = btn.querySelector('.dest-popup-copy-btn-icon');
+    var origLabel = label ? label.textContent : '복사';
+    var origIcon  = icon  ? icon.textContent  : '📋';
+    btn.classList.add('copied');
+    if (label) label.textContent = '복사됨';
+    if (icon)  icon.textContent  = '✓';
+    setTimeout(function () {
+      btn.classList.remove('copied');
+      if (label) label.textContent = origLabel;
+      if (icon)  icon.textContent  = origIcon;
+    }, 1500);
+  };
+
+  // 모던 브라우저 - Clipboard API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {
+      legacyCopy(text); done();
+    });
+    return;
+  }
+  // Fallback - execCommand
+  legacyCopy(text);
+  done();
+}
+
+function legacyCopy(text) {
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  } catch (e) {}
 }
 
 // ── A팀/B팀 목적지 팝업 ──
@@ -6127,6 +6934,144 @@ function openInfoPopup(type) {
 function closeInfoPopup(e) {
   if (e && e.target !== document.getElementById('infoPopupOverlay')) return;
   document.getElementById('infoPopupOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════
+// RULE 팝업 — 운영 / 운전 / 미풍양속 공통
+// 각 카테고리 클릭 시 해당 콘텐츠를 동적으로 렌더
+// ══════════════════════════════════════════
+var RULE_CONTENT = {
+  operation: {
+    tag: '운영 규칙',
+    title: '단체 활동 — 4가지 약속',
+    html:
+      '<div class="rule-list">' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">1</div>' +
+          '<div class="rule-list-text">' +
+            '<strong class="accent-green">공지 전달 시 집중</strong> 부탁드립니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">2</div>' +
+          '<div class="rule-list-text">' +
+            '<strong>주차 유도 시 창문을 열어주세요.</strong>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">3</div>' +
+          '<div class="rule-list-text">' +
+            '조장은 항상 <strong class="accent-green">안전에 대해 주의</strong> 하시고, ' +
+            '조원은 <strong class="accent-green">조장의 통솔에 협조</strong> 바랍니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">4</div>' +
+          '<div class="rule-list-text">' +
+            '<strong class="accent-green">개인행동은 불가</strong>하나 불가피한 경우 전달 바랍니다.' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+  },
+  driving: {
+    tag: '운전 규칙',
+    title: '안전 운행 — 6가지 수칙',
+    html:
+      '<div class="rule-list">' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">1</div>' +
+          '<div class="rule-list-text">' +
+            '주행 시에는 항상 <strong class="accent-orange">전조등(데이 라이트)을 ON</strong> 합니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">2</div>' +
+          '<div class="rule-list-text">' +
+            '그룹 주행 중 <strong class="accent-red">다른 조의 추월을 금지</strong> 합니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">3</div>' +
+          '<div class="rule-list-text">' +
+            '<strong class="accent-orange">앞차량이 비상등 사용시(on / off)</strong> 함께 비상등을 사용하여 뒷차에 전달합니다.' +
+            '<span class="rule-sub-line">' +
+              '<strong>비상등 점멸 상황</strong> : 요철 발견, 급 감속, 과속 카메라 및 위급 상황' +
+            '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">4</div>' +
+          '<div class="rule-list-text">' +
+            '하차 시 <strong class="accent-orange">문콕</strong>을 조심합니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">5</div>' +
+          '<div class="rule-list-text">' +
+            '사진 촬영 등을 이유로 <strong>갓길 주행</strong> 및 <strong>안전벨트 미착용</strong> 등의 위험 행동을 금합니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">6</div>' +
+          '<div class="rule-list-text">' +
+            '<strong>개별 운행은 허용되지 않으며</strong>, 긴급상황 시 조장에게 알려 공유합니다.' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+  },
+  morality: {
+    tag: '미풍 양속',
+    title: '함께 즐기기 위한 매너',
+    html:
+      '<div class="rule-list">' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">1</div>' +
+          '<div class="rule-list-text">' +
+            '<strong class="accent-red">여성객실에 남성의 출입을 금합니다.</strong> ' +
+            '<em>(모임은 남성 객실에서)</em>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">2</div>' +
+          '<div class="rule-list-text">' +
+            '<strong>공유, 문의 없이 반려동물 동반을 금합니다.</strong>' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">3</div>' +
+          '<div class="rule-list-text">' +
+            '<strong>과도한 음주로 인한 ALL4 🐒 및 소음으로 인한 피해</strong>를 금합니다.' +
+          '</div>' +
+        '</div>' +
+        '<div class="rule-list-item">' +
+          '<div class="rule-list-num">5</div>' +
+          '<div class="rule-list-text">' +
+            '<strong>이성에게 과도한 대쉬를 금합니다.</strong>' +
+            '<span class="rule-sub-quote">' +
+              '<em>\'잠시 밖에서 이야기좀..\', \'제 마음이..\', \'이런적 처음이라..\' 금지</em>' +
+            '</span>' +
+            '<span class="rule-sub-quote-mini">여기 나는쏠로 아님 미니런임</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="rule-popup-footer-warn">🚩 위반 시 퇴출 및 강퇴를 진행 합니다.</div>'
+  }
+};
+
+function openRulePopup(type) {
+  var data = RULE_CONTENT[type];
+  if (!data) return;
+  document.getElementById('rulePopupTag').textContent = data.tag;
+  document.getElementById('rulePopupTitle').textContent = data.title;
+  document.getElementById('rulePopupBody').innerHTML = data.html;
+  document.getElementById('rulePopupOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRulePopup(e) {
+  if (e && e.target !== document.getElementById('rulePopupOverlay')) return;
+  document.getElementById('rulePopupOverlay').classList.remove('active');
   document.body.style.overflow = '';
 }
 
