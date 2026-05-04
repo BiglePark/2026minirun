@@ -3461,6 +3461,34 @@ body {
     </div>
   </section>
 
+  <!-- NAVI TEST CARD -->
+  <section class="info-card-section">
+    <a class="info-card reveal" href="javascript:void(0)" onclick="openNaviTest(); return false;">
+      <div class="if-bg-text">NAVI</div>
+      <div class="if-accent"></div>
+      <div class="if-content">
+        <div class="if-left">
+          <span class="if-eyebrow">Kakao Map Test</span>
+          <div class="if-title">
+            <span>네비</span>
+            <span class="if-title-accent">테스트</span>
+          </div>
+          <p class="if-sub">경유지 포함 카카오맵 연결 테스트</p>
+        </div>
+        <div class="if-right">
+          <p class="if-preview">
+            지정 좌표를 카카오맵에 전달합니다.<br>
+            경유지 1곳과 목적지 1곳을 좌표로 전달합니다.
+          </p>
+          <div class="if-cta">
+            <span>카카오맵 연결하기</span>
+            <span class="if-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
   <!-- THEME CARD -->
   <section class="theme-card-section">
     <div class="theme-card reveal" onclick="showPage('page-theme')">
@@ -3608,34 +3636,6 @@ body {
           </p>
           <div class="if-cta">
             <span>정보 확인하기</span>
-            <span class="if-arrow">→</span>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- NAVI TEST CARD -->
-  <section class="info-card-section">
-    <a class="info-card reveal" href="javascript:void(0)" onclick="openNaviTest(); return false;">
-      <div class="if-bg-text">NAVI</div>
-      <div class="if-accent"></div>
-      <div class="if-content">
-        <div class="if-left">
-          <span class="if-eyebrow">Kakao Map Test</span>
-          <div class="if-title">
-            <span>네비</span>
-            <span class="if-title-accent">테스트</span>
-          </div>
-          <p class="if-sub">경유지 포함 카카오맵 연결 테스트</p>
-        </div>
-        <div class="if-right">
-          <p class="if-preview">
-            지정 좌표를 카카오맵에 전달합니다.<br>
-            경유지 1곳과 목적지 1곳으로 경로 화면을 엽니다.
-          </p>
-          <div class="if-cta">
-            <span>카카오맵 연결하기</span>
             <span class="if-arrow">→</span>
           </div>
         </div>
@@ -6361,13 +6361,15 @@ function openNaviTest() {
   // KakaoMap route scheme requires: latitude,longitude.
   // User-provided coordinates were longitude,latitude, so they are converted below.
   var waypoint = { name: '네비 테스트 경유지', lat: '37.5385036573159', lng: '127.125111736335' };
-  var destination = { name: '네비 테스트 목적지', lat: '37.537671364822', lng: '127.125911422406' };
+  var destination = { name: '네비 테스트 목적지', lat: '37.5176236317445', lng: '127.112429917071' };
 
   function buildQuery(startLat, startLng) {
+    // KakaoMap URL Scheme uses latitude,longitude and is more reliable with raw commas.
+    // Do not encode the commas inside sp/vp/ep.
     return [
-      'sp=' + encodeURIComponent(startLat + ',' + startLng),
-      'vp=' + encodeURIComponent(waypoint.lat + ',' + waypoint.lng),
-      'ep=' + encodeURIComponent(destination.lat + ',' + destination.lng),
+      'sp=' + startLat + ',' + startLng,
+      'vp=' + waypoint.lat + ',' + waypoint.lng,
+      'ep=' + destination.lat + ',' + destination.lng,
       'by=car'
     ].join('&');
   }
