@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 MINI RUN</title>
 
-<!-- Kakao JavaScript SDK — 카카오맵 링크를 카카오내비 실행으로 전환 -->
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js"></script>
+<!-- Kakao JavaScript SDK — 카카오내비 SDK 직접 실행 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <!-- ════════════════════════════
      앱 아이콘 (홈 화면 추가) — iOS / Android 대응
@@ -5743,12 +5743,12 @@ body {
 
 <script>
 // ══════════════════════════════════════════
-// KakaoMap 링크 → KakaoNavi 실행 브릿지
+// KakaoNavi SDK 직접 실행 브릿지
 // 기존 HTML의 kakaomap://route / map.kakao.com 링크를 가로채서
 // Kakao.Navi.start() 방식으로 카카오내비 앱을 바로 실행합니다.
 // ══════════════════════════════════════════
 (function () {
-  var KAKAO_JAVASCRIPT_KEY = '89291c1d793d1993078fe312ce30bed0';
+  var KAKAO_JAVASCRIPT_KEY = 'e8285617d6891df4ebe55bfeeff82c83';
 
   function ensureKakaoReady() {
     if (!window.Kakao || !Kakao.Navi) {
@@ -5895,6 +5895,39 @@ body {
 // onclick/JS redirect 방식은 Safari가 차단
 // ══════════════════════════════════════════
 (function () {
+  function naviAttr(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function kakaoNaviBtn(name, lat, lng, vias, label) {
+    return '<a class="tl-navi-btn tl-navi-kakao" href="javascript:void(0)"' +
+      ' data-kakao-navi="1"' +
+      ' data-name="' + naviAttr(name) + '"' +
+      ' data-lat="' + naviAttr(lat) + '"' +
+      ' data-lng="' + naviAttr(lng) + '"' +
+      ' data-vias="' + naviAttr(JSON.stringify(vias || [])) + '">' +
+      (label || '카카오내비로 길찾기') +
+      '</a>';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[data-kakao-navi="1"]') : null;
+    if (!a) return;
+    e.preventDefault();
+    var vias = [];
+    try { vias = JSON.parse(a.getAttribute('data-vias') || '[]'); } catch (err) { vias = []; }
+    return startKakaoNaviFromPoint(
+      a.getAttribute('data-name') || '목적지',
+      Number(a.getAttribute('data-lat')),
+      Number(a.getAttribute('data-lng')),
+      vias
+    );
+  }, true);
+
   var name = encodeURIComponent('행담도휴게소 목포방향');
   var lat  = 36.9712;
   var lng  = 126.7801;
@@ -5944,8 +5977,7 @@ body {
   function renderNaviBtns() {
     var wrap = document.getElementById('navibtns');
     if (!wrap) return;
-    wrap.innerHTML =
-      '<a class="tl-navi-btn tl-navi-kakao" href="' + kakaoHref + '">카카오내비로 길찾기</a>';
+    wrap.innerHTML = kakaoNaviBtn('행담도휴게소 목포방향', lat, lng, [], '카카오내비로 길찾기');
   }
 
   // ── 목포항 코스
@@ -6018,8 +6050,7 @@ body {
   function renderNaviBtns2() {
     var wrap2 = document.getElementById('navibtns2');
     if (!wrap2) return;
-    wrap2.innerHTML =
-      '<a class="tl-navi-btn tl-navi-kakao" href="' + kakaoHref2 + '">카카오내비로 길찾기</a>';
+    wrap2.innerHTML = kakaoNaviBtn(dst.name, dst.lat, dst.lng, [via], '카카오내비로 길찾기');
   }
 
   // ── 함평천지휴게소 코스
@@ -6099,8 +6130,7 @@ body {
   function renderHamphyeongNavi() {
     var wrap = document.getElementById('navibtns-hamphyeong');
     if (!wrap) return;
-    wrap.innerHTML =
-      '<a class="tl-navi-btn tl-navi-kakao" href="' + hamKakao + '">카카오내비로 길찾기</a>';
+    wrap.innerHTML = kakaoNaviBtn(hamDst.name, hamDst.lat, hamDst.lng, [hamVia], '카카오내비로 길찾기');
   }
 
   function makeNaviHrefs(p) {
@@ -6147,8 +6177,7 @@ body {
     var wrap = document.getElementById(id);
     if (!wrap) return;
     var h = makeNaviHrefs(p);
-    wrap.innerHTML =
-      '<a class="tl-navi-btn tl-navi-kakao" href="' + h.k + '">카카오내비로 길찾기</a>';
+    wrap.innerHTML = kakaoNaviBtn(p.name, p.lat, p.lng, [], '카카오내비로 길찾기');
   }
 
   // ══════════════════════════════════════════
@@ -6235,8 +6264,7 @@ body {
     var wrap = document.getElementById(id);
     if (!wrap) return;
     var h = makeMultiViaHrefs(dst, vias || []);
-    wrap.innerHTML =
-      '<a class="tl-navi-btn tl-navi-kakao" href="' + h.k + '">카카오내비로 길찾기</a>';
+    wrap.innerHTML = kakaoNaviBtn(dst.name, dst.lat, dst.lng, vias || [], '카카오내비로 길찾기');
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -6357,8 +6385,7 @@ body {
       PLACES.harye_san
     ]);
     // Drive III(10:30) : 송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장 주차장
-    // 🐛 iOS 다중 경유지 안내시작 버튼 미응답 버그 디버그용 — 4가지 URL 방식 비교
-    renderMultiViaNaviDebug('navibtns-day3-d3', PLACES.kimnyeong_beach, [
+    renderMultiViaNavi('navibtns-day3-d3', PLACES.kimnyeong_beach, [
       PLACES.songdang,
       PLACES.kimnyeong_san,
       PLACES.kimnyeong_369
@@ -6713,9 +6740,12 @@ function openTeamPopup(team, name, lat, lng) {
   nameEl.textContent = name;
   coordEl.textContent = lat + ', ' + lng;
 
-  // 카카오맵 길찾기 링크
-  var hrefs = makeSingleDestHrefs(name, lat, lng);
-  kakao.href = hrefs.k;
+  // 카카오내비 직접 실행
+  kakao.href = 'javascript:void(0)';
+  kakao.removeAttribute('target');
+  kakao.onclick = function () {
+    return startKakaoNaviFromPoint(name, lat, lng, []);
+  };
 
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
