@@ -3615,6 +3615,34 @@ body {
     </a>
   </section>
 
+  <!-- NAVI TEST CARD -->
+  <section class="info-card-section">
+    <a class="info-card reveal" href="javascript:void(0)" onclick="openNaviTest(); return false;">
+      <div class="if-bg-text">NAVI</div>
+      <div class="if-accent"></div>
+      <div class="if-content">
+        <div class="if-left">
+          <span class="if-eyebrow">Kakao Map Test</span>
+          <div class="if-title">
+            <span>네비</span>
+            <span class="if-title-accent">테스트</span>
+          </div>
+          <p class="if-sub">경유지 포함 카카오맵 연결 테스트</p>
+        </div>
+        <div class="if-right">
+          <p class="if-preview">
+            지정 좌표를 카카오맵에 전달합니다.<br>
+            경유지 1곳과 목적지 1곳으로 경로 화면을 엽니다.
+          </p>
+          <div class="if-cta">
+            <span>카카오맵 연결하기</span>
+            <span class="if-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
   <!-- RULE CARD (2026 MINI RUN RULE) -->
   <section class="rule-card-section">
     <a class="rule-card reveal" href="javascript:void(0)" onclick="showPage('page-rule'); return false;">
@@ -6090,36 +6118,31 @@ body {
   }
 
   // ══════════════════════════════════════════
-  // Day 3 Drive III 전용 — 카카오맵 경유지 포함 길찾기
-  // 송당리 → 김녕리 산70-8 → 김녕리 369 → 김녕해수욕장 주차장
+  // Day 3 Drive III 전용 — 경유지 유실 방지용 순차 길안내
   //
-  // 중요:
-  // - "현재 위치"를 출발지로 넣으면 서울/육지에서 테스트할 때 제주 경유지가 무시되거나
-  //   카카오맵이 최적화/검색 화면으로 빠질 수 있다.
-  // - 이 코스는 제주 현지 드라이브 구간이므로 출발지를 송당리로 고정한다.
-  // - 카카오맵 URL Scheme은 경유지를 vp, vp2, ... vp5 형식으로 전달한다.
+  // 카카오맵의 다중 경유지 route 화면에서 사용자가 "안내 시작"을 누르면
+  // 앱이 실제 출발지를 현재 위치로 다시 잡으면서 vp/vp2가 사라지는 케이스가 있다.
+  // 외부 HTML/URL Scheme에서 카카오맵 내부의 안내 시작 동작을 강제로 제어할 수 없으므로,
+  // 경유지를 절대 놓치지 않도록 각 지점을 목적지로 하는 1구간 단위 안내로 분리한다.
+  //
+  // 순서:
+  // ① 송당리 집결/출발지 → ② 김녕리 산70-8 → ③ 김녕리 369 → ④ 김녕해수욕장
   // ══════════════════════════════════════════
   function renderKakaoMapDriveIII(id) {
     var wrap = document.getElementById(id);
     if (!wrap) return;
 
-    var start = PLACES.songdang;
-    var via1  = PLACES.kimnyeong_san;
-    var via2  = PLACES.kimnyeong_369;
-    var dst   = PLACES.kimnyeong_beach;
+    var points = [
+      { step: '①', label: '송당리 집결지로 이동', desc: '현재 위치 → 송당리', place: PLACES.songdang },
+      { step: '②', label: '경유지 1 길안내', desc: '송당리 → 김녕리 산70-8', place: PLACES.kimnyeong_san },
+      { step: '③', label: '경유지 2 길안내', desc: '김녕리 산70-8 → 김녕리 369', place: PLACES.kimnyeong_369 },
+      { step: '④', label: '도착지 길안내', desc: '김녕리 369 → 김녕해수욕장', place: PLACES.kimnyeong_beach }
+    ];
 
-    var query = [
-      'sp='  + start.lat + ',' + start.lng,
-      'vp='  + via1.lat  + ',' + via1.lng,
-      'vp2=' + via2.lat  + ',' + via2.lng,
-      'ep='  + dst.lat   + ',' + dst.lng,
-      'by=car'
-    ].join('&');
+    function kakaoSingleDestinationUrl(p) {
+      var query = 'ep=' + p.lat + ',' + p.lng + '&by=car';
+      var webUrl = 'https://m.map.kakao.com/scheme/route?' + query;
 
-    var appUrl = 'kakaomap://route?' + query;
-    var webUrl = 'https://m.map.kakao.com/scheme/route?' + query;
-
-    function getKakaoUrl() {
       if (isAOS) {
         return 'intent://route?' + query +
           '#Intent;scheme=kakaomap' +
@@ -6129,29 +6152,45 @@ body {
           ';S.browser_fallback_url=' + encodeURIComponent(webUrl) +
           ';end';
       }
-      return appUrl;
+
+      return 'kakaomap://route?' + query;
     }
 
-    window.openKakaoMapDriveIII = function () {
+    window.openDriveIIIStep = function (idx) {
+      var item = points[idx];
+      if (!item || !item.place) return;
+
+      var fallbackQuery = 'ep=' + item.place.lat + ',' + item.place.lng + '&by=car';
+      var fallbackUrl = 'https://m.map.kakao.com/scheme/route?' + fallbackQuery;
       var opened = false;
-      var fallbackTimer = setTimeout(function () {
-        if (!opened) window.location.href = webUrl;
+      var timer = setTimeout(function () {
+        if (!opened) window.location.href = fallbackUrl;
       }, 1300);
 
       window.addEventListener('pagehide', function () {
         opened = true;
-        clearTimeout(fallbackTimer);
+        clearTimeout(timer);
       }, { once: true });
 
-      window.location.href = getKakaoUrl();
+      window.location.href = kakaoSingleDestinationUrl(item.place);
     };
 
-    wrap.innerHTML =
-      '<button type="button" class="tl-navi-btn tl-navi-kakao" ' +
-      'onclick="openKakaoMapDriveIII()">카카오맵으로 길찾기</button>' +
-      '<div style="margin-top:6px;font-size:10px;line-height:1.45;color:#aaa">' +
-      '송당리 → 김녕리 산70-8 → 김녕리 369 → 김녕해수욕장' +
-      '</div>';
+    var html = '';
+    html += '<div style="display:grid;gap:7px">';
+    points.forEach(function (item, idx) {
+      html += '<button type="button" class="tl-navi-btn tl-navi-kakao" ' +
+              'style="width:100%;text-align:left;line-height:1.35;padding:10px 11px" ' +
+              'onclick="openDriveIIIStep(' + idx + ')">' +
+              '<strong>' + item.step + ' ' + item.label + '</strong>' +
+              '<span style="display:block;font-size:10px;opacity:.85;margin-top:2px">' + item.desc + '</span>' +
+              '</button>';
+    });
+    html += '</div>';
+    html += '<div style="margin-top:7px;font-size:10px;line-height:1.45;color:#aaa">' +
+            '카카오맵 안내 시작 시 경유지가 사라지는 문제를 막기 위해 1구간씩 순차 안내합니다.' +
+            '</div>';
+
+    wrap.innerHTML = html;
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -6316,6 +6355,44 @@ body {
   renderSimpleNavi('navibtns-day2-d5', PLACES.kal_p2);
 }
 })();
+
+// ── NAVI TEST: KakaoMap route with 1 waypoint + destination ──
+function openNaviTest() {
+  // KakaoMap route scheme uses coordinates as latitude,longitude.
+  // User-provided coordinates are longitude,latitude.
+  var waypoint = { name: '네비 테스트 경유지', lat: '37.5385036573159', lng: '127.125111736335' };
+  var destination = { name: '네비 테스트 목적지', lat: '37.537671364822', lng: '127.125911422406' };
+
+  var query =
+    'vp=' + encodeURIComponent(waypoint.lat + ',' + waypoint.lng) +
+    '&ep=' + encodeURIComponent(destination.lat + ',' + destination.lng) +
+    '&by=car';
+
+  var webFallback = 'https://m.map.kakao.com/scheme/route?' + query;
+  var appUrl = 'kakaomap://route?' + query;
+
+  if (typeof isAOS !== 'undefined' && isAOS) {
+    appUrl = 'intent://route?' + query +
+      '#Intent;scheme=kakaomap' +
+      ';action=android.intent.action.VIEW' +
+      ';category=android.intent.category.BROWSABLE' +
+      ';package=net.daum.android.map' +
+      ';S.browser_fallback_url=' + encodeURIComponent(webFallback) +
+      ';end';
+  }
+
+  var movedToApp = false;
+  var timer = setTimeout(function () {
+    if (!movedToApp) window.location.href = webFallback;
+  }, 1200);
+
+  window.addEventListener('pagehide', function () {
+    movedToApp = true;
+    clearTimeout(timer);
+  }, { once: true });
+
+  window.location.href = appUrl;
+}
 
 // ── Page router ──
 let currentPage = 'main';
