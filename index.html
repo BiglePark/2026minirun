@@ -5367,7 +5367,7 @@ body {
               <div class="tl-navi-dest">송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장</div>
             </div>
             <div class="tl-navi-btns" id="navibtns-day3-d3"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'김녕해수욕장 주차장', lat:'33.5574', lng:'126.7593'}, [{name:'송당리 2233-1', lat:'33.4465', lng:'126.7612'}, {name:'김녕리 산 70-8', lat:'33.5162', lng:'126.7533'}, {name:'김녕리 369', lat:'33.5516', lng:'126.7668'}])">네비포인트 정보</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'김녕해수욕장 주차장', lat:'33.5571072797716', lng:'126.759838589893'}, [{name:'제주시 구좌읍 송당리 2233-1', lat:'33.4464923692654', lng:'126.7611901197'}, {name:'구좌읍 김녕리 산 70-8', lat:'33.5162010634708', lng:'126.753325166758'}, {name:'구좌읍 김녕리 369', lat:'33.5515702449281', lng:'126.766824901995'}])">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note orange">안전 운전</span><span class="tl-tag-note purple">오솔길</span></div>
           <div class="tl-tags"><span class="tl-tag">송당리</span><span class="tl-tag">김녕</span></div>
@@ -6089,64 +6089,139 @@ body {
       '<a class="tl-navi-btn tl-navi-kakao" href="' + h.k + '">카카오맵으로 길찾기</a>';
   }
 
+  // ══════════════════════════════════════════
+  // Day 3 Drive III 전용 — 카카오맵 앱 길찾기
+  // 현재 위치 → 송당리 → 김녕리 산70-8 → 김녕리 369 → 김녕해수욕장 주차장
+  // ══════════════════════════════════════════
+  function renderKakaoMapDriveIII(id) {
+    var wrap = document.getElementById(id);
+    if (!wrap) return;
+
+    var dst = PLACES.kimnyeong_beach;
+    var vias = [
+      PLACES.songdang,
+      PLACES.kimnyeong_san,
+      PLACES.kimnyeong_369
+    ];
+
+    var params = [];
+
+    // 카카오맵 route scheme: 출발지는 현재 위치 사용을 위해 생략
+    vias.forEach(function (p, i) {
+      var key = (i === 0) ? 'vp' : 'vp' + (i + 1);
+      params.push(key + '=' + p.lat + ',' + p.lng);
+    });
+
+    params.push('ep=' + dst.lat + ',' + dst.lng);
+    params.push('by=CAR');
+
+    var kakaoAppUrl = 'kakaomap://route?' + params.join('&');
+    var kakaoWebUrl = 'https://map.kakao.com/link/to/' +
+      encodeURIComponent(dst.name) + ',' + dst.lat + ',' + dst.lng;
+
+    function openKakaoMapDriveIII() {
+      var timer = setTimeout(function () {
+        window.location.href = kakaoWebUrl;
+      }, 900);
+
+      window.location.href = kakaoAppUrl;
+
+      window.addEventListener('pagehide', function () {
+        clearTimeout(timer);
+      }, { once: true });
+    }
+
+    window.openKakaoMapDriveIII = openKakaoMapDriveIII;
+
+    wrap.innerHTML =
+      '<button type="button" class="tl-navi-btn tl-navi-kakao" ' +
+      'onclick="openKakaoMapDriveIII()">카카오맵으로 길찾기</button>' +
+      '<div style="margin-top:6px;font-size:10px;line-height:1.45;color:#aaa">' +
+      '현재 위치 기준 · 송당리 → 김녕리 산70-8 → 김녕리 369 → 김녕해수욕장' +
+      '</div>';
+  }
+
   // ════════════════════════════════════════════════════════════════════
-  // 🐛 [DEBUG v5] iOS 카카오맵 — 경유지 개수별 정밀 임계점 테스트
-  //              0개 ✅ / 3개 ❌ 확정. 1개·2개 정확한 동작 확인
+  // 🐛 [DEBUG v7] 카카오맵 경유지 무시 → 진짜 해결책 4가지
+  //              1. 카카오내비 정확한 URL (kakaomap://navi)
+  //              2. T맵 사용 (정책 다름)
+  //              3. 네이버지도 사용
+  //              4. 클립보드 복사 + 앱 호출 (수동 입력 안내)
   // ════════════════════════════════════════════════════════════════════
   function renderMultiViaNaviDebug(id, dst, vias) {
     var wrap = document.getElementById(id);
     if (!wrap) return;
     var v = vias || [];
+    if (v.length === 0) return;
 
-    function buildVp(list) {
-      return list.map(function(p, i) {
-        var key = (i === 0) ? 'vp' : ('vp' + (i + 1));
-        return key + '=' + p.lat + ',' + p.lng;
-      }).join('&');
-    }
-    function makeKakaoUrl(viasList) {
-      var vp = buildVp(viasList);
-      return 'kakaomap://route?' + (vp ? vp + '&' : '') + 'ep=' + dst.lat + ',' + dst.lng + '&by=car';
-    }
-    function btn(label, url, color) {
-      return '<a class="tl-navi-btn tl-navi-kakao" style="font-size:11px;padding:9px;text-align:left;' +
+    function btn(label, url, color, isClick) {
+      var attr = isClick ? 'href="javascript:void(0)" onclick="' + url + ';return false;"' : 'href="' + url + '"';
+      return '<a class="tl-navi-btn tl-navi-kakao" style="font-size:11px;padding:9px;text-align:left;line-height:1.4;' +
              (color ? 'background:' + color + ';' : '') +
-             '" href="' + url + '">' + label + '</a>';
+             '" ' + attr + '>' + label + '</a>';
     }
 
-    var url0  = makeKakaoUrl([]);
-    var url1a = makeKakaoUrl([v[0]]);
-    var url1b = makeKakaoUrl([v[1]]);
-    var url1c = makeKakaoUrl([v[2]]);
-    var url2a = makeKakaoUrl([v[0], v[1]]);
-    var url2b = makeKakaoUrl([v[0], v[2]]);
-    var url2c = makeKakaoUrl([v[1], v[2]]);
-    var url3  = makeKakaoUrl(v);
+    // ── 방식 ⓖ: 카카오내비 (kakaomap://navi) - 정확한 URL ──
+    // vialist는 |로 구분, 각 항목은 name@x@y 형태
+    var viaListG = v.map(function(p) {
+      return p.name + '@' + p.lng + '@' + p.lat;
+    }).join('|');
+    var urlG = 'kakaomap://navi?coord_type=wgs84' +
+               '&name=' + encodeURIComponent(dst.name) +
+               '&x=' + dst.lng + '&y=' + dst.lat +
+               '&vialist=' + encodeURIComponent(viaListG);
+
+    // ── 방식 ⓗ: T맵 (tmap://route) ──
+    // 정책상 외부 URL 경로 유지하면서 안내 시작 가능
+    var tmapVias = v.map(function(p, i) {
+      var idx = i + 1;
+      return 'via' + idx + '=' + encodeURIComponent(p.name) +
+             '&viaX' + idx + '=' + p.lng +
+             '&viaY' + idx + '=' + p.lat;
+    }).join('&');
+    var urlH = 'tmap://route?goalname=' + encodeURIComponent(dst.name) +
+               '&goalx=' + dst.lng + '&goaly=' + dst.lat +
+               '&' + tmapVias;
+
+    // ── 방식 ⓘ: T맵 - intent (Android 호환) + iOS scheme ──
+    var urlI = 'tmap://route?goalname=' + encodeURIComponent(dst.name) +
+               '&goalx=' + dst.lng + '&goaly=' + dst.lat +
+               (v[0] ? '&rGoX=' + v[0].lng + '&rGoY=' + v[0].lat + '&rGoName=' + encodeURIComponent(v[0].name) : '');
+
+    // ── 방식 ⓙ: 네이버지도 (nmap://route) ──
+    // 다중 경유지 지원, 외부 URL 경로 유지 가능
+    var naverVias = v.map(function(p, i) {
+      var idx = i + 1;
+      return 'v' + idx + 'name=' + encodeURIComponent(p.name) +
+             '&v' + idx + 'x=' + p.lng +
+             '&v' + idx + 'y=' + p.lat;
+    }).join('&');
+    var urlJ = 'nmap://route/car?dname=' + encodeURIComponent(dst.name) +
+               '&dlat=' + dst.lat + '&dlng=' + dst.lng +
+               '&' + naverVias + '&appname=miniRun2026';
+
+    // ── 방식 ⓚ: 클립보드 복사 + 카카오맵 홈 호출 ──
+    // 사용자가 카카오맵에서 직접 검색해서 경로 입력 → 경유지 유지됨
+    var clipText = v.map(function(p) { return p.name; }).join(' → ') + ' → ' + dst.name;
+    var clipScript = "copyToClipboardAndOpen('" + clipText.replace(/'/g, "\\'") + "', 'kakaomap://')";
 
     wrap.innerHTML =
       '<div style="display:flex;flex-direction:column;gap:8px;width:100%">' +
         '<div style="font-size:12px;color:#FEE500;margin-bottom:2px;line-height:1.5;font-weight:700">' +
-          '🔬 v5 — 경유지 개수별 정밀 테스트' +
+          '🔬 v7 — 진짜 해결책 4가지' +
         '</div>' +
         '<div style="font-size:10px;color:#aaa;margin-bottom:6px;line-height:1.5">' +
-          '각 버튼 → 카카오맵 진입 → 안내시작 응답 여부 확인' +
+          '카카오맵 한계 우회 — 다른 네비 앱 또는 수동 입력' +
         '</div>' +
 
-        '<div style="font-size:10px;color:#22c55e;margin-top:8px;letter-spacing:0.05em;font-weight:700">📍 경유지 0개 (대조군 — 작동 확인됨)</div>' +
-        btn('① 도착 → 김녕해수욕장 (경유 없음)', url0) +
+        '<div style="font-size:10px;color:#22c55e;margin-top:8px;letter-spacing:0.05em;font-weight:700">🆕 다른 네비 앱 (정책 다름)</div>' +
+        btn('ⓖ 카카오내비 (kakaomap://navi)', urlG) +
+        btn('ⓗ T맵 — 다중 경유지 (via1, via2, via3)', urlH) +
+        btn('ⓘ T맵 — 단일 경유지 (rGoX/rGoY)', urlI) +
+        btn('ⓙ 네이버지도 (nmap://route/car)', urlJ) +
 
-        '<div style="font-size:10px;color:#FEE500;margin-top:12px;letter-spacing:0.05em;font-weight:700">🔍 경유지 1개</div>' +
-        btn('② 송당리 → 도착', url1a) +
-        btn('③ 김녕리 산 70-8 → 도착', url1b) +
-        btn('④ 김녕리 369 → 도착', url1c) +
-
-        '<div style="font-size:10px;color:#f97316;margin-top:12px;letter-spacing:0.05em;font-weight:700">🔍 경유지 2개</div>' +
-        btn('⑤ 송당리 → 김녕산 → 도착', url2a) +
-        btn('⑥ 송당리 → 김녕369 → 도착', url2b) +
-        btn('⑦ 김녕산 → 김녕369 → 도착', url2c) +
-
-        '<div style="font-size:10px;color:#ef4444;margin-top:12px;letter-spacing:0.05em;font-weight:700">❌ 경유지 3개 (현재 - 무응답 확인됨)</div>' +
-        btn('⑧ 송당리 → 김녕산 → 김녕369 → 도착', url3, 'rgba(239,68,68,0.15)') +
+        '<div style="font-size:10px;color:#FEE500;margin-top:12px;letter-spacing:0.05em;font-weight:700">📋 클립보드 우회</div>' +
+        btn('ⓚ 경유지 복사 + 카카오맵 홈 진입', clipScript, '', true) +
       '</div>';
   }
 
@@ -6158,10 +6233,10 @@ body {
     hueri_p1:        { name: '휴애리 자연생활공원',        lat: 33.3094, lng: 126.6354 },
     harye_san:       { name: '하례리 산21-10 (와인딩)',    lat: 33.3245, lng: 126.6000 },
     sangumburi_p:    { name: '산굼부리 소형주차장',        lat: 33.4326, lng: 126.6938 },
-    songdang:        { name: '송당리 2233-1',             lat: 33.4465, lng: 126.7612 },
-    kimnyeong_san:   { name: '김녕리 산 70-8',            lat: 33.5162, lng: 126.7533 },
-    kimnyeong_369:   { name: '김녕리 369',                 lat: 33.5516, lng: 126.7668 },
-    kimnyeong_beach: { name: '김녕해수욕장 주차장',        lat: 33.5574, lng: 126.7593 },
+    songdang:        { name: '제주시 구좌읍 송당리 2233-1',  lat: 33.4464923692654, lng: 126.7611901197 },
+    kimnyeong_san:   { name: '구좌읍 김녕리 산 70-8',         lat: 33.5162010634708, lng: 126.753325166758 },
+    kimnyeong_369:   { name: '구좌읍 김녕리 369',             lat: 33.5515702449281, lng: 126.766824901995 },
+    kimnyeong_beach: { name: '김녕해수욕장 주차장',           lat: 33.5571072797716, lng: 126.759838589893 },
     woljeong:        { name: '월정리 1400-34',            lat: 33.5638, lng: 126.7776 },
     haengwon:        { name: '행원리 24-3',                lat: 33.5601, lng: 126.8192 },
     pyeongdae_1947:  { name: '평대리 1947-8',              lat: 33.5341, lng: 126.8396 },
@@ -6184,12 +6259,8 @@ body {
       PLACES.harye_san
     ]);
     // Drive III(10:30) : 송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장 주차장
-    // 🐛 iOS 다중 경유지 안내시작 버튼 미응답 버그 디버그용 — 4가지 URL 방식 비교
-    renderMultiViaNaviDebug('navibtns-day3-d3', PLACES.kimnyeong_beach, [
-      PLACES.songdang,
-      PLACES.kimnyeong_san,
-      PLACES.kimnyeong_369
-    ]);
+    // 운영용: 카카오맵 앱 길찾기 버튼 1개만 출력
+    renderKakaoMapDriveIII('navibtns-day3-d3');
     // Drive IV (13:00) : 월정리 → 행원리 → 평대리1947-8 → 평대리3344
     renderMultiViaNavi('navibtns-day3-d4', PLACES.pyeongdae_3344, [
       PLACES.woljeong,
@@ -6506,6 +6577,19 @@ function legacyCopy(text) {
     document.execCommand('copy');
     document.body.removeChild(ta);
   } catch (e) {}
+}
+
+// 클립보드 복사 + 외부 앱 호출 (안내 문구 포함)
+function copyToClipboardAndOpen(text, appUrl) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(function() { legacyCopy(text); });
+  } else {
+    legacyCopy(text);
+  }
+  alert('경유지 정보가 복사되었습니다:\\n\\n' + text + '\\n\\n카카오맵 검색창에 붙여넣고 길찾기를 진행하세요.');
+  setTimeout(function() {
+    window.location.href = appUrl;
+  }, 100);
 }
 
 // ── A팀/B팀 목적지 팝업 ──
