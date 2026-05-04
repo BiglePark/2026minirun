@@ -3478,7 +3478,7 @@ body {
         <div class="if-right">
           <p class="if-preview">
             지정 좌표를 카카오맵에 전달합니다.<br>
-            경유지 1곳과 목적지 1곳을 좌표로 전달합니다.
+            경유지 2곳과 목적지 1곳을 좌표로 전달합니다.
           </p>
           <div class="if-cta">
             <span>카카오맵 연결하기</span>
@@ -6356,19 +6356,21 @@ body {
 }
 })();
 
-// ── NAVI TEST: KakaoMap route with 1 waypoint + destination ──
+// ── NAVI TEST: KakaoMap route with 2 waypoints + destination ──
 function openNaviTest() {
-  // KakaoMap route scheme requires: latitude,longitude.
-  // User-provided coordinates were longitude,latitude, so they are converted below.
-  var waypoint = { name: '네비 테스트 경유지', lat: '37.5385036573159', lng: '127.125111736335' };
+  // KakaoMap app route scheme uses latitude,longitude.
+  // User-provided coordinates are longitude,latitude, so they are converted below.
+  var waypoint1 = { name: '네비 테스트 경유지 1', lat: '37.5385036573159', lng: '127.125111736335' };
+  var waypoint2 = { name: '네비 테스트 경유지 2', lat: '37.514062738295', lng: '127.102052316075' };
   var destination = { name: '네비 테스트 목적지', lat: '37.5176236317445', lng: '127.112429917071' };
 
   function buildQuery(startLat, startLng) {
-    // KakaoMap URL Scheme uses latitude,longitude and is more reliable with raw commas.
-    // Do not encode the commas inside sp/vp/ep.
+    // KakaoMap URL Scheme: sp=start, vp=waypoint1, vp2=waypoint2, ep=destination.
+    // Keep raw commas inside sp/vp/vp2/ep.
     return [
       'sp=' + startLat + ',' + startLng,
-      'vp=' + waypoint.lat + ',' + waypoint.lng,
+      'vp=' + waypoint1.lat + ',' + waypoint1.lng,
+      'vp2=' + waypoint2.lat + ',' + waypoint2.lng,
       'ep=' + destination.lat + ',' + destination.lng,
       'by=car'
     ].join('&');
