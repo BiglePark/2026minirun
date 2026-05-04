@@ -6358,42 +6358,71 @@ body {
 
 // ── NAVI TEST: KakaoMap route with 1 waypoint + destination ──
 function openNaviTest() {
-  // KakaoMap route scheme uses coordinates as latitude,longitude.
-  // User-provided coordinates are longitude,latitude.
+  // KakaoMap route scheme requires: latitude,longitude.
+  // User-provided coordinates were longitude,latitude, so they are converted below.
   var waypoint = { name: '네비 테스트 경유지', lat: '37.5385036573159', lng: '127.125111736335' };
   var destination = { name: '네비 테스트 목적지', lat: '37.537671364822', lng: '127.125911422406' };
 
-  var query =
-    'vp=' + encodeURIComponent(waypoint.lat + ',' + waypoint.lng) +
-    '&ep=' + encodeURIComponent(destination.lat + ',' + destination.lng) +
-    '&by=car';
-
-  var webFallback = 'https://m.map.kakao.com/scheme/route?' + query;
-  var appUrl = 'kakaomap://route?' + query;
-
-  if (typeof isAOS !== 'undefined' && isAOS) {
-    appUrl = 'intent://route?' + query +
-      '#Intent;scheme=kakaomap' +
-      ';action=android.intent.action.VIEW' +
-      ';category=android.intent.category.BROWSABLE' +
-      ';package=net.daum.android.map' +
-      ';S.browser_fallback_url=' + encodeURIComponent(webFallback) +
-      ';end';
+  function buildQuery(startLat, startLng) {
+    return [
+      'sp=' + encodeURIComponent(startLat + ',' + startLng),
+      'vp=' + encodeURIComponent(waypoint.lat + ',' + waypoint.lng),
+      'ep=' + encodeURIComponent(destination.lat + ',' + destination.lng),
+      'by=car'
+    ].join('&');
   }
 
-  var movedToApp = false;
-  var timer = setTimeout(function () {
-    if (!movedToApp) window.location.href = webFallback;
-  }, 1200);
+  function openKakaoRoute(query) {
+    var webFallback = 'https://m.map.kakao.com/scheme/route?' + query;
+    var appUrl = 'kakaomap://route?' + query;
 
-  window.addEventListener('pagehide', function () {
-    movedToApp = true;
-    clearTimeout(timer);
-  }, { once: true });
+    if (typeof isAOS !== 'undefined' && isAOS) {
+      appUrl = 'intent://route?' + query +
+        '#Intent;scheme=kakaomap' +
+        ';action=android.intent.action.VIEW' +
+        ';category=android.intent.category.BROWSABLE' +
+        ';package=net.daum.android.map' +
+        ';S.browser_fallback_url=' + encodeURIComponent(webFallback) +
+        ';end';
+    }
 
-  window.location.href = appUrl;
+    var movedToApp = false;
+    var timer = setTimeout(function () {
+      if (!movedToApp) window.location.href = webFallback;
+    }, 1400);
+
+    window.addEventListener('pagehide', function () {
+      movedToApp = true;
+      clearTimeout(timer);
+    }, { once: true });
+
+    window.location.href = appUrl;
+  }
+
+  // IMPORTANT:
+  // If sp is omitted, KakaoMap may replace the route with the phone's current location
+  // at the moment the user taps "안내 시작", and the waypoint can disappear.
+  // Therefore we always pass an explicit sp value obtained from the phone.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        var query = buildQuery(pos.coords.latitude, pos.coords.longitude);
+        openKakaoRoute(query);
+      },
+      function () {
+        alert('현재 위치 권한이 필요합니다. 위치 권한을 허용해야 출발지 → 경유지 → 목적지가 유지됩니다.\n\n테스트용 기본 출발지로 연결합니다.');
+        // Fallback start point near the requested waypoint, only for testing when location permission is denied.
+        var query = buildQuery('37.538900000000', '127.124600000000');
+        openKakaoRoute(query);
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+    );
+  } else {
+    alert('이 브라우저는 현재 위치를 지원하지 않습니다. 테스트용 기본 출발지로 연결합니다.');
+    var query = buildQuery('37.538900000000', '127.124600000000');
+    openKakaoRoute(query);
+  }
 }
-
 // ── Page router ──
 let currentPage = 'main';
 
