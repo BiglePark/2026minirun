@@ -7188,5 +7188,183 @@ function showCallToast(name, formatted, copied) {
   }, 4000);
 }
 </script>
+
+<script id="final-kakaonavi-click-capture">
+(function () {
+  function normPlace(p) {
+    return {
+      name: String((p && p.name) || "목적지"),
+      lat: Number(p && p.lat),
+      lng: Number(p && p.lng)
+    };
+  }
+
+  function routeOption(dst, vias) {
+    dst = normPlace(dst);
+    vias = (vias || []).map(normPlace).filter(function (p) {
+      return isFinite(p.lat) && isFinite(p.lng);
+    }).slice(0, 3);
+
+    if (!isFinite(dst.lat) || !isFinite(dst.lng)) return null;
+
+    return {
+      name: dst.name,
+      x: dst.lng,
+      y: dst.lat,
+      coordType: "wgs84",
+      viaPoints: vias.map(function (v) {
+        return { name: v.name, x: v.lng, y: v.lat };
+      })
+    };
+  }
+
+  var ROUTE_MAP = {
+    "navibtns": routeOption(
+      { name: "행담도휴게소 목포방향", lat: 36.9712, lng: 126.7801 },
+      []
+    ),
+    "navibtns2": routeOption(
+      { name: "목포 여객터미널", lat: 34.7889, lng: 126.3756 },
+      [{ name: "고창고인돌휴게소", lat: 35.4272, lng: 126.5891 }]
+    ),
+    "navibtns-hamphyeong": routeOption(
+      { name: "함평천지휴게소 목포방향", lat: 35.0697, lng: 126.4782 },
+      [{ name: "군산휴게소 목포방향", lat: 36.018831, lng: 126.797698 }]
+    ),
+    "navibtns-samhak": routeOption(
+      { name: "삼학부두여객선터미널", lat: 34.7830, lng: 126.3984 },
+      []
+    ),
+    "navibtns-kalhotel": routeOption(
+      { name: "서귀포 칼호텔", lat: 33.2465, lng: 126.5818 },
+      []
+    ),
+    "navibtns-jeju4": routeOption(
+      { name: "제주항 4부두", lat: 33.5227, lng: 126.5371 },
+      []
+    ),
+    "navibtns-day2-d3": routeOption(
+      { name: "더클리프", lat: 33.2443, lng: 126.4149 },
+      []
+    ),
+    "navibtns-day2-d4": routeOption(
+      { name: "새별오름 주차장", lat: 33.3663, lng: 126.3577 },
+      []
+    ),
+    "navibtns-day2-d5": routeOption(
+      { name: "서귀포 칼호텔 주차장", lat: 33.2465, lng: 126.5818 },
+      []
+    ),
+    "navibtns-day3-d1": routeOption(
+      { name: "휴애리 자연생활공원", lat: 33.3094, lng: 126.6354 },
+      []
+    ),
+    "navibtns-day3-d2": routeOption(
+      { name: "산굼부리 소형주차장", lat: 33.4326, lng: 126.6938 },
+      [{ name: "하례리 산21-10", lat: 33.3245, lng: 126.6000 }]
+    ),
+    "navibtns-day3-d3": routeOption(
+      { name: "김녕해수욕장 주차장", lat: 33.5571072797716, lng: 126.759838589893 },
+      [
+        { name: "제주시 구좌읍 송당리 2233-1", lat: 33.4464923692654, lng: 126.7611901197 },
+        { name: "구좌읍 김녕리 산 70-8", lat: 33.5162010634708, lng: 126.753325166758 },
+        { name: "구좌읍 김녕리 369", lat: 33.5515702449281, lng: 126.766824901995 }
+      ]
+    ),
+    "navibtns-day3-d4": routeOption(
+      { name: "평대리 3344", lat: 33.5072, lng: 126.8255 },
+      [
+        { name: "월정리 1400-34", lat: 33.5638, lng: 126.7776 },
+        { name: "행원리 24-3", lat: 33.5601, lng: 126.8192 },
+        { name: "평대리 1947-8", lat: 33.5341, lng: 126.8396 }
+      ]
+    ),
+    "navibtns-day3-d5": routeOption(
+      { name: "제주 동화마을", lat: 33.4354, lng: 126.7320 },
+      []
+    ),
+    "navibtns-day3-d6": routeOption(
+      { name: "서귀포 칼호텔 주차장", lat: 33.2465, lng: 126.5818 },
+      [{ name: "가시리 3083-2", lat: 33.3673, lng: 126.7595 }]
+    )
+  };
+
+  function getRouteFromAnchor(a) {
+    var wrap = a && a.closest ? a.closest('[id^="navibtns"]') : null;
+    if (!wrap) return null;
+    return ROUTE_MAP[wrap.id] || null;
+  }
+
+  function openKakaoNavi(option) {
+    if (!option) {
+      alert("카카오내비 경로 정보가 없습니다.");
+      return false;
+    }
+
+    if (typeof window.ensureKakaoReady === "function") {
+      if (!window.ensureKakaoReady()) return false;
+    } else if (typeof Kakao === "undefined" || !Kakao.Navi) {
+      alert("카카오 SDK가 아직 준비되지 않았습니다. 새로고침 후 다시 시도해주세요.");
+      return false;
+    }
+
+    try {
+      Kakao.Navi.start(option);
+    } catch (e) {
+      console.error("Kakao.Navi.start failed", e, option);
+      alert("카카오내비 실행 중 오류가 발생했습니다.");
+    }
+
+    return false;
+  }
+
+  // 가장 중요: 기존 href가 kakaomap:// 이더라도 capture 단계에서 먼저 가로챔
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a.tl-navi-kakao, a.app-kakao") : null;
+    if (!a) return;
+
+    var option = getRouteFromAnchor(a);
+    if (!option) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+    openKakaoNavi(option);
+    return false;
+  }, true);
+
+  function patchVisibleButtons() {
+    Object.keys(ROUTE_MAP).forEach(function (id) {
+      var wrap = document.getElementById(id);
+      if (!wrap) return;
+
+      var a = wrap.querySelector("a.tl-navi-kakao, a.app-kakao");
+      if (!a) return;
+
+      a.setAttribute("href", "javascript:void(0)");
+      a.removeAttribute("target");
+      a.removeAttribute("rel");
+
+      var viaCount = ROUTE_MAP[id] && ROUTE_MAP[id].viaPoints ? ROUTE_MAP[id].viaPoints.length : 0;
+      a.textContent = viaCount > 0
+        ? "카카오내비로 길찾기 · 경유지 " + viaCount + "개 포함"
+        : "카카오내비로 길찾기";
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", patchVisibleButtons);
+  } else {
+    patchVisibleButtons();
+  }
+
+  setTimeout(patchVisibleButtons, 100);
+  setTimeout(patchVisibleButtons, 500);
+  setTimeout(patchVisibleButtons, 1500);
+  setTimeout(patchVisibleButtons, 3000);
+})();
+</script>
+
 </body>
 </html>
