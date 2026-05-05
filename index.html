@@ -7182,5 +7182,163 @@ function showCallToast(name, formatted, copied) {
   }, 4000);
 }
 </script>
+
+<script id="force-kakao-navi-links">
+(function () {
+  function parseQueryString(query) {
+    var out = {};
+    (query || '').replace(/^\?/, '').split('&').forEach(function (pair) {
+      if (!pair) return;
+      var idx = pair.indexOf('=');
+      var key = idx >= 0 ? pair.slice(0, idx) : pair;
+      var val = idx >= 0 ? pair.slice(idx + 1) : '';
+      try { key = decodeURIComponent(key); } catch (e) {}
+      try { val = decodeURIComponent(val); } catch (e) {}
+      out[key] = val;
+    });
+    return out;
+  }
+
+  function coordFromLatLng(value) {
+    if (!value) return null;
+    var parts = String(value).split(',');
+    if (parts.length < 2) return null;
+    var lat = parseFloat(parts[0]);
+    var lng = parseFloat(parts[1]);
+    if (!isFinite(lat) || !isFinite(lng)) return null;
+    return { lat: lat, lng: lng };
+  }
+
+  function extractKakaoNaviOptions(href, labelText) {
+    var raw = href || '';
+    var name = (labelText || '목적지').replace(/\s+/g, ' ').trim() || '목적지';
+    var query = '';
+    var ep = null;
+    var vias = [];
+
+    if (!raw || raw.indexOf('javascript:') === 0) return null;
+
+    if (raw.indexOf('intent://route?') === 0 && raw.indexOf('scheme=kakaomap') !== -1) {
+      query = raw.slice('intent://route?'.length).split('#Intent')[0];
+    } else if (raw.indexOf('kakaomap://route?') === 0) {
+      query = raw.slice('kakaomap://route?'.length);
+    } else if (raw.indexOf('m.map.kakao.com/scheme/route') !== -1) {
+      query = raw.split('?')[1] || '';
+    } else if (raw.indexOf('map.kakao.com/link/to/') !== -1) {
+      var last = raw.split('/link/to/')[1] || '';
+      last = last.split('?')[0].split('#')[0];
+      try { last = decodeURIComponent(last); } catch (e) {}
+      var parts = last.split(',');
+      if (parts.length >= 3) {
+        name = parts.slice(0, parts.length - 2).join(',') || name;
+        var lat = parseFloat(parts[parts.length - 2]);
+        var lng = parseFloat(parts[parts.length - 1]);
+        if (isFinite(lat) && isFinite(lng)) ep = { lat: lat, lng: lng };
+      }
+    }
+
+    if (query) {
+      var q = parseQueryString(query);
+      ep = coordFromLatLng(q.ep) || ep;
+      ['vp', 'vp1', 'vp2', 'vp3', 'vp4', 'vp5'].forEach(function (key, idx) {
+        var c = coordFromLatLng(q[key]);
+        if (!c) return;
+        vias.push({
+          name: idx <= 1 ? '경유지1' : ('경유지' + idx),
+          x: c.lng,
+          y: c.lat
+        });
+      });
+    }
+
+    if (!ep) return null;
+
+    return {
+      name: name,
+      x: ep.lng,
+      y: ep.lat,
+      coordType: 'wgs84',
+      viaPoints: vias.filter(function (v) {
+        return isFinite(v.x) && isFinite(v.y);
+      })
+    };
+  }
+
+  function forceOpenKakaoNavi(anchor) {
+    if (!anchor) return true;
+    var originalHref = anchor.getAttribute('data-kakao-original-href') || anchor.getAttribute('href') || '';
+    var options = extractKakaoNaviOptions(originalHref, anchor.textContent || '목적지');
+    if (!options) return true;
+
+    if (typeof ensureKakaoReady === 'function') {
+      if (!ensureKakaoReady()) return false;
+    } else {
+      if (typeof Kakao === 'undefined' || !Kakao.Navi) {
+        alert('카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.');
+        return false;
+      }
+    }
+
+    Kakao.Navi.start(options);
+    return false;
+  }
+
+  function patchKakaoAnchors() {
+    var anchors = document.querySelectorAll('a.tl-navi-kakao, a.app-kakao, a[href^="kakaomap://"], a[href^="intent://route"][href*="scheme=kakaomap"], a[href*="map.kakao.com"], a[href*="m.map.kakao.com"]');
+    anchors.forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (!href || href.indexOf('javascript:') === 0) return;
+      var isKakaoMap =
+        href.indexOf('kakaomap://') === 0 ||
+        (href.indexOf('intent://route') === 0 && href.indexOf('scheme=kakaomap') !== -1) ||
+        href.indexOf('map.kakao.com') !== -1 ||
+        href.indexOf('m.map.kakao.com') !== -1;
+
+      if (isKakaoMap) {
+        a.setAttribute('data-kakao-original-href', href);
+        a.setAttribute('href', 'javascript:void(0)');
+        a.setAttribute('onclick', 'return window.__forceOpenKakaoNavi(this);');
+        if ((a.textContent || '').indexOf('카카오맵') !== -1) {
+          a.textContent = a.textContent.replace(/카카오맵/g, '카카오내비');
+        }
+      }
+    });
+  }
+
+  window.__forceOpenKakaoNavi = forceOpenKakaoNavi;
+  window.forceKakaoNaviPatch = patchKakaoAnchors;
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('data-kakao-original-href') || a.getAttribute('href') || '';
+    var isKakaoMap =
+      href.indexOf('kakaomap://') === 0 ||
+      (href.indexOf('intent://route') === 0 && href.indexOf('scheme=kakaomap') !== -1) ||
+      href.indexOf('map.kakao.com') !== -1 ||
+      href.indexOf('m.map.kakao.com') !== -1;
+    var isKakaoButton = a.classList && (a.classList.contains('tl-navi-kakao') || a.classList.contains('app-kakao'));
+
+    if (isKakaoMap || isKakaoButton) {
+      var handled = forceOpenKakaoNavi(a) === false;
+      if (handled) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  }, true);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', patchKakaoAnchors);
+  } else {
+    patchKakaoAnchors();
+  }
+
+  setTimeout(patchKakaoAnchors, 300);
+  setTimeout(patchKakaoAnchors, 1000);
+  setTimeout(patchKakaoAnchors, 2500);
+})();
+</script>
+
 </body>
 </html>
