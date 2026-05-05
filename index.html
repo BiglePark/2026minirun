@@ -3492,6 +3492,63 @@ name: 서귀포칼호텔 2주차장
 address: 제주특별자치도 서귀포시 칠십리로 242
 coordinates: 126.580794378613, 33.2443252829253
 -->
+
+
+<style id="nav-buttons-only-equal-size-override">
+/* 사용자 요청: 모든 네비정보 박스는 지명/타이틀 없이 버튼 2개만 표시 */
+.tl-navi-block {
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  gap: 10px !important;
+  flex-wrap: nowrap !important;
+}
+.tl-navi-block .tl-navi-info,
+.tl-navi-block .tl-navi-label,
+.tl-navi-block .tl-navi-dest {
+  display: none !important;
+}
+.tl-navi-block .tl-navi-btns {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  gap: 0 !important;
+}
+.tl-navi-block .tl-navi-btn,
+.tl-navi-block .tl-dest-info-btn {
+  flex: 1 1 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 56px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  font-family: 'Noto Sans KR', 'Pretendard Variable', 'Pretendard', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  white-space: normal !important;
+  text-transform: none !important;
+}
+.tl-navi-block .tl-dest-info-btn::before {
+  content: none !important;
+}
+@media (max-width: 520px) {
+  .tl-navi-block {
+    flex-direction: column !important;
+  }
+  .tl-navi-block .tl-navi-btns,
+  .tl-navi-block .tl-dest-info-btn {
+    width: 100% !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -4899,10 +4956,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">1차 집결 — 행담도 휴게소</div>
           <div class="tl-desc">2026 MINI RUN의 대장정이 시작됩니다. 새벽 1시, 행담도 휴게소에서 1차 집결. 조별 주차 후 목포를 향해 출발합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">행담도휴게소 목포방향</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'행담도휴게소 목포방향', lat:'36.9712', lng:'126.7801'})">네비포인트 정보</button>
           </div>
@@ -4921,10 +4974,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 함평천지휴게소</div>
           <div class="tl-desc">행담도에서 출발, 함평천지 휴게소를 향해 조별 운행합니다. 약 3시간 거리의 야간 드라이브.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 경유 · 목적지</div>
-              <div class="tl-navi-dest">군산휴게소 목포방향 → 함평천지휴게소 목포방향</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-hamphyeong"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'함평천지휴게소 목포방향', lat:'35.0697', lng:'126.4782'}, [{name:'군산휴게소 목포방향', lat:'36.018831', lng:'126.797698'}])">네비포인트 정보</button>
           </div>
@@ -4958,10 +5007,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 삼학부두여객선터미널</div>
           <div class="tl-desc">함평천지 휴게소에서 출발, 삼학부두 여객선터미널을 향해 조별 운행합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">삼학부두여객선터미널</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-samhak"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'삼학부두여객선터미널', lat:'34.7830', lng:'126.3984'})">네비포인트 정보</button>
           </div>
@@ -5026,10 +5071,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">칼호텔 집결 — 서귀포칼호텔 2주차장</div>
           <div class="tl-desc">서귀포칼호텔 2주차장 주차장에서 전체 집결합니다. 도착 전 주유를 반드시 완료하세요. 시간 엄수 필수!</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">서귀포칼호텔 2주차장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-kalhotel"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포칼호텔 2주차장', lat:'33.2465', lng:'126.5818'})">네비포인트 정보</button>
           </div>
@@ -5206,10 +5247,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 저녁식사</div>
           <div class="tl-desc">놀멍팀 · 쉬멍팀 모두 더클리프로 집결. 오늘의 저녁식사이자 노을 감상 명소로 이동합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">더클리프</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day2-d3"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'더클리프', lat:'33.2443', lng:'126.4149'})">네비포인트 정보</button>
           </div>
@@ -5255,10 +5292,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 세번째 휴식</div>
           <div class="tl-desc">저녁을 마치고 새별오름 주차장으로 이동. 오늘의 하이라이트, 별 관측 포인트로 향합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">새별오름 주차장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day2-d4"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'새별오름 주차장', lat:'33.3663', lng:'126.3577'})">네비포인트 정보</button>
           </div>
@@ -5293,10 +5326,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 복귀</div>
           <div class="tl-desc">별구경을 마치고 서귀포칼호텔 2주차장로 복귀. 야간 드라이브는 충분한 차간 거리를 유지하며 안전하게 이동해주세요.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">서귀포칼호텔 2주차장 주차장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day2-d5"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포칼호텔 2주차장 주차장', lat:'33.2465', lng:'126.5818'})">네비포인트 정보</button>
           </div>
@@ -5374,10 +5403,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive I — 집결지 이동</div>
           <div class="tl-desc">첫 번째 드라이브 코스. 제주테크노파크 생물종다양성연구소까지 조별 운행합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">제주테크노파크 생물종다양성연구소</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d1"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주테크노파크 생물종다양성연구소', lat:'33.3088', lng:'126.6680'})">네비포인트 정보</button>
           </div>
@@ -5412,10 +5437,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive II — 와인딩 드라이브</div>
           <div class="tl-desc">하례리 와인딩 포인트를 지나 산굼부리 소형주차장까지. 제주의 중산간 산길을 MINI로 느껴보세요.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 경유 · 목적지</div>
-              <div class="tl-navi-dest">하례리 산21-10 → 산굼부리 소형주차장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d2"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'산굼부리 소형주차장', lat:'33.4326', lng:'126.6938'}, [{name:'하례리 산21-10', lat:'33.3245', lng:'126.6000'}])">네비포인트 정보</button>
           </div>
@@ -5450,10 +5471,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive III — 오솔길 드라이브</div>
           <div class="tl-desc">송당리 → 김녕리로 이어지는 오솔길 드라이브. 제주 동쪽 중산간의 숨은 길을 따라 김녕해수욕장까지 달립니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 경유 · 목적지 (경유 3개)</div>
-              <div class="tl-navi-dest">송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d3"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'김녕해수욕장 주차장', lat:'33.5571072797716', lng:'126.759838589893'}, [{name:'제주시 구좌읍 송당리 2233-1', lat:'33.4464923692654', lng:'126.7611901197'}, {name:'구좌읍 김녕리 산 70-8', lat:'33.5162010634708', lng:'126.753325166758'}, {name:'구좌읍 김녕리 369', lat:'33.5515702449281', lng:'126.766824901995'}])">네비포인트 정보</button>
           </div>
@@ -5527,10 +5544,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive IV — 해안 드라이브</div>
           <div class="tl-desc">김녕에서 월정·행원·평대리로 이어지는 제주 동부 해안 드라이브. MINI RUN의 하이라이트 구간 중 하나입니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 경유 · 목적지 (경유 3개)</div>
-              <div class="tl-navi-dest">월정리 → 행원리 → 평대리1947-8 → 평대리3344</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d4"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'평대리 3344 (드라이빙 집결지)', lat:'33.5072', lng:'126.8255'}, [{name:'월정리 1400-34', lat:'33.5638', lng:'126.7776'}, {name:'행원리 24-3', lat:'33.5601', lng:'126.8192'}, {name:'평대리 1947-8', lat:'33.5341', lng:'126.8396'}])">네비포인트 정보</button>
           </div>
@@ -5565,10 +5578,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive V — 숲길 드라이브</div>
           <div class="tl-desc">제주 동화마을을 향한 숲길 드라이브. 안전에 주의하세요.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">제주 동화마을</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d5"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주 동화마을', lat:'33.4354', lng:'126.7320'})">네비포인트 정보</button>
           </div>
@@ -5603,10 +5612,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">Drive VI — 마지막 드라이브</div>
           <div class="tl-desc">오늘의 마지막 드라이브. 가시리 녹산로를 지나 서귀포칼호텔 2주차장까지 귀환하는 코스입니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 경유 · 목적지</div>
-              <div class="tl-navi-dest">가시리 3083-2 → 서귀포칼호텔 2주차장 주차장</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-day3-d6"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'서귀포칼호텔 2주차장 주차장', lat:'33.2465', lng:'126.5818'}, [{name:'가시리 3083-2', lat:'33.3673', lng:'126.7595'}])">네비포인트 정보</button>
           </div>
@@ -5699,10 +5704,6 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-place">출발 — 제주항 4부두</div>
           <div class="tl-desc">서귀포칼호텔 2주차장에서 출발, 제주항 4부두를 향해 조별 운행합니다.</div>
           <div class="tl-navi-block">
-            <div class="tl-navi-info">
-              <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">제주항 4부두</div>
-            </div>
             <div class="tl-navi-btns" id="navibtns-jeju4"></div>
             <button class="tl-dest-info-btn" onclick="openDestPopup({name:'제주항 4부두', lat:'33.5227', lng:'126.5371'})">네비포인트 정보</button>
           </div>
@@ -5896,16 +5897,11 @@ coordinates: 126.580794378613, 33.2443252829253
     if (!wrap) return;
     var id = registerRoute(dst, vias || []);
     if (!id) return;
-
-    var route = window.__MINIRUN_KAKAO_ROUTES[id];
-    var viaCount = route.viaPoints ? route.viaPoints.length : 0;
-    var sub = viaCount > 0 ? " · 경유지 " + viaCount + "개 포함" : "";
-
     wrap.innerHTML =
       '<a class="tl-navi-btn tl-navi-kakao" href="javascript:void(0)" ' +
       'data-kakao-route-id="' + id + '" ' +
       'onclick="return window.startMiniRunKakaoNavi(\\'' + id + '\\');">' +
-      (label || "카카오내비로 길찾기") + sub +
+      (label || "카카오내비로 길찾기") +
       '</a>';
   }
 
@@ -7403,11 +7399,7 @@ function showCallToast(name, formatted, copied) {
       a.setAttribute("href", "javascript:void(0)");
       a.removeAttribute("target");
       a.removeAttribute("rel");
-
-      var viaCount = ROUTE_MAP[id] && ROUTE_MAP[id].viaPoints ? ROUTE_MAP[id].viaPoints.length : 0;
-      a.textContent = viaCount > 0
-        ? "카카오내비로 길찾기 · 경유지 " + viaCount + "개 포함"
-        : "카카오내비로 길찾기";
+      a.textContent = "카카오내비로 길찾기";
     });
   }
 
