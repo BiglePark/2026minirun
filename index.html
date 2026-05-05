@@ -3473,6 +3473,64 @@ body {
 })();
 </script>
 
+
+<script id="kakao-navi-sanitize-patch">
+(function () {
+  function cleanName(name) {
+    return String(name || '목적지')
+      .replace(/\s+/g, ' ')
+      .replace(/카카오내비로\s*길찾기/g, '')
+      .replace(/카카오내비/g, '')
+      .replace(/길찾기/g, '')
+      .trim() || '목적지';
+  }
+
+  window.__sanitizeKakaoNaviOptions = function (options) {
+    options = options || {};
+
+    var x = Number(options.x);
+    var y = Number(options.y);
+
+    if (!isFinite(x) || !isFinite(y)) {
+      alert('목적지 좌표가 올바르지 않습니다.');
+      return null;
+    }
+
+    var viaPoints = Array.isArray(options.viaPoints) ? options.viaPoints : [];
+    viaPoints = viaPoints
+      .map(function (v, i) {
+        return {
+          name: cleanName(v.name || ('경유지' + (i + 1))),
+          x: Number(v.x),
+          y: Number(v.y)
+        };
+      })
+      .filter(function (v) {
+        return isFinite(v.x) && isFinite(v.y);
+      })
+      .slice(0, 3); // 카카오내비 SDK 안정 처리용: 경유지 최대 3개
+
+    return {
+      name: cleanName(options.name),
+      x: x,
+      y: y,
+      coordType: options.coordType || 'wgs84',
+      viaPoints: viaPoints.slice(0, 3)
+    };
+  };
+
+  window.__startKakaoNaviSafely = function (options) {
+    if (!window.ensureKakaoReady || !window.ensureKakaoReady()) return false;
+
+    var cleaned = window.__sanitizeKakaoNaviOptions(options);
+    if (!cleaned) return false;
+
+    Kakao.Navi.start(cleaned);
+    return false;
+  };
+})();
+</script>
+
 </head>
 <body>
 
@@ -5811,11 +5869,10 @@ body {
 // ══════════════════════════════════════════
 // KakaoMap 링크 → KakaoNavi 실행 브릿지
 // 기존 HTML의 kakaomap://route / map.kakao.com 링크를 가로채서
-// if (!window.ensureKakaoReady()) return;
-  Kakao.Navi.start() 방식으로 카카오내비 앱을 바로 실행합니다.
+// window.__startKakaoNaviSafely() 방식으로 카카오내비 앱을 바로 실행합니다.
 // ══════════════════════════════════════════
 (function () {
-  var KAKAO_JAVASCRIPT_KEY = '89291c1d793d1993078fe312ce30bed0';
+  var KAKAO_JAVASCRIPT_KEY = 'e8285617d6891df4ebe55bfeeff82c83';
 
   function ensureKakaoReady() {
     if (!window.Kakao || !Kakao.Navi) {
@@ -5904,7 +5961,7 @@ return true;
       x: ep.lng,
       y: ep.lat,
       coordType: 'wgs84',
-      viaPoints: vias
+      viaPoints: vias.slice(0, 3)
     };
   }
 
@@ -5920,13 +5977,12 @@ return true;
       return isFinite(v.x) && isFinite(v.y);
     });
 
-    if (!window.ensureKakaoReady()) return;
-  Kakao.Navi.start({
+    window.__startKakaoNaviSafely({
       name: name || '목적지',
       x: Number(lng),
       y: Number(lat),
       coordType: 'wgs84',
-      viaPoints: viaPoints
+      viaPoints: viaPoints.slice(0, 3)
     });
     return false;
   };
@@ -5935,9 +5991,7 @@ return true;
     if (!anchor) return true;
     var opt = kakaoMapHrefToNaviOptions(anchor.getAttribute('href'), anchor.textContent || '목적지');
     if (!opt) return true;
-    if (!window.ensureKakaoReady()) return false;
-    if (!window.ensureKakaoReady()) return;
-  Kakao.Navi.start(opt);
+    window.__startKakaoNaviSafely(opt);
     return false;
   };
 
@@ -7281,7 +7335,7 @@ function showCallToast(name, formatted, copied) {
       x: ep.lng,
       y: ep.lat,
       coordType: 'wgs84',
-      viaPoints: vias.filter(function (v) {
+      viaPoints: vias.slice(0, 3).filter(function (v) {
         return isFinite(v.x) && isFinite(v.y);
       })
     };
@@ -7302,7 +7356,7 @@ function showCallToast(name, formatted, copied) {
       }
     }
 
-    Kakao.Navi.start(options);
+    window.__startKakaoNaviSafely(options);
     return false;
   }
 
