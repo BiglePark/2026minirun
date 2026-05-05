@@ -3455,7 +3455,7 @@ body {
 .tl-navi-kakao { background: #FEE500; color: #1A1A1A; }
 </style>
 <!-- Day1 navigation points updated:
-행담도휴게소 목포방향 집입로
+행담도휴게소 목포방향: 126.806989526633, 36.9451349930162
 군산휴게소 목포방향: 126.829931443409, 35.9802384802234
 함평천지휴게소 목포방향: 126.478066043794, 35.0698437340084
 삼학부두여객선터미널: 126.397674631642, 34.7830654129834
@@ -4875,10 +4875,10 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-navi-block">
             <div class="tl-navi-info">
               <div class="tl-navi-label">📍 네비 포인트</div>
-              <div class="tl-navi-dest">행담도휴게소 목포방향 집입로</div>
+              <div class="tl-navi-dest">행담도휴게소 목포방향</div>
             </div>
             <div class="tl-navi-btns" id="navibtns"></div>
-            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'행담도휴게소 목포방향 집입로</button>
+            <button class="tl-dest-info-btn" onclick="openDestPopup({name:'행담도휴게소 목포방향', lat:'36.9712', lng:'126.7801'})">네비포인트 정보</button>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note yellow">조별 주차</span><span class="tl-tag-note green">웰컴킷 수령</span><span class="tl-tag-note red">시간 엄수</span></div>
         </div>
@@ -5110,10 +5110,10 @@ coordinates: 126.580794378613, 33.2443252829253
         </div>
       </div>
 
-      <!-- 15:30 첫번째 휴식 -->
+      <!-- 14:30 첫번째 휴식 -->
       <div class="tl-item">
         <div class="tl-time-col">
-          <div class="tl-time">15:30</div>
+          <div class="tl-time">14:30</div>
           <div class="tl-duration">—</div>
           <div class="tl-type rest">휴식</div>
         </div>
@@ -5897,10 +5897,10 @@ coordinates: 126.580794378613, 33.2443252829253
   };
 
   window.renderNaviBtns = function () {
-    // 행담도휴게소 목포방향 집입로
+    // 행담도휴게소 목포방향
     renderKakaoButton(
       document.getElementById("navibtns"),
-      { name: "행담도휴게소 목포방향 집입로
+      { name: "행담도휴게소 목포방향", lat: 36.9712, lng: 126.7801 },
       [],
       "카카오내비로 길찾기"
     );
@@ -5949,15 +5949,15 @@ coordinates: 126.580794378613, 33.2443252829253
 
 <script>
 // ══════════════════════════════════════════
-// 네비 연동 — 행담도휴게소 목포방향 집입로
+// 네비 연동 — 행담도휴게소 목포방향
 // lat: 36.9712  lng: 126.7801
 // iOS Safari 호환: <a href="scheme://"> 직접 링크만 동작함
 // onclick/JS redirect 방식은 Safari가 차단
 // ══════════════════════════════════════════
 (function () {
-  var name = encodeURIComponent('행담도휴게소 목포방향 집입로
-  var lat  = 36.94482;
-  var lng  = 126.80742;
+  var name = encodeURIComponent('행담도휴게소 목포방향');
+  var lat  = 36.9451349930162;
+  var lng  = 126.806989526633;
   var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   var isAOS = /Android/i.test(navigator.userAgent);
 
@@ -7232,7 +7232,7 @@ function showCallToast(name, formatted, copied) {
 
   var ROUTE_MAP = {
     "navibtns": routeOption(
-      { name: "행담도휴게소 목포방향 집입로
+      { name: "행담도휴게소 목포방향", lat: 36.9451349930162, lng: 126.806989526633 },
       []
     ),
     "navibtns2": routeOption(
