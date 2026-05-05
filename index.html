@@ -792,7 +792,7 @@ body {
   margin-top: 3px; letter-spacing: 0.02em;
 }
 
-/* ── 매장 정보 박스 (네비 블록과 유사한 카드형 UI, 녹색 테마) ── */
+/* ──  박스 (네비 블록과 유사한 카드형 UI, 녹색 테마) ── */
 .tl-rest-blocks {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3688,6 +3688,38 @@ coordinates: 126.580794378613, 33.2443252829253
 }
 </style>
 
+
+<style id="store-info-clean-override">
+/* 매장정보 박스 정리: 라벨 숨김, 매장명 + 식당 정보 버튼만 표시 */
+.restaurant-card .label,
+.restaurant-card .store-label,
+.restaurant-card .info-label,
+.store-card .label,
+.store-card .store-label,
+.store-card .info-label,
+.place-card .label,
+.place-card .store-label,
+.place-card .info-label,
+[class*="store"] [class*="label"],
+[class*="restaurant"] [class*="label"] {
+  display: none !important;
+}
+
+/* 라벨 삭제 후 남는 빈 공간 최소화 */
+[class*="store"] small:empty,
+[class*="restaurant"] small:empty,
+[class*="place"] small:empty,
+[class*="label"]:empty {
+  display: none !important;
+}
+
+/* 버튼 텍스트/크기 안정화 */
+button,
+a {
+  text-decoration: none;
+}
+</style>
+
 </head>
 <body>
 
@@ -5263,13 +5295,13 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-desc">제주 Day 1의 마무리는 서귀포 흑돼지! 흑돼지 세트로 첫날을 화려하게 마무리합니다.</div>
           <div class="tl-rest-block">
             <div class="tl-rest-info">
-              <div class="tl-rest-label">🍽 매장 정보</div>
+              <div class="tl-rest-label">🍽 </div>
               <div class="tl-rest-name">서귀포 흑돈</div>
             </div>
             <div class="tl-rest-btns">
               <a class="tl-rest-btn"
                  href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88/place/36016256?placePath=/home?bk_query=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&from=map&fromPanelNum=2&timestamp=202604231601&locale=ko&svcName=map_pcv5&searchText=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&entry=pll&from=map&fromNxList=true&fromPanelNum=2&timestamp=202604231554&locale=ko&svcName=map_pcv5&searchText=%EC%A0%9C%EC%A3%BC%20%EC%84%9C%EA%B7%80%ED%8F%AC%20%ED%9D%91%EB%8F%88&searchType=place&c=15.00,0,0,2,dh"
-                 target="_blank" rel="noopener">상세정보</a>
+                 target="_blank" rel="noopener">식당 정보</a>
             </div>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 & 김치찌개 세트</span><span class="tl-tag-note yellow">조별 착석</span><span class="tl-tag-note orange">음료 · 주류 별도 계산</span></div>
@@ -5424,13 +5456,13 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-desc">더클리프에서 저녁식사. 제주 서쪽 바다의 노을을 배경으로 하루를 정리하는 특별한 시간이에요.</div>
           <div class="tl-rest-block">
             <div class="tl-rest-info">
-              <div class="tl-rest-label">🌅 매장 정보</div>
+              <div class="tl-rest-label">🌅 </div>
               <div class="tl-rest-name">더클리프</div>
             </div>
             <div class="tl-rest-btns">
               <a class="tl-rest-btn"
                  href="https://map.naver.com/p/entry/place/1667822207?lng=126.414929&lat=33.2444575&placePath=/home?from=map&fromPanelNum=1&additionalHeight=76&timestamp=202604241545&locale=ko&svcName=map_pcv5&entry=plt&searchType=place&c=15.00,0,0,2,dh"
-                 target="_blank" rel="noopener">상세정보</a>
+                 target="_blank" rel="noopener">식당 정보</a>
             </div>
           </div>
           <div class="tl-note-box"><span class="tl-tag-note green">자유 시간</span><span class="tl-tag-note purple">노을 감상</span></div>
@@ -5649,24 +5681,24 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-rest-blocks">
             <div class="tl-rest-block">
               <div class="tl-rest-info">
-                <div class="tl-rest-label">🍲 매장 정보</div>
+                <div class="tl-rest-label">🍲 </div>
                 <div class="tl-rest-name">명진 전복죽</div>
               </div>
               <div class="tl-rest-btns">
                 <a class="tl-rest-btn"
                    href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EB%AA%85%EC%A7%84%20%EC%A0%84%EB%B3%B5%EC%A3%BD"
-                   target="_blank" rel="noopener">상세정보</a>
+                   target="_blank" rel="noopener">식당 정보</a>
               </div>
             </div>
             <div class="tl-rest-block">
               <div class="tl-rest-info">
-                <div class="tl-rest-label">☕ 매장 정보</div>
+                <div class="tl-rest-label">☕ </div>
                 <div class="tl-rest-name">김녕카페</div>
               </div>
               <div class="tl-rest-btns">
                 <a class="tl-rest-btn"
                    href="https://map.naver.com/p/search/%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98/place/1755702918?c=14.00,0,0,2,dh&placePath=/home?fromPanelNum=2&timestamp=202604272159&locale=ko&svcName=map_pcv5&searchText=%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98&timestamp=202604272159&locale=ko&svcName=map_pcv5&searchText=%EA%B9%80%EB%85%95%20%EC%B9%B4%ED%8E%98&fromPanelNum=2"
-                   target="_blank" rel="noopener">상세정보</a>
+                   target="_blank" rel="noopener">식당 정보</a>
               </div>
             </div>
           </div>
@@ -5897,24 +5929,24 @@ coordinates: 126.580794378613, 33.2443252829253
           <div class="tl-rest-blocks">
             <div class="tl-rest-block">
               <div class="tl-rest-info">
-                <div class="tl-rest-label">🍙 매장 정보</div>
+                <div class="tl-rest-label">🍙 </div>
                 <div class="tl-rest-name">오는정 김밥</div>
               </div>
               <div class="tl-rest-btns">
                 <a class="tl-rest-btn"
                    href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%98%A4%EB%8A%94%EC%A0%95%20%EA%B9%80%EB%B0%A5"
-                   target="_blank" rel="noopener">상세정보</a>
+                   target="_blank" rel="noopener">식당 정보</a>
               </div>
             </div>
             <div class="tl-rest-block">
               <div class="tl-rest-info">
-                <div class="tl-rest-label">🍩 매장 정보</div>
+                <div class="tl-rest-label">🍩 </div>
                 <div class="tl-rest-name">아베베 도넛</div>
               </div>
               <div class="tl-rest-btns">
                 <a class="tl-rest-btn"
                    href="https://map.naver.com/p/search/%EC%A0%9C%EC%A3%BC%20%EC%95%84%EB%B2%A0%EB%B2%A0%20%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC"
-                   target="_blank" rel="noopener">상세정보</a>
+                   target="_blank" rel="noopener">식당 정보</a>
               </div>
             </div>
           </div>
@@ -7084,7 +7116,7 @@ var INFO_CONTENT = {
             '</div>' +
             '<div class="info-meal-row">' +
               '<div class="info-meal-when">석식</div>' +
-              '<div class="info-meal-what">흑돼지 오겹살 &amp; 김치찌개</div>' +
+              '<div class="info-meal-what"><strong>흑돼지 오겹살</strong> &amp; 김치찌개</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -7104,7 +7136,7 @@ var INFO_CONTENT = {
           '<div class="info-meal-rows">' +
             '<div class="info-meal-row">' +
               '<div class="info-meal-when">중식</div>' +
-              '<div class="info-meal-what">전복죽 &amp; 음료</div>' +
+              '<div class="info-meal-what"><strong>전복죽</strong> &amp; 음료</div>' +
             '</div>' +
             '<div class="info-meal-row">' +
               '<div class="info-meal-when">석식</div>' +
@@ -7124,7 +7156,7 @@ var INFO_CONTENT = {
         '</div>' +
         // 안내 문구
         '<div class="info-meal-notice">' +
-          '※ 표시되지 않은 식사는 <strong>개별 혹은 조별 자율식사</strong>입니다.' +
+          '※ 식사 메뉴는 <strong>현지 사정에 따라 변경</strong>될 수 있습니다.' +
         '</div>' +
       '</div>'
   }
