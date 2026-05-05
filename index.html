@@ -2331,6 +2331,86 @@ body {
   .info-detail-section { padding: 40px 24px 80px; }
 }
 
+
+/* MEAL INFO 메뉴 — 식사 정보용 오렌지 톤 */
+.info-menu.info-menu-meal:hover {
+  border-color: rgba(249,115,22,0.48);
+  background: rgba(249,115,22,0.06);
+}
+.info-menu.info-menu-meal .info-menu-icon {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.35);
+}
+.info-menu.info-menu-meal .info-menu-icon svg { color: #f97316; }
+.info-menu.info-menu-meal .info-menu-eyebrow { color: #f97316; }
+.info-menu.info-menu-meal .info-menu-arrow {
+  color: #f97316;
+  border-bottom-color: rgba(249,115,22,0.42);
+}
+
+/* MEAL INFO 팝업 테이블 */
+.meal-table-wrap {
+  border: 1px solid rgba(6,182,212,0.35);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+.meal-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.meal-table th,
+.meal-table td {
+  border: 1px solid rgba(6,182,212,0.26);
+  padding: 18px 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+.meal-table th {
+  width: 26%;
+  font-family: 'Barlow Condensed', 'Pretendard', sans-serif;
+  font-size: clamp(34px, 6vw, 54px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.86);
+  background: rgba(255,255,255,0.055);
+}
+.meal-table .meal-type {
+  width: 26%;
+  font-size: clamp(22px, 3.8vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  background: rgba(255,255,255,0.035);
+}
+.meal-table .meal-menu {
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--white);
+  word-break: keep-all;
+}
+.meal-table tr:nth-child(odd) td,
+.meal-table tr:nth-child(odd) th {
+  background-color: rgba(255,255,255,0.045);
+}
+.meal-note {
+  margin-top: 14px;
+  color: var(--gray-lt);
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+@media (max-width: 640px) {
+  .meal-table th,
+  .meal-table td { padding: 14px 10px; }
+  .meal-table th { font-size: 30px; }
+  .meal-table .meal-type { font-size: 20px; }
+  .meal-table .meal-menu { font-size: 20px; }
+}
+
 /* ── INFO 팝업 (HOTEL/CRUISE/ITEM 공통) ── */
 .info-popup-overlay {
   display: none;
@@ -3792,7 +3872,7 @@ coordinates: 126.580794378613, 33.2443252829253
             <span>2026 MINI RUN</span>
             <span class="if-title-accent">INFO</span>
           </div>
-          <p class="if-sub">호텔 · 선박 · 준비물 정보 모음</p>
+          <p class="if-sub">호텔 · 선박 · 식사 · 준비물 정보 모음</p>
         </div>
         <div class="if-right">
           <p class="if-preview">
@@ -3916,6 +3996,7 @@ coordinates: 126.580794378613, 33.2443252829253
     <div class="dh-meta">
       <div class="dh-meta-item"><span class="dh-meta-label">Hotel</span><span class="dh-meta-val">조식 · 객실</span></div>
       <div class="dh-meta-item"><span class="dh-meta-label">Cruise</span><span class="dh-meta-val">선적 · 승선</span></div>
+      <div class="dh-meta-item"><span class="dh-meta-label">Meal</span><span class="dh-meta-val">식사 일정</span></div>
       <div class="dh-meta-item"><span class="dh-meta-label">Item</span><span class="dh-meta-val">준비물 5가지</span></div>
     </div>
   </div>
@@ -3979,6 +4060,28 @@ coordinates: 126.580794378613, 33.2443252829253
         </span>
       </button>
 
+      <!-- MEAL INFO -->
+      <button class="info-menu info-menu-meal" type="button" onclick="openInfoPopup('meal')">
+        <div class="info-menu-icon">
+          <!-- Meal / Fork & Knife -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7 3V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M5 3V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9 3V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M5 10C5 12 6 13 7 13C8 13 9 12 9 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 13V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M17 3C15.5 4.4 15 6.3 15 9V13H19V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="info-menu-eyebrow">03</div>
+        <div class="info-menu-title">MEAL INFO</div>
+        <div class="info-menu-desc">Day.1부터 Day.4까지 조식·중식·석식 식사 메뉴 안내</div>
+        <span class="info-menu-arrow">
+          <span>자세히 보기</span>
+          <span class="info-menu-arrow-icon">→</span>
+        </span>
+      </button>
+
       <!-- ITEM INFO -->
       <button class="info-menu" type="button" onclick="openInfoPopup('item')">
         <div class="info-menu-icon">
@@ -3990,7 +4093,7 @@ coordinates: 126.580794378613, 33.2443252829253
             <rect x="9" y="14" width="6" height="3" rx="0.5" stroke="currentColor" stroke-width="1.4"/>
           </svg>
         </div>
-        <div class="info-menu-eyebrow">03</div>
+        <div class="info-menu-eyebrow">04</div>
         <div class="info-menu-title">ITEM INFO</div>
         <div class="info-menu-desc">출발 전 꼭 확인해야 할 5가지 필수 준비물 안내</div>
         <span class="info-menu-arrow">
@@ -4007,7 +4110,7 @@ coordinates: 126.580794378613, 33.2443252829253
             <path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="info-menu-eyebrow">04</div>
+        <div class="info-menu-eyebrow">05</div>
         <div class="info-menu-title">KAKAO TALK INFO</div>
         <div class="info-menu-desc">참가자 오픈 단톡방. 공지·집결 안내·비상 연락을 한곳에서 확인</div>
         <span class="info-menu-arrow">
@@ -5163,7 +5266,7 @@ coordinates: 126.580794378613, 33.2443252829253
                  target="_blank" rel="noopener">상세정보</a>
             </div>
           </div>
-          <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 & 김치찌개 세트</span><span class="tl-tag-note yellow">조별 착석</span><span class="tl-tag-note orange">음료 · 주류는 테이블별 계산</span></div>
+          <div class="tl-note-box"><span class="tl-tag-note green">흑돼지 & 김치찌개 세트</span><span class="tl-tag-note yellow">조별 착석</span><span class="tl-tag-note orange">음료 · 주류 별도 계산</span></div>
           <div class="tl-tags"><span class="tl-tag">단체 식사</span><span class="tl-tag">서귀포</span></div>
         </div>
       </div>
@@ -6882,6 +6985,46 @@ function closeTeamPopup(e) {
 // INFO 팝업 — HOTEL / CRUISE / ITEM 공통
 // 각 메뉴 클릭 시 해당 콘텐츠를 동적으로 렌더
 // ══════════════════════════════════════════
+
+function getMealInfoHtml() {
+  return '' +
+    '<div class="meal-table-wrap">' +
+      '<table class="meal-table" aria-label="2026 MINI RUN 식사 정보">' +
+        '<tbody>' +
+          '<tr>' +
+            '<th rowspan="2" scope="rowgroup">Day.1</th>' +
+            '<td class="meal-type">조식</td>' +
+            '<td class="meal-menu">샌드위치</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td class="meal-type">석식</td>' +
+            '<td class="meal-menu">흑돼지 오겹살 &amp; 김치찌개</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="rowgroup">Day.2</th>' +
+            '<td class="meal-type">석식</td>' +
+            '<td class="meal-menu">피자 &amp; 파스타 &amp; 음료</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th rowspan="2" scope="rowgroup">Day.3</th>' +
+            '<td class="meal-type">중식</td>' +
+            '<td class="meal-menu">전복죽 &amp; 음료</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td class="meal-type">석식</td>' +
+            '<td class="meal-menu">뷔페</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="rowgroup">Day.4</th>' +
+            '<td class="meal-type">조식</td>' +
+            '<td class="meal-menu">김밥 &amp; 도넛</td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>' +
+    '</div>' +
+    '<p class="meal-note">※ 식사 메뉴는 현장 상황에 따라 일부 변경될 수 있습니다.</p>';
+}
+
 var INFO_CONTENT = {
   hotel: {
     tag: 'HOTEL INFO',
@@ -6954,6 +7097,11 @@ var INFO_CONTENT = {
           '</div>' +
         '</div>' +
       '</div>'
+  },
+  meal: {
+    tag: 'MEAL INFO',
+    title: '2026 MINI RUN 식사 안내',
+    html: getMealInfoHtml()
   },
   item: {
     tag: 'ITEM INFO',
@@ -7054,6 +7202,9 @@ function openInfoPopup(type) {
   // ITEM은 매번 새로 렌더 (긴 HTML이라 미리 빌드 안 함)
   if (type === 'item') {
     data.html = getInfoItemHtml();
+  }
+  if (type === 'meal') {
+    data.html = getMealInfoHtml();
   }
   document.getElementById('infoPopupTag').textContent = data.tag;
   document.getElementById('infoPopupTitle').textContent = data.title;
