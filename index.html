@@ -13,7 +13,7 @@ window.initKakaoSdk = function () {
   try {
     if (typeof window.Kakao === "undefined") {
       window.kakaoReady = false;
-      console.error("Kakao object is undefined after SDK load");
+      console.error("Kakao object is undefined");
       return;
     }
 
@@ -22,7 +22,7 @@ window.initKakaoSdk = function () {
     }
 
     window.kakaoReady = true;
-    console.log("Kakao SDK ready:", Kakao.isInitialized());
+    console.log("Kakao SDK ready");
   } catch (error) {
     window.kakaoReady = false;
     console.error("Kakao SDK init error:", error);
@@ -31,7 +31,7 @@ window.initKakaoSdk = function () {
 
 window.handleKakaoSdkError = function () {
   window.kakaoReady = false;
-  alert("카카오 SDK 로딩에 실패했습니다. Safari/Chrome에서 열었는지, GitHub Pages 도메인이 카카오 JavaScript SDK 도메인에 등록되어 있는지 확인해주세요.");
+  alert("카카오 SDK 로딩에 실패했습니다. Safari/Chrome에서 열었는지 확인해주세요.");
 };
 
 window.ensureKakaoReady = function () {
@@ -47,7 +47,7 @@ window.ensureKakaoReady = function () {
     console.error("ensureKakaoReady error:", error);
   }
 
-  alert("카카오 SDK가 아직 준비되지 않았습니다. 페이지를 완전히 새로고침한 뒤 다시 시도해주세요.");
+  alert("카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.");
   return false;
 };
 </script>
@@ -3454,83 +3454,6 @@ body {
 
 .tl-navi-kakao { background: #FEE500; color: #1A1A1A; }
 </style>
-
-<script id="kakao-navi-start-safety">
-(function () {
-  var originalInit = window.initKakaoSdk;
-  window.initKakaoSdk = function () {
-    if (typeof originalInit === "function") originalInit();
-
-    if (typeof Kakao !== "undefined" && Kakao.Navi && Kakao.Navi.start && !Kakao.Navi.__miniRunPatched) {
-      var originalStart = Kakao.Navi.start;
-      Kakao.Navi.start = function (options) {
-        if (!window.ensureKakaoReady()) return;
-        return originalStart.call(Kakao.Navi, options);
-      };
-      Kakao.Navi.__miniRunPatched = true;
-    }
-  };
-})();
-</script>
-
-
-<script id="kakao-navi-sanitize-patch">
-(function () {
-  function cleanName(name) {
-    return String(name || '목적지')
-      .replace(/\s+/g, ' ')
-      .replace(/카카오내비로\s*길찾기/g, '')
-      .replace(/카카오내비/g, '')
-      .replace(/길찾기/g, '')
-      .trim() || '목적지';
-  }
-
-  window.__sanitizeKakaoNaviOptions = function (options) {
-    options = options || {};
-
-    var x = Number(options.x);
-    var y = Number(options.y);
-
-    if (!isFinite(x) || !isFinite(y)) {
-      alert('목적지 좌표가 올바르지 않습니다.');
-      return null;
-    }
-
-    var viaPoints = Array.isArray(options.viaPoints) ? options.viaPoints : [];
-    viaPoints = viaPoints
-      .map(function (v, i) {
-        return {
-          name: cleanName(v.name || ('경유지' + (i + 1))),
-          x: Number(v.x),
-          y: Number(v.y)
-        };
-      })
-      .filter(function (v) {
-        return isFinite(v.x) && isFinite(v.y);
-      })
-      .slice(0, 3); // 카카오내비 SDK 안정 처리용: 경유지 최대 3개
-
-    return {
-      name: cleanName(options.name),
-      x: x,
-      y: y,
-      coordType: options.coordType || 'wgs84',
-      viaPoints: viaPoints.slice(0, 3)
-    };
-  };
-
-  window.__startKakaoNaviSafely = function (options) {
-    if (!window.ensureKakaoReady || !window.ensureKakaoReady()) return false;
-
-    var cleaned = window.__sanitizeKakaoNaviOptions(options);
-    if (!cleaned) return false;
-
-    Kakao.Navi.start(cleaned);
-    return false;
-  };
-})();
-</script>
-
 </head>
 <body>
 
@@ -5865,145 +5788,150 @@ body {
 </div>
 
 
-<script>
-// ══════════════════════════════════════════
-// KakaoMap 링크 → KakaoNavi 실행 브릿지
-// 기존 HTML의 kakaomap://route / map.kakao.com 링크를 가로채서
-// window.__startKakaoNaviSafely() 방식으로 카카오내비 앱을 바로 실행합니다.
-// ══════════════════════════════════════════
+
+<script id="explicit-kakaonavi-renderers">
 (function () {
-  var KAKAO_JAVASCRIPT_KEY = 'e8285617d6891df4ebe55bfeeff82c83';
+  window.__MINIRUN_KAKAO_ROUTES = {};
+  window.__MINIRUN_KAKAO_ROUTE_SEQ = 0;
 
-  function ensureKakaoReady() {
-    if (!window.Kakao || !Kakao.Navi) {
-      alert('카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.');
-      return false;
-    }
-return true;
-  }
-
-  function parseQuery(qs) {
-    var out = {};
-    if (!qs) return out;
-    qs.replace(/^\?/, '').split('&').forEach(function (part) {
-      if (!part) return;
-      var idx = part.indexOf('=');
-      var key = idx >= 0 ? part.slice(0, idx) : part;
-      var val = idx >= 0 ? part.slice(idx + 1) : '';
-      try { key = decodeURIComponent(key); } catch (e) {}
-      try { val = decodeURIComponent(val); } catch (e) {}
-      out[key] = val;
-    });
-    return out;
-  }
-
-  function coordFromLatLngString(s) {
-    if (!s) return null;
-    var a = String(s).split(',');
-    if (a.length < 2) return null;
-    var lat = parseFloat(a[0]);
-    var lng = parseFloat(a[1]);
-    if (!isFinite(lat) || !isFinite(lng)) return null;
-    return { lat: lat, lng: lng };
-  }
-
-  function kakaoMapHrefToNaviOptions(href, labelText) {
-    var raw = href || '';
-    var query = '';
-    var name = labelText || '목적지';
-    var ep = null;
-    var vias = [];
-
-    // Android intent://route?...#Intent;scheme=kakaomap...
-    if (raw.indexOf('intent://route?') === 0) {
-      query = raw.slice('intent://route?'.length).split('#Intent')[0];
-    }
-    // iOS kakaomap://route?...
-    else if (raw.indexOf('kakaomap://route?') === 0) {
-      query = raw.slice('kakaomap://route?'.length);
-    }
-    // Mobile web Kakao route
-    else if (raw.indexOf('m.map.kakao.com/scheme/route') !== -1) {
-      query = raw.split('?')[1] || '';
-    }
-    // PC/simple Kakao link: https://map.kakao.com/link/to/name,lat,lng
-    else if (raw.indexOf('map.kakao.com/link/to/') !== -1) {
-      var last = raw.split('/link/to/')[1] || '';
-      last = last.split('?')[0].split('#')[0];
-      try { last = decodeURIComponent(last); } catch (e) {}
-      var parts = last.split(',');
-      if (parts.length >= 3) {
-        name = parts.slice(0, parts.length - 2).join(',') || name;
-        var lat = parseFloat(parts[parts.length - 2]);
-        var lng = parseFloat(parts[parts.length - 1]);
-        if (isFinite(lat) && isFinite(lng)) ep = { lat: lat, lng: lng };
-      }
-    }
-
-    if (query) {
-      var q = parseQuery(query);
-      ep = coordFromLatLngString(q.ep) || ep;
-      for (var i = 1; i <= 5; i++) {
-        var key = i === 1 ? 'vp' : 'vp' + i;
-        var c = coordFromLatLngString(q[key]);
-        if (c) vias.push({
-          name: '경유지' + i,
-          x: c.lng,
-          y: c.lat
-        });
-      }
-    }
-
-    if (!ep) return null;
-
+  function cleanPlace(p) {
     return {
-      name: name,
-      x: ep.lng,
-      y: ep.lat,
-      coordType: 'wgs84',
-      viaPoints: vias.slice(0, 3)
+      name: String((p && p.name) || "목적지"),
+      lat: Number(p && p.lat),
+      lng: Number(p && p.lng)
     };
   }
 
-  window.startKakaoNaviFromPoint = function (name, lat, lng, vias) {
-    if (!window.ensureKakaoReady()) return false;
-    var viaPoints = (vias || []).map(function (v, i) {
-      return {
-        name: v.name || ('경유지' + (i + 1)),
-        x: Number(v.lng),
-        y: Number(v.lat)
-      };
-    }).filter(function (v) {
-      return isFinite(v.x) && isFinite(v.y);
+  function makeRoute(dst, vias) {
+    dst = cleanPlace(dst);
+    vias = (vias || []).map(cleanPlace).filter(function (p) {
+      return isFinite(p.lat) && isFinite(p.lng);
     });
 
-    window.__startKakaoNaviSafely({
-      name: name || '목적지',
-      x: Number(lng),
-      y: Number(lat),
-      coordType: 'wgs84',
-      viaPoints: viaPoints.slice(0, 3)
-    });
-    return false;
-  };
-
-  window.openKakaoNaviFromExistingLink = function (anchor) {
-    if (!anchor) return true;
-    var opt = kakaoMapHrefToNaviOptions(anchor.getAttribute('href'), anchor.textContent || '목적지');
-    if (!opt) return true;
-    window.__startKakaoNaviSafely(opt);
-    return false;
-  };
-
-  document.addEventListener('click', function (e) {
-    var a = e.target && e.target.closest ? e.target.closest('a.tl-navi-kakao, a.app-kakao') : null;
-    if (!a) return;
-    var href = a.getAttribute('href') || '';
-    if (href.indexOf('kakaomap://') === 0 || href.indexOf('intent://route') === 0 || href.indexOf('map.kakao.com') !== -1 || href.indexOf('m.map.kakao.com') !== -1) {
-      e.preventDefault();
-      openKakaoNaviFromExistingLink(a);
+    if (!isFinite(dst.lat) || !isFinite(dst.lng)) {
+      return null;
     }
-  }, true);
+
+    return {
+      name: dst.name,
+      x: dst.lng,
+      y: dst.lat,
+      coordType: "wgs84",
+      viaPoints: vias.slice(0, 3).map(function (v) {
+        return {
+          name: v.name,
+          x: v.lng,
+          y: v.lat
+        };
+      })
+    };
+  }
+
+  function registerRoute(dst, vias) {
+    var route = makeRoute(dst, vias);
+    if (!route) return "";
+    var id = "route_" + (++window.__MINIRUN_KAKAO_ROUTE_SEQ);
+    window.__MINIRUN_KAKAO_ROUTES[id] = route;
+    return id;
+  }
+
+  window.startMiniRunKakaoNavi = function (routeId) {
+    if (!window.ensureKakaoReady()) return false;
+
+    var route = window.__MINIRUN_KAKAO_ROUTES[routeId];
+    if (!route) {
+      alert("내비 경로 정보를 찾지 못했습니다.");
+      return false;
+    }
+
+    try {
+      Kakao.Navi.start(route);
+    } catch (error) {
+      console.error("Kakao.Navi.start error:", error, route);
+      alert("카카오내비 연결 중 오류가 발생했습니다. 좌표 또는 경유지 정보를 확인해주세요.");
+    }
+
+    return false;
+  };
+
+  function renderKakaoButton(wrap, dst, vias, label) {
+    if (!wrap) return;
+    var id = registerRoute(dst, vias || []);
+    if (!id) return;
+
+    var route = window.__MINIRUN_KAKAO_ROUTES[id];
+    var viaCount = route.viaPoints ? route.viaPoints.length : 0;
+    var sub = viaCount > 0 ? " · 경유지 " + viaCount + "개 포함" : "";
+
+    wrap.innerHTML =
+      '<a class="tl-navi-btn tl-navi-kakao" href="javascript:void(0)" ' +
+      'data-kakao-route-id="' + id + '" ' +
+      'onclick="return window.startMiniRunKakaoNavi(\\'' + id + '\\');">' +
+      (label || "카카오내비로 길찾기") + sub +
+      '</a>';
+  }
+
+  // 기존 함수들을 카카오내비 SDK 직결 방식으로 덮어씀
+  window.renderSimpleNavi = function (id, p) {
+    renderKakaoButton(document.getElementById(id), p, [], "카카오내비로 길찾기");
+  };
+
+  window.renderMultiViaNavi = function (id, dst, vias) {
+    renderKakaoButton(document.getElementById(id), dst, vias || [], "카카오내비로 길찾기");
+  };
+
+  window.renderMultiViaNaviDebug = function (id, dst, vias) {
+    renderKakaoButton(document.getElementById(id), dst, vias || [], "카카오내비로 길찾기");
+  };
+
+  window.renderNaviBtns = function () {
+    // 행담도휴게소 목포방향
+    renderKakaoButton(
+      document.getElementById("navibtns"),
+      { name: "행담도휴게소 목포방향", lat: 36.9712, lng: 126.7801 },
+      [],
+      "카카오내비로 길찾기"
+    );
+  };
+
+  window.renderNaviBtns2 = function () {
+    // 고창고인돌휴게소 경유 → 목포 여객터미널
+    renderKakaoButton(
+      document.getElementById("navibtns2"),
+      { name: "목포 여객터미널", lat: 34.7889, lng: 126.3756 },
+      [{ name: "고창고인돌휴게소", lat: 35.4272, lng: 126.5891 }],
+      "카카오내비로 길찾기"
+    );
+  };
+
+  window.renderHamphyeongNavi = function () {
+    // 군산휴게소 경유 → 함평천지휴게소
+    renderKakaoButton(
+      document.getElementById("navibtns-hamphyeong"),
+      { name: "함평천지휴게소 목포방향", lat: 35.0697, lng: 126.4782 },
+      [{ name: "군산휴게소 목포방향", lat: 36.018831, lng: 126.797698 }],
+      "카카오내비로 길찾기"
+    );
+  };
+
+  // 혹시 기존 렌더링이 먼저 되었거나 동적 버튼이 생긴 경우도 다시 보정
+  window.__rerenderAllMiniRunKakaoNavi = function () {
+    if (typeof window.renderNaviBtns === "function") window.renderNaviBtns();
+    if (typeof window.renderNaviBtns2 === "function") window.renderNaviBtns2();
+    if (typeof window.renderHamphyeongNavi === "function") window.renderHamphyeongNavi();
+
+    // 아래 함수/데이터는 기존 파일의 PLACES가 준비된 뒤에 실행됨
+    if (typeof window.renderDay3Navs === "function") window.renderDay3Navs();
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      // 기존 스크립트 렌더링 후, 최종적으로 다시 한 번 카카오내비 버튼으로 덮어씀
+      if (typeof window.__rerenderAllMiniRunKakaoNavi === "function") {
+        window.__rerenderAllMiniRunKakaoNavi();
+      }
+    }, 50);
+  });
 })();
 </script>
 
@@ -6443,7 +6371,8 @@ return true;
       '</div>';
   }
 
-  var PLACES = {
+  window.PLACES = {
+
     samhak:   { name: '삼학부두여객선터미널', lat: 34.7830,  lng: 126.3984  },
     kalhotel: { name: '서귀포 칼호텔',        lat: 33.2465,  lng: 126.5818  },
     jeju4:    { name: '제주항 4부두',          lat: 33.5227,  lng: 126.5371  },
@@ -6469,31 +6398,31 @@ return true;
     saebyeol:        { name: '새별오름 주차장',            lat: 33.3663, lng: 126.3577 }
   };
 
-  function renderDay3Navs() {
+  window.renderDay3Navs = function () {
     // Drive I  (08:10) : → 휴애리 주차장1 (단일 목적지)
-    renderSimpleNavi('navibtns-day3-d1', PLACES.hueri_p1);
+    renderSimpleNavi('navibtns-day3-d1', window.PLACES.hueri_p1);
     // Drive II (09:00) : 하례리 산21-10 경유 → 산굼부리 주차장
-    renderMultiViaNavi('navibtns-day3-d2', PLACES.sangumburi_p, [
-      PLACES.harye_san
+    renderMultiViaNavi('navibtns-day3-d2', window.PLACES.sangumburi_p, [
+      window.PLACES.harye_san
     ]);
     // Drive III(10:30) : 송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장 주차장
     // 🐛 iOS 다중 경유지 안내시작 버튼 미응답 버그 디버그용 — 4가지 URL 방식 비교
-    renderMultiViaNaviDebug('navibtns-day3-d3', PLACES.kimnyeong_beach, [
-      PLACES.songdang,
-      PLACES.kimnyeong_san,
-      PLACES.kimnyeong_369
+    renderMultiViaNaviDebug('navibtns-day3-d3', window.PLACES.kimnyeong_beach, [
+      window.PLACES.songdang,
+      window.PLACES.kimnyeong_san,
+      window.PLACES.kimnyeong_369
     ]);
     // Drive IV (13:00) : 월정리 → 행원리 → 평대리1947-8 → 평대리3344
-    renderMultiViaNavi('navibtns-day3-d4', PLACES.pyeongdae_3344, [
-      PLACES.woljeong,
-      PLACES.haengwon,
-      PLACES.pyeongdae_1947
+    renderMultiViaNavi('navibtns-day3-d4', window.PLACES.pyeongdae_3344, [
+      window.PLACES.woljeong,
+      window.PLACES.haengwon,
+      window.PLACES.pyeongdae_1947
     ]);
     // Drive V  (14:30) : → 제주 동화마을
-    renderSimpleNavi('navibtns-day3-d5', PLACES.fairy_village);
+    renderSimpleNavi('navibtns-day3-d5', window.PLACES.fairy_village);
     // Drive VI (15:40) : 가시리 3083-2 경유 → 서귀포 칼호텔 주차장
-    renderMultiViaNavi('navibtns-day3-d6', PLACES.kal_p2, [
-      PLACES.gasiri
+    renderMultiViaNavi('navibtns-day3-d6', window.PLACES.kal_p2, [
+      window.PLACES.gasiri
     ]);
   }
 
@@ -6503,26 +6432,26 @@ return true;
       renderNaviBtns();
       renderNaviBtns2();
       renderHamphyeongNavi();
-      renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
-      renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
-      renderSimpleNavi('navibtns-jeju4',    PLACES.jeju4);
+      renderSimpleNavi('navibtns-samhak',   window.PLACES.samhak);
+      renderSimpleNavi('navibtns-kalhotel', window.PLACES.kalhotel);
+      renderSimpleNavi('navibtns-jeju4',    window.PLACES.jeju4);
       renderDay3Navs();
     // ── DAY 2 공통 목적지 네비 ──
-    renderSimpleNavi('navibtns-day2-d3', PLACES.thecliff);   // 17:30 → 더클리프
-    renderSimpleNavi('navibtns-day2-d4', PLACES.saebyeol);   // 20:30 → 새별오름 주차장
-    renderSimpleNavi('navibtns-day2-d5', PLACES.kal_p2);     // 23:00 → 칼호텔 주차장
+    renderSimpleNavi('navibtns-day2-d3', window.PLACES.thecliff);   // 17:30 → 더클리프
+    renderSimpleNavi('navibtns-day2-d4', window.PLACES.saebyeol);   // 20:30 → 새별오름 주차장
+    renderSimpleNavi('navibtns-day2-d5', window.PLACES.kal_p2);     // 23:00 → 칼호텔 주차장
   });
 } else {
   renderNaviBtns();
   renderNaviBtns2();
   renderHamphyeongNavi();
-  renderSimpleNavi('navibtns-samhak',   PLACES.samhak);
-  renderSimpleNavi('navibtns-kalhotel', PLACES.kalhotel);
-  renderSimpleNavi('navibtns-jeju4',    PLACES.jeju4);
+  renderSimpleNavi('navibtns-samhak',   window.PLACES.samhak);
+  renderSimpleNavi('navibtns-kalhotel', window.PLACES.kalhotel);
+  renderSimpleNavi('navibtns-jeju4',    window.PLACES.jeju4);
   renderDay3Navs();
-  renderSimpleNavi('navibtns-day2-d3', PLACES.thecliff);
-  renderSimpleNavi('navibtns-day2-d4', PLACES.saebyeol);
-  renderSimpleNavi('navibtns-day2-d5', PLACES.kal_p2);
+  renderSimpleNavi('navibtns-day2-d3', window.PLACES.thecliff);
+  renderSimpleNavi('navibtns-day2-d4', window.PLACES.saebyeol);
+  renderSimpleNavi('navibtns-day2-d5', window.PLACES.kal_p2);
 }
 })();
 
@@ -7259,163 +7188,5 @@ function showCallToast(name, formatted, copied) {
   }, 4000);
 }
 </script>
-
-<script id="force-kakao-navi-links">
-(function () {
-  function parseQueryString(query) {
-    var out = {};
-    (query || '').replace(/^\?/, '').split('&').forEach(function (pair) {
-      if (!pair) return;
-      var idx = pair.indexOf('=');
-      var key = idx >= 0 ? pair.slice(0, idx) : pair;
-      var val = idx >= 0 ? pair.slice(idx + 1) : '';
-      try { key = decodeURIComponent(key); } catch (e) {}
-      try { val = decodeURIComponent(val); } catch (e) {}
-      out[key] = val;
-    });
-    return out;
-  }
-
-  function coordFromLatLng(value) {
-    if (!value) return null;
-    var parts = String(value).split(',');
-    if (parts.length < 2) return null;
-    var lat = parseFloat(parts[0]);
-    var lng = parseFloat(parts[1]);
-    if (!isFinite(lat) || !isFinite(lng)) return null;
-    return { lat: lat, lng: lng };
-  }
-
-  function extractKakaoNaviOptions(href, labelText) {
-    var raw = href || '';
-    var name = (labelText || '목적지').replace(/\s+/g, ' ').trim() || '목적지';
-    var query = '';
-    var ep = null;
-    var vias = [];
-
-    if (!raw || raw.indexOf('javascript:') === 0) return null;
-
-    if (raw.indexOf('intent://route?') === 0 && raw.indexOf('scheme=kakaomap') !== -1) {
-      query = raw.slice('intent://route?'.length).split('#Intent')[0];
-    } else if (raw.indexOf('kakaomap://route?') === 0) {
-      query = raw.slice('kakaomap://route?'.length);
-    } else if (raw.indexOf('m.map.kakao.com/scheme/route') !== -1) {
-      query = raw.split('?')[1] || '';
-    } else if (raw.indexOf('map.kakao.com/link/to/') !== -1) {
-      var last = raw.split('/link/to/')[1] || '';
-      last = last.split('?')[0].split('#')[0];
-      try { last = decodeURIComponent(last); } catch (e) {}
-      var parts = last.split(',');
-      if (parts.length >= 3) {
-        name = parts.slice(0, parts.length - 2).join(',') || name;
-        var lat = parseFloat(parts[parts.length - 2]);
-        var lng = parseFloat(parts[parts.length - 1]);
-        if (isFinite(lat) && isFinite(lng)) ep = { lat: lat, lng: lng };
-      }
-    }
-
-    if (query) {
-      var q = parseQueryString(query);
-      ep = coordFromLatLng(q.ep) || ep;
-      ['vp', 'vp1', 'vp2', 'vp3', 'vp4', 'vp5'].forEach(function (key, idx) {
-        var c = coordFromLatLng(q[key]);
-        if (!c) return;
-        vias.push({
-          name: idx <= 1 ? '경유지1' : ('경유지' + idx),
-          x: c.lng,
-          y: c.lat
-        });
-      });
-    }
-
-    if (!ep) return null;
-
-    return {
-      name: name,
-      x: ep.lng,
-      y: ep.lat,
-      coordType: 'wgs84',
-      viaPoints: vias.slice(0, 3).filter(function (v) {
-        return isFinite(v.x) && isFinite(v.y);
-      })
-    };
-  }
-
-  function forceOpenKakaoNavi(anchor) {
-    if (!anchor) return true;
-    var originalHref = anchor.getAttribute('data-kakao-original-href') || anchor.getAttribute('href') || '';
-    var options = extractKakaoNaviOptions(originalHref, anchor.textContent || '목적지');
-    if (!options) return true;
-
-    if (typeof window.ensureKakaoReady === 'function') {
-      if (!window.ensureKakaoReady()) return false;
-    } else {
-      if (typeof Kakao === 'undefined' || !Kakao.Navi) {
-        alert('카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.');
-        return false;
-      }
-    }
-
-    window.__startKakaoNaviSafely(options);
-    return false;
-  }
-
-  function patchKakaoAnchors() {
-    var anchors = document.querySelectorAll('a.tl-navi-kakao, a.app-kakao, a[href^="kakaomap://"], a[href^="intent://route"][href*="scheme=kakaomap"], a[href*="map.kakao.com"], a[href*="m.map.kakao.com"]');
-    anchors.forEach(function (a) {
-      var href = a.getAttribute('href') || '';
-      if (!href || href.indexOf('javascript:') === 0) return;
-      var isKakaoMap =
-        href.indexOf('kakaomap://') === 0 ||
-        (href.indexOf('intent://route') === 0 && href.indexOf('scheme=kakaomap') !== -1) ||
-        href.indexOf('map.kakao.com') !== -1 ||
-        href.indexOf('m.map.kakao.com') !== -1;
-
-      if (isKakaoMap) {
-        a.setAttribute('data-kakao-original-href', href);
-        a.setAttribute('href', 'javascript:void(0)');
-        a.setAttribute('onclick', 'return window.__forceOpenKakaoNavi(this);');
-        if ((a.textContent || '').indexOf('카카오맵') !== -1) {
-          a.textContent = a.textContent.replace(/카카오맵/g, '카카오내비');
-        }
-      }
-    });
-  }
-
-  window.__forceOpenKakaoNavi = forceOpenKakaoNavi;
-  window.forceKakaoNaviPatch = patchKakaoAnchors;
-
-  document.addEventListener('click', function (e) {
-    var a = e.target && e.target.closest ? e.target.closest('a') : null;
-    if (!a) return;
-    var href = a.getAttribute('data-kakao-original-href') || a.getAttribute('href') || '';
-    var isKakaoMap =
-      href.indexOf('kakaomap://') === 0 ||
-      (href.indexOf('intent://route') === 0 && href.indexOf('scheme=kakaomap') !== -1) ||
-      href.indexOf('map.kakao.com') !== -1 ||
-      href.indexOf('m.map.kakao.com') !== -1;
-    var isKakaoButton = a.classList && (a.classList.contains('tl-navi-kakao') || a.classList.contains('app-kakao'));
-
-    if (isKakaoMap || isKakaoButton) {
-      var handled = forceOpenKakaoNavi(a) === false;
-      if (handled) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }
-  }, true);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', patchKakaoAnchors);
-  } else {
-    patchKakaoAnchors();
-  }
-
-  setTimeout(patchKakaoAnchors, 300);
-  setTimeout(patchKakaoAnchors, 1000);
-  setTimeout(patchKakaoAnchors, 2500);
-})();
-</script>
-
 </body>
 </html>
