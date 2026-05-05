@@ -5,52 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 MINI RUN</title>
 
-<!-- Kakao JavaScript SDK — 카카오맵 링크를 카카오내비 실행으로 전환 -->
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" onload="initKakaoSdk()" onerror="handleKakaoSdkError()"></script>
+<script id="kakao-sdk-bootstrap">
+window.KAKAO_JS_KEY = "e8285617d6891df4ebe55bfeeff82c83";
+window.kakaoReady = false;
 
-<script>
-const KAKAO_JS_KEY = "e8285617d6891df4ebe55bfeeff82c83";
-let kakaoReady = false;
-
-function initKakaoSdk() {
+window.initKakaoSdk = function () {
   try {
-    if (typeof Kakao === "undefined") {
-      kakaoReady = false;
+    if (typeof window.Kakao === "undefined") {
+      window.kakaoReady = false;
+      console.error("Kakao object is undefined after SDK load");
       return;
     }
 
     if (!Kakao.isInitialized()) {
-      Kakao.init(KAKAO_JS_KEY);
+      Kakao.init(window.KAKAO_JS_KEY);
     }
 
-    kakaoReady = true;
-    console.log("Kakao SDK ready");
+    window.kakaoReady = true;
+    console.log("Kakao SDK ready:", Kakao.isInitialized());
   } catch (error) {
-    kakaoReady = false;
+    window.kakaoReady = false;
     console.error("Kakao SDK init error:", error);
   }
-}
+};
 
-function handleKakaoSdkError() {
-  kakaoReady = false;
+window.handleKakaoSdkError = function () {
+  window.kakaoReady = false;
   alert("카카오 SDK 로딩에 실패했습니다. Safari/Chrome에서 열었는지, GitHub Pages 도메인이 카카오 JavaScript SDK 도메인에 등록되어 있는지 확인해주세요.");
-}
+};
 
-function ensureKakaoReady() {
-  if (typeof Kakao !== "undefined" && Kakao.Navi) {
-    if (!Kakao.isInitialized()) {
-      Kakao.init(KAKAO_JS_KEY);
+window.ensureKakaoReady = function () {
+  try {
+    if (typeof window.Kakao !== "undefined" && Kakao.Navi) {
+      if (!Kakao.isInitialized()) {
+        Kakao.init(window.KAKAO_JS_KEY);
+      }
+      window.kakaoReady = true;
+      return true;
     }
-    kakaoReady = true;
-    return true;
+  } catch (error) {
+    console.error("ensureKakaoReady error:", error);
   }
 
-  alert("카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.");
+  alert("카카오 SDK가 아직 준비되지 않았습니다. 페이지를 완전히 새로고침한 뒤 다시 시도해주세요.");
   return false;
-}
+};
 </script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" onload="window.initKakaoSdk()" onerror="window.handleKakaoSdkError()"></script>
 
 
+<!-- Kakao JavaScript SDK — 카카오맵 링크를 카카오내비 실행으로 전환 -->
 <!-- ════════════════════════════
      앱 아이콘 (홈 화면 추가) — iOS / Android 대응
      base64 인라인으로 단일 HTML 자립 유지
@@ -3450,6 +3454,25 @@ body {
 
 .tl-navi-kakao { background: #FEE500; color: #1A1A1A; }
 </style>
+
+<script id="kakao-navi-start-safety">
+(function () {
+  var originalInit = window.initKakaoSdk;
+  window.initKakaoSdk = function () {
+    if (typeof originalInit === "function") originalInit();
+
+    if (typeof Kakao !== "undefined" && Kakao.Navi && Kakao.Navi.start && !Kakao.Navi.__miniRunPatched) {
+      var originalStart = Kakao.Navi.start;
+      Kakao.Navi.start = function (options) {
+        if (!window.ensureKakaoReady()) return;
+        return originalStart.call(Kakao.Navi, options);
+      };
+      Kakao.Navi.__miniRunPatched = true;
+    }
+  };
+})();
+</script>
+
 </head>
 <body>
 
@@ -5788,7 +5811,7 @@ body {
 // ══════════════════════════════════════════
 // KakaoMap 링크 → KakaoNavi 실행 브릿지
 // 기존 HTML의 kakaomap://route / map.kakao.com 링크를 가로채서
-// if (!ensureKakaoReady()) return;
+// if (!window.ensureKakaoReady()) return;
   Kakao.Navi.start() 방식으로 카카오내비 앱을 바로 실행합니다.
 // ══════════════════════════════════════════
 (function () {
@@ -5886,7 +5909,7 @@ return true;
   }
 
   window.startKakaoNaviFromPoint = function (name, lat, lng, vias) {
-    if (!ensureKakaoReady()) return false;
+    if (!window.ensureKakaoReady()) return false;
     var viaPoints = (vias || []).map(function (v, i) {
       return {
         name: v.name || ('경유지' + (i + 1)),
@@ -5897,7 +5920,7 @@ return true;
       return isFinite(v.x) && isFinite(v.y);
     });
 
-    if (!ensureKakaoReady()) return;
+    if (!window.ensureKakaoReady()) return;
   Kakao.Navi.start({
       name: name || '목적지',
       x: Number(lng),
@@ -5912,8 +5935,8 @@ return true;
     if (!anchor) return true;
     var opt = kakaoMapHrefToNaviOptions(anchor.getAttribute('href'), anchor.textContent || '목적지');
     if (!opt) return true;
-    if (!ensureKakaoReady()) return false;
-    if (!ensureKakaoReady()) return;
+    if (!window.ensureKakaoReady()) return false;
+    if (!window.ensureKakaoReady()) return;
   Kakao.Navi.start(opt);
     return false;
   };
@@ -7270,8 +7293,8 @@ function showCallToast(name, formatted, copied) {
     var options = extractKakaoNaviOptions(originalHref, anchor.textContent || '목적지');
     if (!options) return true;
 
-    if (typeof ensureKakaoReady === 'function') {
-      if (!ensureKakaoReady()) return false;
+    if (typeof window.ensureKakaoReady === 'function') {
+      if (!window.ensureKakaoReady()) return false;
     } else {
       if (typeof Kakao === 'undefined' || !Kakao.Navi) {
         alert('카카오 SDK가 아직 준비되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.');
