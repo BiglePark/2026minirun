@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 MINI RUN</title>
+<title>2026 MINI RUN - Map Route</title>
 
 <!-- Kakao JavaScript SDK — 카카오맵 링크를 카카오내비 실행으로 전환 -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" onload="initKakaoSdk()" onerror="handleKakaoSdkError()"></script>
@@ -3450,8 +3450,25 @@ body {
 
 .tl-navi-kakao { background: #FEE500; color: #1A1A1A; }
 </style>
+
+<style id="design-variant-css">
+
+html { scroll-behavior: smooth; }
+button, .btn, a[class*="btn"], .nav-btn, .kakao-btn { transition: transform .15s ease, box-shadow .15s ease; }
+button:active, .btn:active, a[class*="btn"]:active { transform: scale(.98); }
+
+body { background:radial-gradient(circle at top right,rgba(53,208,127,.22),transparent 36%),linear-gradient(180deg,#07110e 0%,#0c1713 100%) !important; color:#effff5 !important; }
+body:before { content:""; position:fixed; inset:0; pointer-events:none; background:linear-gradient(120deg,transparent 0 45%,rgba(53,208,127,.12) 45% 46%,transparent 46% 100%),linear-gradient(60deg,transparent 0 55%,rgba(87,183,255,.10) 55% 56%,transparent 56% 100%); background-size:180px 180px,220px 220px; opacity:.65; }
+.card,.stop-card,.schedule-card,.timeline-item,.day-card,.route-card,.info-card,section { background:rgba(14,28,22,.94) !important; border:1px solid rgba(142,210,166,.28) !important; border-radius:20px !important; box-shadow:0 18px 40px rgba(0,0,0,.30) !important; backdrop-filter:blur(10px); }
+h1,h2,h3,.title { color:#effff5 !important; }
+p,.desc,.memo,.subtitle,.sub,[class*="desc"] { color:rgba(239,255,245,.65) !important; }
+.time,.stop-time,[class*="time"] { color:#35d07f !important; font-weight:900 !important; }
+button,.btn,a[class*="btn"],.nav-btn,.kakao-btn { background:linear-gradient(135deg,#35d07f,#57b7ff) !important; color:#03100a !important; font-weight:900 !important; border-radius:14px !important; box-shadow:0 12px 28px rgba(53,208,127,.22) !important; }
+.badge,.tag,.label { background:rgba(53,208,127,.12) !important; color:#35d07f !important; border:1px solid rgba(53,208,127,.28) !important; border-radius:999px !important; }
+
+</style>
 </head>
-<body>
+<body class="design-mini-run-2026_design_map_route">
 
 <!-- ════════════════════════════
      MAIN PAGE
