@@ -6858,49 +6858,94 @@ var INFO_CONTENT = {
     tag: 'HOTEL INFO',
     title: '서귀포칼호텔 이용 안내',
     html:
-      '<div class="info-list">' +
+      '<div class="info-pack-list">' +
         // 1. 미니런 조식 식당 (B1 살레)
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">1</div>' +
-          '<div class="info-list-text">' +
-            '미니런 <strong class="accent">조식 식당</strong>은 <strong>B1층 \'살레\'</strong> 입니다.' +
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M7 3v8m0 0a2 2 0 002-2V3m-2 8a2 2 0 01-2-2V3m2 8v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M14 3c-1 1.5-1 3-1 5 0 1.5.5 3 2 3v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">미니런 <span class="accent">조식 식당</span> 위치</div>' +
+            '<div class="info-pack-item-desc"><span class="accent">B1층 \'살레\'</span>에서 진행됩니다.</div>' +
           '</div>' +
         '</div>' +
         // 2. 미니런 연회장 (B1 다이아몬드홀)
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">2</div>' +
-          '<div class="info-list-text">' +
-            '미니런 <strong class="accent">연회장</strong>은 <strong>B1층 \'다이아몬드홀\'</strong> 입니다.' +
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M6 3H18L22 9L12 21L2 9L6 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M2 9H22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M6 3L9 9L12 21" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+              '<path d="M18 3L15 9L12 21" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">미니런 <span class="accent">연회장</span> 위치</div>' +
+            '<div class="info-pack-item-desc"><span class="accent">B1층 \'다이아몬드홀\'</span>에서 진행됩니다.</div>' +
           '</div>' +
         '</div>' +
-        // 3. 조식 이용시간 (살레 위치 제거 — 1번 항목으로 분리됨)
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">3</div>' +
-          '<div class="info-list-text">' +
-            '조식 이용시간은 <strong class="accent">07:00 부터</strong>이며 ' +
-            '<strong class="accent-red">웨이팅</strong>이 있을 수 있으니 가능한 <strong class="accent-red">07시에 식사</strong>하시길 권합니다.' +
+        // 3. 조식 이용시간 (07:00 부터, 웨이팅)
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="1.6"/>' +
+              '<path d="M12 8V13L15 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M9 2H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M12 2V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">조식 이용시간은 <span class="accent">07:00 부터</span></div>' +
+            '<div class="info-pack-item-desc"><span class="accent-red">웨이팅</span>이 있을 수 있으니 가능한 <span class="accent-red">07시 식사</span>를 권장합니다.</div>' +
           '</div>' +
         '</div>' +
         // 4. 객실 내 조리 불가
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">4</div>' +
-          '<div class="info-list-text">' +
-            '객실 내 <strong>조리는 불가능</strong>합니다. <em style="color:var(--gray);font-style:normal">(커피포트만 있음)</em>' +
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>' +
+              '<path d="M5.6 5.6L18.4 18.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+              '<path d="M9 11V9C9 8 9.5 7 10.5 7H13.5C14.5 7 15 8 15 9V11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' +
+              '<path d="M8 11H16V14C16 15 15.5 16 14.5 16H9.5C8.5 16 8 15 8 14V11Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">객실 내 <span class="accent-red">조리는 불가능</span>합니다</div>' +
+            '<div class="info-pack-item-desc">커피포트만 비치되어 있습니다.</div>' +
           '</div>' +
         '</div>' +
         // 5. 어메니티 안내
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">5</div>' +
-          '<div class="info-list-text">' +
-            '<strong>샴푸 · 린스 · 바디샴푸 ⭕</strong> &nbsp;/&nbsp; <strong style="color:var(--red)">칫솔 · 치약 ❌</strong>' +
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M9 4H15V8L17 11V20C17 20.6 16.6 21 16 21H8C7.4 21 7 20.6 7 20V11L9 8V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M9 4H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M7 13H17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' +
+              '<circle cx="10.5" cy="16" r="0.7" fill="currentColor"/>' +
+              '<circle cx="13.5" cy="17.5" r="0.7" fill="currentColor"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">객실 어메니티 안내</div>' +
+            '<div class="info-pack-item-desc"><span class="accent">샴푸 · 린스 · 바디샴푸 ⭕</span> &nbsp;/&nbsp; <span class="accent-red">칫솔 · 치약 ❌</span></div>' +
           '</div>' +
         '</div>' +
-        // 6. 냉장고 내 음료·생수 유료 (신규 추가)
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">6</div>' +
-          '<div class="info-list-text">' +
-            '객실 <strong>냉장고 내 모든 음료</strong>는 <strong class="accent-red">유료</strong>입니다. ' +
-            '<em style="color:var(--gray);font-style:normal">(생수 포함)</em>' +
+        // 6. 냉장고 내 음료·생수 유료
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<rect x="6" y="2" width="12" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/>' +
+              '<line x1="6" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="1.6"/>' +
+              '<line x1="9" y1="5" x2="9" y2="8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<line x1="9" y1="13" x2="9" y2="16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">냉장고 내 모든 음료 <span class="accent-red">유료</span></div>' +
+            '<div class="info-pack-item-desc">생수를 포함한 모든 음료는 유료로 제공됩니다.</div>' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -6909,38 +6954,85 @@ var INFO_CONTENT = {
     tag: 'CRUISE INFO',
     title: '퀸제누비아호 선박 이용 안내',
     html:
-      '<div class="info-list">' +
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">1</div>' +
-          '<div class="info-list-text">' +
-            '<strong>선적 및 승선</strong>' +
-            '<span class="info-sub-item"><strong class="accent-blue">제주행</strong> : 차량에서 동승자 함께 대기 후 신분증 확인 후 승선 및 선적 진행</span>' +
-            '<span class="info-sub-item"><strong class="accent-blue">목포행</strong> : 동승자를 터미널에 하차시킨 후 선적 진행</span>' +
+      '<div class="info-pack-list">' +
+        // 1. 선적 및 승선 (제주행 / 목포행)
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M3 17C5.5 17 5.5 19 8 19C10.5 19 10.5 17 13 17C15.5 17 15.5 19 18 19C20.5 19 20.5 17 22 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M4 14L5 9H19L20 14" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M3 17L4 14H20L21 17" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M12 9V3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M12 3L17 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">선적 및 승선 절차</div>' +
+            '<div class="info-pack-item-desc">' +
+              '<strong class="accent">제주행</strong> : 차량에서 동승자 함께 대기 후 신분증 확인 후 승선 및 선적 진행<br>' +
+              '<strong class="accent">목포행</strong> : 동승자를 터미널에 하차시킨 후 선적 진행' +
+            '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">2</div>' +
-          '<div class="info-list-text">' +
-            '<strong class="accent">신분증이 필요합니다.</strong> <em style="color:var(--gray);font-style:normal">(모바일 가능)</em>' +
+        // 2. 신분증 필요 (강조)
+        '<div class="info-pack-item urgent">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>' +
+              '<circle cx="8" cy="11" r="2.2" stroke="currentColor" stroke-width="1.6"/>' +
+              '<path d="M4.5 17C5.4 15.5 6.6 14.8 8 14.8C9.4 14.8 10.6 15.5 11.5 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M14 10H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M14 13H17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">승선 시 <span class="accent-red">신분증 필수</span></div>' +
+            '<div class="info-pack-item-desc">신분증이 반드시 필요합니다. <span class="accent">모바일 신분증 가능.</span></div>' +
           '</div>' +
         '</div>' +
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">3</div>' +
-          '<div class="info-list-text">' +
-            '<strong class="accent">미성년자의 경우</strong> \'등본\' 또는 \'가족관계증명서\'가 필요합니다.' +
+        // 3. 미성년자 - 등본/가족관계증명서
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<circle cx="9" cy="8" r="2.5" stroke="currentColor" stroke-width="1.6"/>' +
+              '<path d="M3 19C3.5 16 5.5 14 9 14C12.5 14 14.5 16 15 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.4"/>' +
+              '<path d="M14 16C14.5 14.5 15.5 13 17 13C19 13 20.5 14.5 21 17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">미성년자 동반 시</div>' +
+            '<div class="info-pack-item-desc"><span class="accent">\'등본\' 또는 \'가족관계증명서\'</span>를 추가로 준비해주세요.</div>' +
           '</div>' +
         '</div>' +
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">4</div>' +
-          '<div class="info-list-text">' +
-            '선박 객실은 <strong>다인 침대 객실</strong>이며 <strong>샤워실이 구비</strong>되어 있습니다. ' +
-            '단 샤워실에는 <strong class="accent">샤워 관련 용품이 없으니 미리 준비</strong>하시길 바랍니다.' +
+        // 4. 다인 침대 객실 + 샤워실 (용품 없음)
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M2 18V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M22 18V14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M2 14H22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M2 18H22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M6 14V11C6 10.4 6.4 10 7 10H13C13.6 10 14 10.4 14 11V14" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<circle cx="17" cy="11" r="1.6" stroke="currentColor" stroke-width="1.4"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">선박 객실 안내</div>' +
+            '<div class="info-pack-item-desc"><span class="accent">다인 침대 객실</span>이며 <span class="accent">샤워실</span>이 구비되어 있습니다. 단, <span class="accent-red">샤워 용품은 별도 준비</span>가 필요합니다.</div>' +
           '</div>' +
         '</div>' +
-        '<div class="info-list-item">' +
-          '<div class="info-list-num">5</div>' +
-          '<div class="info-list-text">' +
-            '<strong class="accent-blue">멀미약을 미리 준비</strong>하시길 권합니다.' +
+        // 5. 멀미약 준비
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<rect x="3" y="9" width="18" height="6" rx="3" stroke="currentColor" stroke-width="1.6" transform="rotate(-30 12 12)"/>' +
+              '<line x1="9.2" y1="6.8" x2="14.8" y2="17.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">멀미약 미리 준비</div>' +
+            '<div class="info-pack-item-desc">선박 멀미가 있을 수 있으니 <span class="accent">멀미약을 미리 준비</span>하시길 권장합니다.</div>' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -7056,6 +7148,22 @@ function getInfoItemHtml() {
         '<div class="info-pack-item-body">' +
           '<div class="info-pack-item-title">미니런 공식내비는 <span class="accent">카카오내비</span> 입니다</div>' +
           '<div class="info-pack-item-desc">미니런 참석전 <span class="accent">카카오내비</span>를 설치 바랍니다. (카카오맵 X)</div>' +
+        '</div>' +
+      '</div>' +
+      // 9. 카카오내비 안내 (🔥 추가된 부분)
+      '<div class="info-pack-item">' +
+        '<div class="info-pack-item-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<path d="M3 12C3 7 7 3 12 3C17 3 21 7 21 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '<path d="M3 12H21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '<path d="M7.5 12C7.5 9 9.5 6 12 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '<path d="M16.5 12C16.5 9 14.5 6 12 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+            '<path d="M12 12V19C12 20.1 12.9 21 14 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="info-pack-item-body">' +
+          '<div class="info-pack-item-title">미니런 공식내비는 <span class="accent">카카오내비</span> 입니다</div>' +
+          '<div class="info-pack-item-desc">미니런 참석전 <span class="accent">카카오내비</span>를 설치바랍니다. (카카오맵 X)</div>' +
         '</div>' +
       '</div>' +
       // 3. 샤워 용품
