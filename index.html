@@ -1274,6 +1274,119 @@ body {
   .theme-card { padding: 28px 24px; }
 }
 
+/* ════════════════════════════
+   THEME CARD — 새 위계 디자인
+   "THEME"을 먼저 인식시키고, REST & CHILL은 답변(인용)으로 표현
+════════════════════════════ */
+/* 좌측 영역에 THEME 라벨을 메인 디스플레이로 */
+.tc-theme-label {
+  display: block;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(48px, 7vw, 84px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.tc-theme-label .num {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  color: var(--red);
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.tc-theme-label .word {
+  display: inline-block;
+  position: relative;
+}
+/* THEME 글자에 가는 밑줄 액센트 */
+.tc-theme-label .word::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 8px;
+  height: 4px;
+  background: var(--red);
+  border-radius: 2px;
+}
+
+/* 우측 영역 — 답변 형식의 REST & CHILL */
+.tc-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tc-answer-prefix {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+.tc-answer-prefix::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gray);
+}
+.tc-answer-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--white);
+}
+.tc-answer-title .red { color: var(--red); }
+.tc-answer-sub {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+.tc-answer-preview {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-lt);
+  line-height: 1.6;
+  margin-top: 14px;
+}
+
+/* CTA를 우측 영역 하단에 배치 */
+.tc-answer-cta {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(232,40,26,0.4);
+  transition: gap 0.2s, border-color 0.2s;
+}
+.theme-card:hover .tc-answer-cta { gap: 16px; border-color: var(--red); }
+
+/* 모바일에서는 위/아래 배치 */
+@media (max-width: 960px) {
+  .tc-theme-label { font-size: clamp(40px, 11vw, 64px); }
+  .tc-answer-title { font-size: clamp(26px, 7vw, 40px); }
+}
+
 /* ══════════════════════════════
    GUIDE CARD (그룹 드라이빙 가이드 — theme-card와 동일한 flat 구조)
 ══════════════════════════════ */
@@ -3812,21 +3925,26 @@ a {
       <!-- 컨텐츠 -->
       <div class="tc-content">
         <div class="tc-left">
-          <span class="tc-eyebrow">2026 Theme</span>
-          <div class="tc-title">
-            <span>REST &amp;</span>
-            <span class="tc-title-red">CHILL</span>
-          </div>
-          <p class="tc-sub">휴식과 여유 · 20th Anniversary</p>
+          <span class="tc-theme-label">
+            <span class="num">2026 MINI RUN / 20th</span>
+            <span class="word">THEME</span>
+          </span>
         </div>
         <div class="tc-right">
-          <p class="tc-preview">
-            이번엔 달리지 않아도 괜찮습니다.<br>
-            지친 여러분과 가족들에게 진짜 쉼표가 되길 바라는 마음으로 준비했습니다.
-          </p>
-          <div class="tc-cta">
-            <span>테마 스토리 읽기</span>
-            <span class="tc-arrow">→</span>
+          <div class="tc-answer">
+            <span class="tc-answer-prefix">This Year's Theme</span>
+            <div class="tc-answer-title">
+              REST &amp; <span class="red">CHILL</span>
+            </div>
+            <p class="tc-answer-sub">휴식과 여유 · 20th Anniversary</p>
+            <p class="tc-answer-preview">
+              이번엔 달리지 않아도 괜찮습니다.<br>
+              지친 여러분과 가족들에게 진짜 쉼표가 되길 바라는 마음으로 준비했습니다.
+            </p>
+            <div class="tc-answer-cta">
+              <span>테마 스토리 읽기</span>
+              <span class="tc-arrow">→</span>
+            </div>
           </div>
         </div>
       </div>
