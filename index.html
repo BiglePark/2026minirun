@@ -1274,120 +1274,6 @@ body {
   .theme-card { padding: 28px 24px; }
 }
 
-/* ════════════════════════════
-   THEME CARD — 새 위계 디자인
-   "THEME"을 먼저 인식시키고, REST & CHILL은 답변(인용)으로 표현
-════════════════════════════ */
-/* 좌측 영역에 THEME 라벨을 메인 디스플레이로 */
-.tc-theme-label {
-  display: block;
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(48px, 7vw, 84px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.85;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.tc-theme-label .num {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  color: var(--red);
-  margin-bottom: 12px;
-  line-height: 1;
-  white-space: nowrap;
-}
-.tc-theme-label .word {
-  display: inline-block;
-  position: relative;
-}
-/* THEME 글자에 가는 밑줄 액센트 */
-.tc-theme-label .word::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  bottom: 8px;
-  height: 4px;
-  background: var(--red);
-  border-radius: 2px;
-}
-
-/* 우측 영역 — 답변 형식의 REST & CHILL */
-.tc-answer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.tc-answer-prefix {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  color: var(--gray);
-  text-transform: uppercase;
-}
-.tc-answer-prefix::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gray);
-}
-.tc-answer-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(32px, 4.5vw, 56px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--white);
-}
-.tc-answer-title .red { color: var(--red); }
-.tc-answer-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--gray);
-  letter-spacing: 0.05em;
-  margin-top: 4px;
-}
-.tc-answer-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--gray-lt);
-  line-height: 1.6;
-  margin-top: 14px;
-}
-
-/* CTA를 우측 영역 하단에 배치 */
-.tc-answer-cta {
-  margin-top: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--red);
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(232,40,26,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.theme-card:hover .tc-answer-cta { gap: 16px; border-color: var(--red); }
-
-/* 모바일에서는 위/아래 배치 */
-@media (max-width: 960px) {
-  .tc-theme-label { font-size: clamp(40px, 11vw, 64px); }
-  .tc-answer-title { font-size: clamp(26px, 7vw, 40px); }
-}
-
 /* ══════════════════════════════
    GUIDE CARD (그룹 드라이빙 가이드 — theme-card와 동일한 flat 구조)
 ══════════════════════════════ */
@@ -2327,114 +2213,6 @@ body {
   .info-card { padding: 28px 24px; }
 }
 
-/* ════════════════════════════
-   INFO CARD — 새 위계 디자인
-   "INFO"를 먼저 인식시키고, 호텔/선박/준비물 안내는 답변으로
-════════════════════════════ */
-.if-info-label {
-  display: block;
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(48px, 7vw, 84px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.85;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.if-info-label .num {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  color: #06b6d4;
-  margin-bottom: 12px;
-  line-height: 1;
-  white-space: nowrap;
-}
-.if-info-label .word {
-  display: inline-block;
-  position: relative;
-}
-.if-info-label .word::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  bottom: 8px;
-  height: 4px;
-  background: #06b6d4;
-  border-radius: 2px;
-}
-
-.if-answer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.if-answer-prefix {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  color: var(--gray);
-  text-transform: uppercase;
-}
-.if-answer-prefix::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gray);
-}
-.if-answer-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--white);
-}
-.if-answer-title .accent { color: #06b6d4; }
-.if-answer-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--gray);
-  letter-spacing: 0.05em;
-  margin-top: 4px;
-}
-.if-answer-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--gray-lt);
-  line-height: 1.6;
-  margin-top: 14px;
-}
-.if-answer-cta {
-  margin-top: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #06b6d4;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(6,182,212,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.info-card:hover .if-answer-cta { gap: 16px; border-color: #06b6d4; }
-
-@media (max-width: 960px) {
-  .if-info-label { font-size: clamp(40px, 11vw, 64px); }
-  .if-answer-title { font-size: clamp(24px, 6vw, 36px); }
-}
-
 /* ══════════════════════════════
    INFO DETAIL PAGE (3개 서브 메뉴)
 ══════════════════════════════ */
@@ -2898,114 +2676,6 @@ body {
 @media (max-width: 960px) {
   .rl-content { grid-template-columns: 1fr; gap: 20px; }
   .rule-card { padding: 28px 24px; }
-}
-
-/* ════════════════════════════
-   RULE CARD — 새 위계 디자인
-   "RULE"을 먼저 인식시키고, 운영/운전/미풍양속 안내는 답변으로
-════════════════════════════ */
-.rl-rule-label {
-  display: block;
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(48px, 7vw, 84px);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.85;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.rl-rule-label .num {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  color: #818cf8;
-  margin-bottom: 12px;
-  line-height: 1;
-  white-space: nowrap;
-}
-.rl-rule-label .word {
-  display: inline-block;
-  position: relative;
-}
-.rl-rule-label .word::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  bottom: 8px;
-  height: 4px;
-  background: #818cf8;
-  border-radius: 2px;
-}
-
-.rl-answer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.rl-answer-prefix {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  color: var(--gray);
-  text-transform: uppercase;
-}
-.rl-answer-prefix::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--gray);
-}
-.rl-answer-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--white);
-}
-.rl-answer-title .accent { color: #818cf8; }
-.rl-answer-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--gray);
-  letter-spacing: 0.05em;
-  margin-top: 4px;
-}
-.rl-answer-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--gray-lt);
-  line-height: 1.6;
-  margin-top: 14px;
-}
-.rl-answer-cta {
-  margin-top: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #818cf8;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(129,140,248,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.rule-card:hover .rl-answer-cta { gap: 16px; border-color: #818cf8; }
-
-@media (max-width: 960px) {
-  .rl-rule-label { font-size: clamp(40px, 11vw, 64px); }
-  .rl-answer-title { font-size: clamp(24px, 6vw, 36px); }
 }
 
 /* ══════════════════════════════
@@ -4142,124 +3812,32 @@ a {
       <!-- 컨텐츠 -->
       <div class="tc-content">
         <div class="tc-left">
-          <span class="tc-theme-label">
-            <span class="num">2026 MINI RUN / 20th</span>
-            <span class="word">THEME</span>
-          </span>
+          <span class="tc-eyebrow">2026 MINI RUN Theme</span>
+          <div class="tc-title">
+            <span>REST &amp;</span>
+            <span class="tc-title-red">CHILL</span>
+          </div>
+          <p class="tc-sub">휴식과 여유 · 20th Anniversary</p>
         </div>
         <div class="tc-right">
-          <div class="tc-answer">
-            <span class="tc-answer-prefix">This Year's Theme</span>
-            <div class="tc-answer-title">
-              REST &amp; <span class="red">CHILL</span>
-            </div>
-            <p class="tc-answer-sub">휴식과 여유 · 20th Anniversary</p>
+          <p class="tc-preview">
+            이번엔 달리지 않아도 괜찮습니다.<br>
+            지친 여러분과 가족들에게 진짜 쉼표가 되길 바라는 마음으로 준비했습니다.
+          </p>
+          <div class="tc-cta">
+            <span>테마 스토리 읽기</span>
+            <span class="tc-arrow">→</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INFO CARD (2026 MINI RUN INFO) -->
-  <section class="info-card-section">
-    <a class="info-card reveal" href="javascript:void(0)" onclick="showPage('page-info'); return false;">
-      <div class="if-bg-text">INFO</div>
-      <div class="if-accent"></div>
-      <div class="if-content">
-        <div class="if-left">
-          <span class="if-info-label">
-            <span class="num">2026 MINI RUN / 20th</span>
-            <span class="word">INFO</span>
-          </span>
-        </div>
-        <div class="if-right">
-          <div class="if-answer">
-            <span class="if-answer-prefix">What's Inside</span>
-            <div class="if-answer-title">
-              HOTEL · CRUISE · <span class="accent">Essentials</span>
-            </div>
-            <p class="if-answer-sub">미니런을 더 편하게 즐기기 위한 정보 모음</p>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- RULE CARD (2026 MINI RUN RULE) -->
-  <section class="rule-card-section">
-    <a class="rule-card reveal" href="javascript:void(0)" onclick="showPage('page-rule'); return false;">
-      <div class="rl-bg-text">RULE</div>
-      <div class="rl-accent"></div>
-      <div class="rl-content">
-        <div class="rl-left">
-          <span class="rl-rule-label">
-            <span class="num">2026 MINI RUN / 20th</span>
-            <span class="word">RULE</span>
-          </span>
-        </div>
-        <div class="rl-right">
-          <div class="rl-answer">
-            <span class="rl-answer-prefix">Our Promise</span>
-            <div class="rl-answer-title">
-              Operations · Driving · <span class="accent">Etiquette</span>
-            </div>
-            <p class="rl-answer-sub">함께 즐기기 위한 약속</p>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- GROUP DRIVING GUIDE CARD -->
-  <section class="guide-card-section">
-    <a class="guide-card reveal" href="javascript:void(0)" onclick="showPage('page-driving'); return false;">
-      <!-- 배경 워터마크 -->
-      <div class="gc-bg-text">DRIVE</div>
-      <!-- 왼쪽 블루 라인 -->
-      <div class="gc-accent"></div>
-      <!-- 컨텐츠 -->
-      <div class="gc-content">
-        <div class="gc-left">
-          <span class="gc-eyebrow">Driving Guide</span>
-          <div class="gc-title">
-            <span>Group Driving</span>
-            <span class="gc-title-accent">Safety Guidelines</span>
-          </div>
-          <p class="gc-sub">안전한 미니런을 위한 필수 가이드</p>
-        </div>
-        <div class="gc-right">
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- GROUP LIST CARD -->
-  <section class="group-card-section">
-    <a class="group-card reveal" href="javascript:void(0)" onclick="showPage('page-group'); return false;">
-      <!-- 배경 워터마크 -->
-      <div class="gp-bg-text">CREW</div>
-      <!-- 왼쪽 민트 라인 -->
-      <div class="gp-accent"></div>
-      <!-- 컨텐츠 -->
-      <div class="gp-content">
-        <div class="gp-left">
-          <span class="gp-eyebrow">MINI RUN Group List</span>
-          <div class="gp-title">
-            <span>Team</span>
-            <span class="gp-title-accent">Members</span>
-          </div>
-          <p class="gp-sub">함께 달리는 MINI RUN 크루 구성</p>
-        </div>
-        <div class="gp-right">
-        </div>
-      </div>
-    </a>
-  </section>
   <!-- DAY CARDS -->
   <section class="days-section">
     <div class="days-header reveal">
       <span class="days-label">Itinerary</span>
-      <h2 class="days-title">4 Days Schedule</h2>
+      <h2 class="days-title">4일간의 일정</h2>
     </div>
     <div class="day-cards">
 
@@ -4350,6 +3928,123 @@ a {
     </div>
   </section>
 
+  <!-- INFO CARD (2026 MINI RUN INFO) -->
+  <section class="info-card-section">
+    <a class="info-card reveal" href="javascript:void(0)" onclick="showPage('page-info'); return false;">
+      <div class="if-bg-text">INFO</div>
+      <div class="if-accent"></div>
+      <div class="if-content">
+        <div class="if-left">
+          <span class="if-eyebrow">MINI RUN Information</span>
+          <div class="if-title">
+            <span>2026 MINI RUN</span>
+            <span class="if-title-accent">INFO</span>
+          </div>
+          <p class="if-sub">호텔 · 선박 · 준비물 정보 모음</p>
+        </div>
+        <div class="if-right">
+          <p class="if-preview">
+            여행 중 알아두면 편한 호텔과 선박 이용 안내,<br>
+            그리고 출발 전 챙겨야 할 준비물까지 한 곳에서 확인하세요.
+          </p>
+          <div class="if-cta">
+            <span>정보 확인하기</span>
+            <span class="if-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- RULE CARD (2026 MINI RUN RULE) -->
+  <section class="rule-card-section">
+    <a class="rule-card reveal" href="javascript:void(0)" onclick="showPage('page-rule'); return false;">
+      <div class="rl-bg-text">RULE</div>
+      <div class="rl-accent"></div>
+      <div class="rl-content">
+        <div class="rl-left">
+          <span class="rl-eyebrow">MINI RUN Rules</span>
+          <div class="rl-title">
+            <span>2026 MINI RUN</span>
+            <span class="rl-title-accent">RULE</span>
+          </div>
+          <p class="rl-sub">함께 즐기기 위한 약속</p>
+        </div>
+        <div class="rl-right">
+          <p class="rl-preview">
+            미니런의 원활한 운영을 위해 단체 활동에 필요한 몇 가지 규칙입니다.<br>
+            운영 · 운전 · 미풍양속까지 출발 전 꼭 숙지해주세요.
+          </p>
+          <div class="rl-cta">
+            <span>규칙 확인하기</span>
+            <span class="rl-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- GROUP DRIVING GUIDE CARD -->
+  <section class="guide-card-section">
+    <a class="guide-card reveal" href="javascript:void(0)" onclick="showPage('page-driving'); return false;">
+      <!-- 배경 워터마크 -->
+      <div class="gc-bg-text">DRIVE</div>
+      <!-- 왼쪽 블루 라인 -->
+      <div class="gc-accent"></div>
+      <!-- 컨텐츠 -->
+      <div class="gc-content">
+        <div class="gc-left">
+          <span class="gc-eyebrow">Driving Guide</span>
+          <div class="gc-title">
+            <span>그룹 드라이빙</span>
+            <span class="gc-title-accent">주의사항 &amp; 사고 대처법</span>
+          </div>
+          <p class="gc-sub">안전한 미니런을 위한 필수 가이드</p>
+        </div>
+        <div class="gc-right">
+          <p class="gc-preview">
+            장거리 조별 운행 전 꼭 알아야 할 그룹 드라이빙 수칙과,<br>
+            만약의 사고 발생 시 행동 지침까지 한곳에서 확인하세요.
+          </p>
+          <div class="gc-cta">
+            <span>가이드 확인하기</span>
+            <span class="gc-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- GROUP LIST CARD -->
+  <section class="group-card-section">
+    <a class="group-card reveal" href="javascript:void(0)" onclick="showPage('page-group'); return false;">
+      <!-- 배경 워터마크 -->
+      <div class="gp-bg-text">CREW</div>
+      <!-- 왼쪽 민트 라인 -->
+      <div class="gp-accent"></div>
+      <!-- 컨텐츠 -->
+      <div class="gp-content">
+        <div class="gp-left">
+          <span class="gp-eyebrow">MINI RUN Group List</span>
+          <div class="gp-title">
+            <span>조 및</span>
+            <span class="gp-title-accent">조원 명단</span>
+          </div>
+          <p class="gp-sub">함께 달리는 MINI RUN 크루 구성</p>
+        </div>
+        <div class="gp-right">
+          <p class="gp-preview">
+            2026 MINI RUN을 함께하는 조와 조원의 명단입니다.<br>
+            출발 전 자신의 조와 조원을 확인하고, 서로 반갑게 인사하세요.
+          </p>
+          <div class="gp-cta">
+            <span>명단 확인하기</span>
+            <span class="gp-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </section>
 </div>
 
 <!-- ════════════════════════════
