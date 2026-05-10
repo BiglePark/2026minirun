@@ -2511,6 +2511,30 @@ body {
   font-weight: 600;
 }
 
+/* EV INFO - 이동거리 리스트 */
+.info-ev-row {
+  display: block;
+  padding: 4px 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.info-ev-row strong {
+  display: inline-block;
+  min-width: 50px;
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.info-ev-note {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  font-size: 11.5px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
 /* 모바일: DAY 라벨이 너무 좁아지지 않게 조정 */
 @media (max-width: 480px) {
   .info-meal-day {
@@ -4166,6 +4190,25 @@ a {
         </span>
       </button>
 
+      <!-- EV INFO (전기차 참가자 안내) -->
+      <button class="info-menu" type="button" onclick="openInfoPopup('ev')">
+        <div class="info-menu-icon">
+          <!-- EV Charge Bolt -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 3H15C16.1 3 17 3.9 17 5V19C17 20.1 16.1 21 15 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M17 8H19C20.1 8 21 8.9 21 10V13C21 13.6 20.6 14 20 14H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 7L7 13H10L9 17L13 11H10L11 7Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="info-menu-eyebrow">05</div>
+        <div class="info-menu-title">EV INFO</div>
+        <div class="info-menu-desc">전기차 참가자를 위한 선적 · 충전 · 이동거리 안내</div>
+        <span class="info-menu-arrow">
+          <span>자세히 보기</span>
+          <span class="info-menu-arrow-icon">→</span>
+        </span>
+      </button>
+
       <!-- KAKAO TALK INFO (외부 링크 직접 이동) -->
       <a class="info-menu info-menu-kakao" href="https://open.kakao.com/o/ghWCULri" target="_blank" rel="noopener">
         <div class="info-menu-icon">
@@ -4174,7 +4217,7 @@ a {
             <path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="info-menu-eyebrow">05</div>
+        <div class="info-menu-eyebrow">06</div>
         <div class="info-menu-title">KAKAO TALK INFO</div>
         <div class="info-menu-desc">참가자 오픈 단톡방. 공지·집결 안내·비상 연락을 한곳에서 확인</div>
         <span class="info-menu-arrow">
@@ -7082,6 +7125,75 @@ var INFO_CONTENT = {
         // 안내 문구
         '<div class="info-meal-notice">' +
           '※ 표기되지 않은 식사는 <strong>개별 혹은 조별 자율 식사</strong> 입니다.' +
+        '</div>' +
+      '</div>'
+  },
+  ev: {
+    tag: 'EV INFO',
+    title: '전기차 참가자 이용 안내',
+    html:
+      '<div class="info-pack-list">' +
+        // 1. 선적 시 배터리 50% 이하 (강조)
+        '<div class="info-pack-item urgent">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<rect x="2" y="7" width="18" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/>' +
+              '<path d="M22 10V14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<rect x="4" y="9" width="6" height="6" rx="0.5" fill="currentColor"/>' +
+              '<path d="M14 12L11 15M11 9V12H8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">선적 시 배터리 <span class="accent-red">50% 이하</span> 유지</div>' +
+            '<div class="info-pack-item-desc">목포행 · 제주행 <span class="accent">선적 시</span> 배터리는 <span class="accent-red">반드시 50% 미만</span>으로 유지해야 합니다.</div>' +
+          '</div>' +
+        '</div>' +
+        // 2. 제주도 공식 이동거리
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M12 22C12 22 5 15 5 9C5 5.1 8.1 2 12 2C15.9 2 19 5.1 19 9C19 15 12 22 12 22Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">제주 공식 이동거리 <span class="accent">총 330km</span></div>' +
+            '<div class="info-pack-item-desc">' +
+              '<span class="info-ev-row"><strong>Day 1</strong> · 제주항 → 호텔 <span class="accent">50km</span></span>' +
+              '<span class="info-ev-row"><strong>Day 2</strong> · 칠링데이 <span class="accent">100km</span></span>' +
+              '<span class="info-ev-row"><strong>Day 3</strong> · 런데이 <span class="accent">130km</span></span>' +
+              '<span class="info-ev-row"><strong>Day 4</strong> · 호텔 → 제주항 <span class="accent">50km</span></span>' +
+              '<span class="info-ev-note">※ 자유시간 이용 시 추가 이동거리 발생 가능</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        // 3. 서귀포 칼호텔 충전기 비치
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M6 3H14C14.6 3 15 3.4 15 4V20C15 20.6 14.6 21 14 21H6C5.4 21 5 20.6 5 20V4C5 3.4 5.4 3 6 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M11 7L8 12H10L9 16L13 10H10.5L11 7Z" fill="currentColor"/>' +
+              '<path d="M15 8H17C17.6 8 18 8.4 18 9V14C18 15 18.5 15.5 19 15.5C19.5 15.5 20 15 20 14V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">서귀포 칼호텔 <span class="accent">전기차 충전기 비치</span></div>' +
+            '<div class="info-pack-item-desc">호텔 내에 전기차 충전기가 마련되어 있어 충전이 가능합니다.</div>' +
+          '</div>' +
+        '</div>' +
+        // 4. 충전기 선점 불가 (안내)
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M12 3L22 20H2L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M12 10V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+              '<circle cx="12" cy="17" r="1" fill="currentColor"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">충전기 <span class="accent-red">선점은 어렵습니다</span></div>' +
+            '<div class="info-pack-item-desc">미코 회원만을 위한 <span class="accent">전용 충전기 선점은 불가</span>합니다. 일반 투숙객과 공유하므로 <span class="accent">양보와 배려</span>를 부탁드립니다.</div>' +
+          '</div>' +
         '</div>' +
       '</div>'
   }
