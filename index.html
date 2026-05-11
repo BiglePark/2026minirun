@@ -5960,10 +5960,6 @@ a {
     renderKakaoButton(document.getElementById(id), dst, vias || [], "카카오내비로 길찾기");
   };
 
-  window.renderMultiViaNaviDebug = function (id, dst, vias) {
-    renderKakaoButton(document.getElementById(id), dst, vias || [], "카카오내비로 길찾기");
-  };
-
   window.renderNaviBtns = function () {
     // 행담도휴게소 목포방향
     renderKakaoButton(
@@ -6367,90 +6363,6 @@ a {
       '<a class="tl-navi-btn tl-navi-kakao" href="' + h.k + '">카카오내비로 길찾기</a>';
   }
 
-  // ════════════════════════════════════════════════════════════════════
-  // 🐛 [DEBUG v7] 카카오맵 경유지 무시 → 진짜 해결책 4가지
-  //              1. 카카오내비 정확한 URL (kakaomap://navi)
-  //              2. T맵 사용 (정책 다름)
-  //              3. 네이버지도 사용
-  //              4. 클립보드 복사 + 앱 호출 (수동 입력 안내)
-  // ════════════════════════════════════════════════════════════════════
-  function renderMultiViaNaviDebug(id, dst, vias) {
-    var wrap = document.getElementById(id);
-    if (!wrap) return;
-    var v = vias || [];
-    if (v.length === 0) return;
-
-    function btn(label, url, color, isClick) {
-      var attr = isClick ? 'href="javascript:void(0)" onclick="' + url + ';return false;"' : 'href="' + url + '"';
-      return '<a class="tl-navi-btn tl-navi-kakao" style="text-align:center;' +
-             (color ? 'background:' + color + ';' : '') +
-             '" ' + attr + '>' + label + '</a>';
-    }
-
-    // ── 방식 ⓖ: 카카오내비 (kakaomap://navi) - 정확한 URL ──
-    // vialist는 |로 구분, 각 항목은 name@x@y 형태
-    var viaListG = v.map(function(p) {
-      return p.name + '@' + p.lng + '@' + p.lat;
-    }).join('|');
-    var urlG = 'kakaomap://navi?coord_type=wgs84' +
-               '&name=' + encodeURIComponent(dst.name) +
-               '&x=' + dst.lng + '&y=' + dst.lat +
-               '&vialist=' + encodeURIComponent(viaListG);
-
-    // ── 방식 ⓗ: T맵 (tmap://route) ──
-    // 정책상 외부 URL 경로 유지하면서 안내 시작 가능
-    var tmapVias = v.map(function(p, i) {
-      var idx = i + 1;
-      return 'via' + idx + '=' + encodeURIComponent(p.name) +
-             '&viaX' + idx + '=' + p.lng +
-             '&viaY' + idx + '=' + p.lat;
-    }).join('&');
-    var urlH = 'tmap://route?goalname=' + encodeURIComponent(dst.name) +
-               '&goalx=' + dst.lng + '&goaly=' + dst.lat +
-               '&' + tmapVias;
-
-    // ── 방식 ⓘ: T맵 - intent (Android 호환) + iOS scheme ──
-    var urlI = 'tmap://route?goalname=' + encodeURIComponent(dst.name) +
-               '&goalx=' + dst.lng + '&goaly=' + dst.lat +
-               (v[0] ? '&rGoX=' + v[0].lng + '&rGoY=' + v[0].lat + '&rGoName=' + encodeURIComponent(v[0].name) : '');
-
-    // ── 방식 ⓙ: 네이버지도 (nmap://route) ──
-    // 다중 경유지 지원, 외부 URL 경로 유지 가능
-    var naverVias = v.map(function(p, i) {
-      var idx = i + 1;
-      return 'v' + idx + 'name=' + encodeURIComponent(p.name) +
-             '&v' + idx + 'x=' + p.lng +
-             '&v' + idx + 'y=' + p.lat;
-    }).join('&');
-    var urlJ = 'nmap://route/car?dname=' + encodeURIComponent(dst.name) +
-               '&dlat=' + dst.lat + '&dlng=' + dst.lng +
-               '&' + naverVias + '&appname=miniRun2026';
-
-    // ── 방식 ⓚ: 클립보드 복사 + 카카오맵 홈 호출 ──
-    // 사용자가 카카오맵에서 직접 검색해서 경로 입력 → 경유지 유지됨
-    var clipText = v.map(function(p) { return p.name; }).join(' → ') + ' → ' + dst.name;
-    var clipScript = "copyToClipboardAndOpen('" + clipText.replace(/'/g, "\\'") + "', 'kakaomap://')";
-
-    wrap.innerHTML =
-      '<div style="display:flex;flex-direction:column;gap:8px;width:100%">' +
-        '<div style="font-size:12px;color:#FEE500;margin-bottom:2px;line-height:1.5;font-weight:700">' +
-          '🔬 v7 — 진짜 해결책 4가지' +
-        '</div>' +
-        '<div style="font-size:10px;color:#aaa;margin-bottom:6px;line-height:1.5">' +
-          '카카오맵 한계 우회 — 다른 네비 앱 또는 수동 입력' +
-        '</div>' +
-
-        '<div style="font-size:10px;color:#22c55e;margin-top:8px;letter-spacing:0.05em;font-weight:700">🆕 다른 네비 앱 (정책 다름)</div>' +
-        btn('ⓖ 카카오내비 (kakaomap://navi)', urlG) +
-        btn('ⓗ T맵 — 다중 경유지 (via1, via2, via3)', urlH) +
-        btn('ⓘ T맵 — 단일 경유지 (rGoX/rGoY)', urlI) +
-        btn('ⓙ 네이버지도 (nmap://route/car)', urlJ) +
-
-        '<div style="font-size:10px;color:#FEE500;margin-top:12px;letter-spacing:0.05em;font-weight:700">📋 클립보드 우회</div>' +
-        btn('ⓚ 경유지 복사 + 카카오맵 홈 진입', clipScript, '', true) +
-      '</div>';
-  }
-
   window.PLACES = {
 
     samhak:   { name: '삼학부두여객선터미널', lat: 34.7830654129834,  lng: 126.397674631642  },
@@ -6486,8 +6398,7 @@ a {
       window.PLACES.harye_san
     ]);
     // Drive III(10:30) : 송당리 → 김녕리산70-8 → 김녕리369 → 김녕해수욕장 주차장
-    // 🐛 iOS 다중 경유지 안내시작 버튼 미응답 버그 디버그용 — 4가지 URL 방식 비교
-    renderMultiViaNaviDebug('navibtns-day3-d3', window.PLACES.kimnyeong_beach, [
+    renderMultiViaNavi('navibtns-day3-d3', window.PLACES.kimnyeong_beach, [
       window.PLACES.songdang,
       window.PLACES.kimnyeong_san,
       window.PLACES.kimnyeong_369
