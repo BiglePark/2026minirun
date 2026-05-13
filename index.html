@@ -2535,6 +2535,29 @@ body {
   line-height: 1.5;
 }
 
+/* HOTEL 가격표 (주류·콜키지) */
+.info-hotel-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  margin-top: 6px;
+  font-size: 12.5px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 5px;
+  border-left: 2px solid rgba(232,40,26,0.4);
+}
+.info-hotel-price strong {
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.info-hotel-price .accent {
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 /* 모바일: DAY 라벨이 너무 좁아지지 않게 조정 */
 @media (max-width: 480px) {
   .info-meal-day {
@@ -6978,6 +7001,25 @@ var INFO_CONTENT = {
           '<div class="info-pack-item-body">' +
             '<div class="info-pack-item-title">냉장고 내 모든 음료 <span class="accent-red">유료</span></div>' +
             '<div class="info-pack-item-desc">생수를 포함한 모든 음료는 유료로 제공됩니다.</div>' +
+          '</div>' +
+        '</div>' +
+        // 7. 만찬 주류 미제공 + 가격 / 콜키지 안내
+        '<div class="info-pack-item">' +
+          '<div class="info-pack-item-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M8 3H16L15 11C15 13.2 13.2 15 11 15H13C10.8 15 9 13.2 9 11L8 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+              '<path d="M12 15V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M9 20H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+              '<path d="M8.5 6H15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="info-pack-item-body">' +
+            '<div class="info-pack-item-title">만찬 시 <span class="accent-red">주류 미제공</span></div>' +
+            '<div class="info-pack-item-desc">' +
+              '주류는 별도 제공되지 않으며 가격은 아래와 같습니다.' +
+              '<span class="info-hotel-price"><strong>소주 · 맥주</strong><span class="accent">7,000원</span></span>' +
+              '<span class="info-hotel-price"><strong>콜키지</strong><span class="accent">20,000원</span></span>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>'
