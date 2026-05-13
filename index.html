@@ -3605,6 +3605,88 @@ body {
   border-radius: 6px !important;
 }
 
+/* ════════════════════════════════════════════════════════════════
+   FOOTER — 심플 푸터 (로고 + 슬로건 + 저작권)
+════════════════════════════════════════════════════════════════ */
+.main-footer {
+  position: relative;
+  padding: 80px 48px 60px;
+  background: #050505;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  overflow: hidden;
+}
+.main-footer::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: var(--red);
+}
+.mf-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.mf-logo-mark {
+  font-family: 'Bebas Neue', 'Barlow Condensed', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.mf-logo-mark .red { color: var(--red); }
+.mf-logo-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+.mf-slogan {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-lt);
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  margin: 0 auto 36px;
+  max-width: 500px;
+}
+.mf-slogan strong {
+  color: var(--white);
+  font-weight: 600;
+}
+.mf-divider {
+  width: 30px;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 auto 22px;
+}
+.mf-copy {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gray);
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+.mf-copy .dot {
+  color: rgba(255,255,255,0.15);
+  margin: 0 8px;
+}
+@media (max-width: 600px) {
+  .main-footer { padding: 60px 24px 44px; }
+  .mf-logo-mark { font-size: 28px; }
+  .mf-slogan { font-size: 14px; margin-bottom: 28px; }
+}
+
 </style>
 <!-- Day1 navigation points updated:
 행담도휴게소 목포방향: 126.806989526633, 36.9451349930162
@@ -3858,101 +3940,6 @@ a {
     </div>
   </section>
 
-  <!-- DAY CARDS -->
-  <section class="days-section">
-    <div class="days-header reveal">
-      <span class="days-label">Itinerary</span>
-      <h2 class="days-title">4일간의 일정</h2>
-    </div>
-    <div class="day-cards">
-
-      <!-- DAY 1 -->
-      <div class="day-card reveal" onclick="openDay(1)">
-        <div class="dc-top">
-          <div class="dc-num">01</div>
-          <div class="dc-day-label">DAY 1</div>
-          <div class="dc-title">시작,<br>그리고 제주</div>
-          <div class="dc-sub">여정의 시작<br>도착과 시작</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 03 (수)</div>
-          <div class="dc-spots">총 10개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">첫걸음</span>
-            <span class="dc-tag">제주</span>
-            <span class="dc-tag">닿다</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 2 -->
-      <div class="day-card reveal" onclick="openDay(2)">
-        <div class="dc-top">
-          <div class="dc-num">02</div>
-          <div class="dc-day-label">DAY 2</div>
-          <div class="dc-title">숲과 노을<br>그리고 별</div>
-          <div class="dc-sub">푸르른 오후<br>노을이 있는 저녁<br>그리고 쏟아지는 별</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 04 (목)</div>
-          <div class="dc-spots">총 10개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">머물고</span>
-            <span class="dc-tag">느끼고</span>
-            <span class="dc-tag">쉬다</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 3 -->
-      <div class="day-card reveal" onclick="openDay(3)">
-        <div class="dc-top">
-          <div class="dc-num">03</div>
-          <div class="dc-day-label">DAY 3</div>
-          <div class="dc-title">길 위의<br>제주</div>
-          <div class="dc-sub">MINI Drive,<br>바람과 길 사이</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 05 (금)</div>
-          <div class="dc-spots">총 15개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">바람</span>
-            <span class="dc-tag">파도</span>
-            <span class="dc-tag">MINI</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 4 -->
-      <div class="day-card reveal" onclick="openDay(4)">
-        <div class="dc-top">
-          <div class="dc-num">04</div>
-          <div class="dc-day-label">DAY 4</div>
-          <div class="dc-title">마침표,<br>그리고 기억</div>
-          <div class="dc-sub">마지막 제주<br>뜨거운 여운</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 06 (토)</div>
-          <div class="dc-spots">총 5개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">여정의 끝</span>
-            <span class="dc-tag">여운의 시작</span>
-            <span class="dc-tag">안녕</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- INFO CARD (2026 MINI RUN INFO) -->
   <section class="info-card-section">
     <a class="info-card reveal" href="javascript:void(0)" onclick="showPage('page-info'); return false;">
@@ -4070,6 +4057,117 @@ a {
       </div>
     </a>
   </section>
+  <!-- DAY CARDS -->
+  <section class="days-section">
+    <div class="days-header reveal">
+      <span class="days-label">Itinerary</span>
+      <h2 class="days-title">4일간의 일정</h2>
+    </div>
+    <div class="day-cards">
+
+      <!-- DAY 1 -->
+      <div class="day-card reveal" onclick="openDay(1)">
+        <div class="dc-top">
+          <div class="dc-num">01</div>
+          <div class="dc-day-label">DAY 1</div>
+          <div class="dc-title">시작,<br>그리고 제주</div>
+          <div class="dc-sub">여정의 시작<br>도착과 시작</div>
+        </div>
+        <div class="dc-bottom">
+          <div class="dc-line"></div>
+          <div class="dc-date">2026. 06. 03 (수)</div>
+          <div class="dc-spots">총 10개 일정</div>
+          <div class="dc-tags">
+            <span class="dc-tag">첫걸음</span>
+            <span class="dc-tag">제주</span>
+            <span class="dc-tag">닿다</span>
+          </div>
+          <div class="dc-arrow">VIEW DETAIL</div>
+        </div>
+      </div>
+
+      <!-- DAY 2 -->
+      <div class="day-card reveal" onclick="openDay(2)">
+        <div class="dc-top">
+          <div class="dc-num">02</div>
+          <div class="dc-day-label">DAY 2</div>
+          <div class="dc-title">숲과 노을<br>그리고 별</div>
+          <div class="dc-sub">푸르른 오후<br>노을이 있는 저녁<br>그리고 쏟아지는 별</div>
+        </div>
+        <div class="dc-bottom">
+          <div class="dc-line"></div>
+          <div class="dc-date">2026. 06. 04 (목)</div>
+          <div class="dc-spots">총 10개 일정</div>
+          <div class="dc-tags">
+            <span class="dc-tag">머물고</span>
+            <span class="dc-tag">느끼고</span>
+            <span class="dc-tag">쉬다</span>
+          </div>
+          <div class="dc-arrow">VIEW DETAIL</div>
+        </div>
+      </div>
+
+      <!-- DAY 3 -->
+      <div class="day-card reveal" onclick="openDay(3)">
+        <div class="dc-top">
+          <div class="dc-num">03</div>
+          <div class="dc-day-label">DAY 3</div>
+          <div class="dc-title">길 위의<br>제주</div>
+          <div class="dc-sub">MINI Drive,<br>바람과 길 사이</div>
+        </div>
+        <div class="dc-bottom">
+          <div class="dc-line"></div>
+          <div class="dc-date">2026. 06. 05 (금)</div>
+          <div class="dc-spots">총 15개 일정</div>
+          <div class="dc-tags">
+            <span class="dc-tag">바람</span>
+            <span class="dc-tag">파도</span>
+            <span class="dc-tag">MINI</span>
+          </div>
+          <div class="dc-arrow">VIEW DETAIL</div>
+        </div>
+      </div>
+
+      <!-- DAY 4 -->
+      <div class="day-card reveal" onclick="openDay(4)">
+        <div class="dc-top">
+          <div class="dc-num">04</div>
+          <div class="dc-day-label">DAY 4</div>
+          <div class="dc-title">마침표,<br>그리고 기억</div>
+          <div class="dc-sub">마지막 제주<br>뜨거운 여운</div>
+        </div>
+        <div class="dc-bottom">
+          <div class="dc-line"></div>
+          <div class="dc-date">2026. 06. 06 (토)</div>
+          <div class="dc-spots">총 5개 일정</div>
+          <div class="dc-tags">
+            <span class="dc-tag">여정의 끝</span>
+            <span class="dc-tag">여운의 시작</span>
+            <span class="dc-tag">안녕</span>
+          </div>
+          <div class="dc-arrow">VIEW DETAIL</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER (심플) -->
+  <footer class="main-footer">
+    <div class="mf-logo">
+      <div class="mf-logo-mark">2026 MINI <span class="red">RUN</span></div>
+      <div class="mf-logo-sub">20th Mini Run in Korea</div>
+    </div>
+    <p class="mf-slogan">
+      <strong>느리게, 그것으로 충분합니다.</strong><br>
+      Seoul to Jeju, with the ones who matter.
+    </p>
+    <div class="mf-divider"></div>
+    <div class="mf-copy">
+      © 2026 MINI KOREA MOTOR CLUB
+    </div>
+  </footer>
+
 </div>
 
 <!-- ════════════════════════════
