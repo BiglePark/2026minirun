@@ -160,13 +160,6 @@ body {
 }
 
 /* ─ TYPOGRAPHIC HERO ─ */
-.hero-year {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(16px, 2.5vw, 22px);
-  font-weight: 300; letter-spacing: 0.5em;
-  color: var(--red); margin-bottom: 8px;
-  animation: fadeUp 0.8s ease both;
-}
 
 /* ── 20주년 배지 ── */
 .hero-anniversary {
@@ -760,16 +753,6 @@ body {
   padding: 12px 16px;
   margin-bottom: 14px;
 }
-.tl-navi-info { display: flex; flex-direction: column; gap: 0; flex: 1 1 260px; min-width: 0; }
-.tl-navi-label {
-  display: none !important;
-}
-.tl-navi-dest {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 16px; font-weight: 700;
-  line-height: 1.35;
-  color: var(--white); letter-spacing: -0.01em;
-}
 .tl-navi-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .tl-navi-btn {
   padding: 6px 16px; border-radius: 6px;
@@ -787,10 +770,6 @@ body {
 }
 .tl-navi-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 .tl-navi-btn:active { transform: scale(0.97); }
-.tl-navi-note {
-  font-size: 10px; color: var(--gray);
-  margin-top: 3px; letter-spacing: 0.02em;
-}
 
 /* ──  박스 (네비 블록과 유사한 카드형 UI, 녹색 테마) ── */
 .tl-rest-blocks {
@@ -813,10 +792,6 @@ body {
   margin-bottom: 14px;
 }
 .tl-rest-info { display: flex; flex-direction: column; gap: 3px; }
-.tl-rest-label {
-  font-size: 10px; letter-spacing: 0.12em;
-  color: #7deea8; text-transform: uppercase;
-}
 .tl-rest-name {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
   font-size: 16px; font-weight: 700;
@@ -894,11 +869,6 @@ body {
 }
 .tl-team-btn:hover { border-color: var(--red); background: rgba(232,40,26,0.08); transform: translateY(-1px); }
 .tl-team-btn:active { transform: scale(0.97); }
-.tl-team-btn-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.25em; font-weight: 700;
-  color: var(--red); text-transform: uppercase;
-}
 .tl-team-btn.team-b .tl-team-btn-tag { color: #4da6ff; }
 .tl-team-btn-name {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
@@ -1097,78 +1067,8 @@ body {
 }
 
 /* ── 통화 연결 토스트 알림 (PC/맥에서 번호 복사 안내용) ── */
-.call-toast {
-  position: fixed;
-  bottom: 24px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 10000;
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 18px;
-  background: #1a1a1a;
-  border: 1px solid rgba(34,197,94,0.35);
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  min-width: 280px; max-width: 92vw;
-  animation: callToastIn 0.3s ease both;
-}
-.call-toast.out { animation: callToastOut 0.3s ease both; }
-@keyframes callToastIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-@keyframes callToastOut {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to   { opacity: 0; transform: translateX(-50%) translateY(20px); }
-}
-.call-toast-icon { font-size: 24px; flex-shrink: 0; }
-.call-toast-body { flex: 1; min-width: 0; }
-.call-toast-name {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px; font-weight: 700; color: var(--white);
-  margin-bottom: 2px;
-}
-.call-toast-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px; font-weight: 700; color: #4ade80;
-  letter-spacing: 0.04em; margin-bottom: 4px;
-}
-.call-toast-msg { font-size: 11px; color: var(--gray); }
-.call-toast-close {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--gray); font-size: 11px; cursor: pointer;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.call-toast-close:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
 
 /* ── 좌표 검증 버튼 (지도에서 핀 위치 확인) ── */
-.coord-verify-btn {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  margin-top: 16px;
-  padding: 10px 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1px dashed rgba(255,255,255,0.18);
-  border-radius: 6px;
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-  color: var(--gray-lt);
-  text-decoration: none; cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-.coord-verify-btn:hover {
-  border-color: rgba(255,255,255,0.4);
-  color: var(--white);
-  background: rgba(255,255,255,0.06);
-}
-.coord-verify-btn-icon { font-size: 14px; }
-.coord-verify-hint {
-  font-size: 10px; color: var(--gray);
-  text-align: center; margin-top: 6px;
-  letter-spacing: 0.02em;
-}
 
 /* 팝업 푸터 */
 .dest-popup-footer {
@@ -1371,116 +1271,6 @@ body {
   .guide-card { padding: 28px 24px; }
 }
 
-/* ══════════════════════════════
-   CHAT CARD (미니런 참가자 단톡방 — theme-card 구조, 카카오 옐로우)
-══════════════════════════════ */
-.chat-card-section {
-  padding: 0;
-  background: var(--black);
-  border-bottom: 1px solid var(--border);
-}
-.chat-card {
-  position: relative; overflow: hidden;
-  padding: 32px 48px;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: 1fr;
-  background: var(--black);
-  transition: background 0.4s;
-  text-decoration: none; color: inherit;
-}
-.chat-card:hover { background: #111; }
-
-/* 배경 워터마크 (CHAT) */
-.cc-bg-text {
-  position: absolute; right: -40px; top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(80px, 12vw, 140px);
-  font-weight: 900; letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(254,229,0,0.10);
-  pointer-events: none; white-space: nowrap;
-  transition: -webkit-text-stroke-color 0.4s;
-}
-.chat-card:hover .cc-bg-text {
-  -webkit-text-stroke-color: rgba(254,229,0,0.18);
-}
-
-/* 왼쪽 옐로우 라인 */
-.cc-accent {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, #FEE500 40%, #FEE500 60%, transparent);
-}
-
-.cc-content {
-  position: relative; z-index: 1;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 40px;
-  align-items: center;
-}
-
-.cc-eyebrow {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; letter-spacing: 0.4em;
-  color: #FEE500; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.cc-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 900; letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--white);
-  display: flex; flex-direction: column; gap: 2px;
-}
-.cc-title-accent { color: #FEE500; }
-.cc-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px; font-weight: 300;
-  color: var(--gray); margin-top: 10px; letter-spacing: 0.05em;
-}
-
-.cc-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px; font-weight: 300;
-  color: var(--gray-lt); line-height: 1.6;
-  margin-bottom: 18px;
-}
-.cc-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 10px;
-  background: rgba(254,229,0,0.10);
-  border: 1px solid rgba(254,229,0,0.35);
-  border-radius: 40px;
-  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
-  color: #FEE500;
-  margin-bottom: 18px;
-}
-.cc-badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #FEE500;
-}
-.cc-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
-  color: #FEE500;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(254,229,0,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.chat-card:hover .cc-cta { gap: 16px; border-color: #FEE500; }
-.cc-arrow { font-size: 14px; transition: transform 0.2s; }
-.chat-card:hover .cc-arrow { transform: translateX(4px); }
-
-@media (max-width: 960px) {
-  .cc-content { grid-template-columns: 1fr; gap: 20px; }
-  .chat-card { padding: 28px 24px; }
-}
 
 /* ══════════════════════════════
    GROUP CARD (MINI RUN 조 명단 — theme-card 구조, 민트)
@@ -1573,320 +1363,8 @@ body {
   .group-card { padding: 28px 24px; }
 }
 
-/* ══════════════════════════════
-   PACK CARD (준비물 — theme-card 구조, 오렌지)
-══════════════════════════════ */
-.pack-card-section {
-  padding: 0;
-  background: var(--black);
-  border-bottom: 1px solid var(--border);
-}
-.pack-card {
-  position: relative; overflow: hidden;
-  padding: 32px 48px;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: 1fr;
-  background: var(--black);
-  transition: background 0.4s;
-  text-decoration: none; color: inherit;
-}
-.pack-card:hover { background: #111; }
 
-.pk-bg-text {
-  position: absolute; right: -40px; top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(80px, 12vw, 140px);
-  font-weight: 900; letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(249,115,22,0.10);
-  pointer-events: none; white-space: nowrap;
-  transition: -webkit-text-stroke-color 0.4s;
-}
-.pack-card:hover .pk-bg-text {
-  -webkit-text-stroke-color: rgba(249,115,22,0.18);
-}
-.pk-accent {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, #f97316 40%, #f97316 60%, transparent);
-}
-.pk-content {
-  position: relative; z-index: 1;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 40px;
-  align-items: center;
-}
-.pk-eyebrow {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; letter-spacing: 0.4em;
-  color: #f97316; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.pk-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 900; letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--white);
-  display: flex; flex-direction: column; gap: 2px;
-}
-.pk-title-accent { color: #f97316; }
-.pk-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px; font-weight: 300;
-  color: var(--gray); margin-top: 10px; letter-spacing: 0.05em;
-}
-.pk-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px; font-weight: 300;
-  color: var(--gray-lt); line-height: 1.6;
-  margin-bottom: 18px;
-}
-.pk-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
-  color: #f97316;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(249,115,22,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.pack-card:hover .pk-cta { gap: 16px; border-color: #f97316; }
-.pk-arrow { font-size: 14px; transition: transform 0.2s; }
-.pack-card:hover .pk-arrow { transform: translateX(4px); }
 
-@media (max-width: 960px) {
-  .pk-content { grid-template-columns: 1fr; gap: 20px; }
-  .pack-card { padding: 28px 24px; }
-}
-
-/* ══════════════════════════════
-   PACK DETAIL PAGE (준비물 상세)
-══════════════════════════════ */
-.pack-detail-section {
-  padding: 56px 48px 100px;
-  max-width: 1100px; margin: 0 auto;
-}
-.pack-intro {
-  margin-bottom: 48px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid var(--border);
-}
-.pack-intro-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.35em;
-  color: #f97316; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.pack-intro-desc {
-  font-size: 14px; color: var(--gray-lt);
-  line-height: 1.7; font-weight: 300;
-  max-width: 640px;
-}
-
-/* 준비물 항목 리스트 */
-.pack-items {
-  display: flex; flex-direction: column; gap: 20px;
-}
-.pack-item {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 28px; align-items: center;
-  padding: 28px 28px;
-  background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  transition: border-color 0.3s, background 0.3s, transform 0.2s;
-}
-.pack-item:hover {
-  border-color: rgba(249,115,22,0.35);
-  background: rgba(249,115,22,0.04);
-  transform: translateY(-2px);
-}
-/* 중요 항목(주유) - 강조 스타일 */
-.pack-item.urgent {
-  border-color: rgba(232,40,26,0.35);
-  background: rgba(232,40,26,0.05);
-}
-.pack-item.urgent:hover {
-  border-color: rgba(232,40,26,0.6);
-  background: rgba(232,40,26,0.09);
-}
-
-/* 아이콘 영역 */
-.pack-item-icon {
-  width: 72px; height: 72px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 16px;
-  flex-shrink: 0; margin: 0 auto;
-}
-.pack-item.urgent .pack-item-icon {
-  background: rgba(232,40,26,0.10);
-  border-color: rgba(232,40,26,0.3);
-}
-.pack-item-icon svg {
-  width: 38px; height: 38px;
-  color: var(--white);
-}
-.pack-item.urgent .pack-item-icon svg { color: var(--red); }
-
-/* 본문 영역 */
-.pack-item-body { min-width: 0; }
-.pack-item-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 17px; font-weight: 700;
-  color: var(--white); letter-spacing: -0.01em;
-  line-height: 1.4; margin-bottom: 6px;
-}
-.pack-item.urgent .pack-item-title { color: var(--red); font-size: 18px; }
-.pack-item-desc {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 14px; font-weight: 400;
-  color: var(--gray-lt); line-height: 1.6;
-}
-.pack-item-desc .accent {
-  color: #f97316; font-weight: 700;
-}
-.pack-item-desc .accent-red {
-  color: var(--red); font-weight: 700;
-}
-.pack-item-note {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 10px;
-  padding: 4px 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 4px;
-  font-size: 11px; color: var(--gray-lt);
-  letter-spacing: 0.02em;
-}
-.pack-item-note.warn {
-  background: rgba(232,40,26,0.08);
-  border-color: rgba(232,40,26,0.25);
-  color: #ff6b5e;
-}
-
-/* 하단 마무리 메시지 */
-.pack-footer-msg {
-  margin-top: 40px;
-  padding: 24px;
-  text-align: center;
-  background: rgba(249,115,22,0.05);
-  border: 1px dashed rgba(249,115,22,0.3);
-  border-radius: 10px;
-  font-size: 13px; color: var(--gray-lt);
-  line-height: 1.7;
-}
-.pack-footer-msg .accent {
-  color: #f97316; font-weight: 700;
-}
-
-@media (max-width: 640px) {
-  .pack-detail-section { padding: 40px 24px 80px; }
-  .pack-item {
-    grid-template-columns: 1fr;
-    gap: 16px; padding: 24px 20px; text-align: center;
-  }
-  .pack-item-icon { margin: 0 auto; }
-  .pack-item-body { text-align: left; }
-}
-
-/* ══════════════════════════════
-   POINT CARD (주의사항 — theme-card 구조, 퍼플)
-══════════════════════════════ */
-.point-card-section {
-  padding: 0;
-  background: var(--black);
-  border-bottom: 1px solid var(--border);
-}
-.point-card {
-  position: relative; overflow: hidden;
-  padding: 32px 48px;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: 1fr;
-  background: var(--black);
-  transition: background 0.4s;
-  text-decoration: none; color: inherit;
-}
-.point-card:hover { background: #111; }
-
-.pt-bg-text {
-  position: absolute; right: -40px; top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(80px, 12vw, 140px);
-  font-weight: 900; letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(168,85,247,0.10);
-  pointer-events: none; white-space: nowrap;
-  transition: -webkit-text-stroke-color 0.4s;
-}
-.point-card:hover .pt-bg-text {
-  -webkit-text-stroke-color: rgba(168,85,247,0.18);
-}
-.pt-accent {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, #a855f7 40%, #a855f7 60%, transparent);
-}
-.pt-content {
-  position: relative; z-index: 1;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 40px;
-  align-items: center;
-}
-.pt-eyebrow {
-  display: block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; letter-spacing: 0.4em;
-  color: #a855f7; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.pt-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 900; letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--white);
-  display: flex; flex-direction: column; gap: 2px;
-}
-.pt-title-accent { color: #a855f7; }
-.pt-sub {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 12px; font-weight: 300;
-  color: var(--gray); margin-top: 10px; letter-spacing: 0.05em;
-}
-.pt-preview {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 13px; font-weight: 300;
-  color: var(--gray-lt); line-height: 1.6;
-  margin-bottom: 18px;
-}
-.pt-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
-  color: #a855f7;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(168,85,247,0.4);
-  transition: gap 0.2s, border-color 0.2s;
-}
-.point-card:hover .pt-cta { gap: 16px; border-color: #a855f7; }
-.pt-arrow { font-size: 14px; transition: transform 0.2s; }
-.point-card:hover .pt-arrow { transform: translateX(4px); }
-
-@media (max-width: 960px) {
-  .pt-content { grid-template-columns: 1fr; gap: 20px; }
-  .point-card { padding: 28px 24px; }
-}
 
 /* ══════════════════════════════
    DRIVING DETAIL PAGE (심플 미니멀 디자인)
@@ -2390,46 +1868,12 @@ body {
 }
 
 /* 정보 항목 리스트 */
-.info-list {
-  display: flex; flex-direction: column;
-  gap: 22px;
-}
-.info-list-item {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 14px; align-items: flex-start;
-}
-.info-list-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px; font-weight: 700;
-  color: #06b6d4;
-  line-height: 1.3;
-}
-.info-list-text {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 14.5px; font-weight: 400;
-  color: var(--gray-lt); line-height: 1.7;
-}
 .info-list-text strong {
   color: var(--white); font-weight: 700;
 }
 .info-list-text .accent { color: #f97316; font-weight: 700; }
 .info-list-text .accent-red { color: var(--red); font-weight: 700; }
 .info-list-text .accent-blue { color: #06b6d4; font-weight: 700; }
-.info-sub-item {
-  display: block;
-  margin-top: 6px;
-  padding-left: 14px;
-  position: relative;
-  font-size: 13.5px;
-  line-height: 1.65;
-}
-.info-sub-item::before {
-  content: '·';
-  position: absolute; left: 0;
-  color: var(--gray);
-  font-weight: 700;
-}
 .info-sub-item strong { color: var(--white); font-weight: 600; }
 
 @keyframes popupIn {
@@ -3023,116 +2467,6 @@ body {
 }
 
 
-/* ══════════════════════════════
-   POINT DETAIL PAGE (주의사항 상세)
-══════════════════════════════ */
-.point-detail-section {
-  padding: 56px 48px 100px;
-  max-width: 1100px; margin: 0 auto;
-}
-
-/* "POINT" 거대 타이틀 (이미지 톤 모방) */
-.point-mega-title {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: clamp(72px, 14vw, 160px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  text-align: center;
-  margin: 20px 0 56px;
-  line-height: 0.9;
-}
-.point-mega-title .accent {
-  color: var(--red);
-}
-
-.point-intro {
-  margin-bottom: 48px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid var(--border);
-  text-align: center;
-}
-.point-intro-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.35em;
-  color: #a855f7; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.point-intro-desc {
-  font-size: 14px; color: var(--gray-lt);
-  line-height: 1.7; font-weight: 300;
-  max-width: 520px; margin: 0 auto;
-}
-
-/* 8개 그리드 (2칼럼) */
-.point-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px 32px;
-}
-.point-row {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 18px; align-items: center;
-  padding: 18px 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: background 0.3s;
-}
-.point-row:hover {
-  background: rgba(168,85,247,0.04);
-}
-.point-row-icon {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.point-row-icon svg {
-  width: 44px; height: 44px;
-  color: var(--white);
-}
-.point-row.warn .point-row-icon svg {
-  color: var(--red);
-}
-.point-row-text {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 15px; font-weight: 500;
-  color: var(--gray-lt); line-height: 1.5;
-  letter-spacing: -0.01em;
-}
-.point-row-text::before {
-  content: '·';
-  color: var(--gray);
-  margin-right: 8px;
-  font-weight: 700;
-}
-.point-row-text .accent {
-  color: var(--red); font-weight: 700;
-}
-
-/* 푸터 메시지 */
-.point-footer-msg {
-  margin-top: 56px;
-  padding: 28px;
-  text-align: center;
-  background: rgba(168,85,247,0.05);
-  border: 1px dashed rgba(168,85,247,0.3);
-  border-radius: 10px;
-  font-size: 13px; color: var(--gray-lt);
-  line-height: 1.7;
-}
-.point-footer-msg .accent {
-  color: #c084fc; font-weight: 700;
-}
-
-@media (max-width: 768px) {
-  .point-grid { grid-template-columns: 1fr; gap: 0; }
-}
-@media (max-width: 640px) {
-  .point-detail-section { padding: 40px 24px 80px; }
-  .point-row { padding: 16px 0; gap: 14px; grid-template-columns: 50px 1fr; }
-  .point-row-icon { width: 48px; height: 48px; }
-  .point-row-icon svg { width: 36px; height: 36px; }
-  .point-row-text { font-size: 13.5px; }
-}
 
 /* ══════════════════════════════
    GROUP DETAIL PAGE (조 명단 상세)
@@ -3257,13 +2591,7 @@ body {
   flex-shrink: 0;
   display: inline-block;
 }
-.group-call-btn-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; letter-spacing: 0.04em;
-  display: none; /* 모바일 기본 숨김, 데스크톱에서만 표시 */
-}
 @media (min-width: 768px) {
-  .group-call-btn-num { display: inline; }
 }
 
 /* 조별 컬러 변수 */
@@ -3609,8 +2937,6 @@ body {
 
 
 /* 사용자 요청 반영: 네비 목록 타이틀 숨김 + 지명/카카오내비 버튼 크기 통일 */
-.tl-navi-label { display: none !important; }
-.tl-navi-info { gap: 0 !important; flex: 1 1 260px; min-width: 0; }
 .tl-navi-dest,
 .tl-navi-btn {
   font-family: 'Noto Sans KR', sans-serif !important;
@@ -3672,16 +2998,6 @@ body {
   color: var(--gray);
   text-transform: uppercase;
 }
-.mf-slogan {
-  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--gray-lt);
-  letter-spacing: -0.01em;
-  line-height: 1.6;
-  margin: 0 auto 36px;
-  max-width: 500px;
-}
 .mf-slogan strong {
   color: var(--white);
   font-weight: 600;
@@ -3707,7 +3023,56 @@ body {
 @media (max-width: 600px) {
   .main-footer { padding: 60px 24px 44px; }
   .mf-logo-mark { font-size: 28px; }
-  .mf-slogan { font-size: 14px; margin-bottom: 28px; }
+}
+
+
+
+/* CALL TOAST — callPhone() 함수가 사용하는 토스트 UI */
+.call-toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  background: #1a1a1a;
+  border: 1px solid rgba(34,197,94,0.35);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  min-width: 280px; max-width: 92vw;
+  animation: callToastIn 0.3s ease both;
+}
+.call-toast.out { animation: callToastOut 0.3s ease both; }
+.call-toast-icon { font-size: 24px; flex-shrink: 0; }
+.call-toast-body { flex: 1; min-width: 0; }
+.call-toast-name {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--white);
+  margin-bottom: 2px;
+}
+.call-toast-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700; color: #4ade80;
+  letter-spacing: 0.04em; margin-bottom: 4px;
+}
+.call-toast-msg { font-size: 11px; color: var(--gray); }
+.call-toast-close {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--gray); font-size: 11px; cursor: pointer;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.call-toast-close:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+@keyframes callToastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes callToastOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(20px); }
 }
 
 </style>
@@ -4699,6 +4064,48 @@ a {
             </button>
           </div>
           <div class="group-member">마바사</div>
+        </div>
+      </div>
+
+      <!-- D Team -->
+      <div class="group-tile group-green">
+        <div class="group-tile-header">
+          <span class="group-tile-name">D Team</span>
+          <span class="group-tile-count">4 Members</span>
+        </div>
+        <div class="group-tile-members">
+          <div class="group-member leader">
+            <span>박재형</span>
+            <span class="group-leader-tag">조장</span>
+            <button class="group-call-btn" type="button" onclick="callPhone('01095955838', '박재형')" aria-label="박재형에게 전화">
+              <svg class="group-call-btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.3548 2.33301L22.2467 6.22487M22.2467 6.22487L18.8094 9.66567M22.2467 6.22487L13.4035 6.22487M19.7899 19.4057C19.7899 19.4057 18.598 20.5764 18.3059 20.9196C17.83 21.4274 17.2694 21.6672 16.5345 21.6672C16.4638 21.6672 16.3884 21.6672 16.3177 21.6625C14.9185 21.5731 13.6182 21.0277 12.643 20.5623C9.97643 19.274 7.63495 17.4451 5.68922 15.1272C4.08269 13.1949 3.00853 11.4083 2.29713 9.49002C1.85899 8.31932 1.69881 7.40721 1.76948 6.54682C1.81659 5.99673 2.0286 5.54068 2.41963 5.15045L4.02615 3.5472C4.257 3.33093 4.50199 3.21339 4.74226 3.21339C5.03907 3.21339 5.27934 3.39205 5.4301 3.5425C5.43481 3.5472 5.43952 3.5519 5.44423 3.55661C5.73162 3.8246 6.00487 4.10199 6.29225 4.39819C6.4383 4.54864 6.58906 4.69909 6.73982 4.85425L8.02598 6.13778C8.52537 6.63615 8.52537 7.09691 8.02598 7.59528C7.88936 7.73162 7.75744 7.86797 7.62082 7.99961C7.22507 8.40395 7.53595 8.09371 7.12608 8.46043C7.11665 8.46983 7.10723 8.47454 7.10252 8.48394C6.69735 8.88828 6.77273 9.28321 6.85754 9.5512C6.86225 9.56531 6.86696 9.57941 6.87167 9.59352C7.20617 10.4022 7.67729 11.1638 8.39339 12.0713L8.39811 12.076C9.6984 13.6745 11.0694 14.9204 12.5817 15.8748C12.7748 15.9971 12.9727 16.0958 13.1612 16.1899C13.3308 16.2745 13.4909 16.3544 13.6276 16.439C13.6464 16.4484 13.6653 16.4625 13.6841 16.472C13.8443 16.5519 13.995 16.5895 14.1505 16.5895C14.5415 16.5895 14.7865 16.345 14.8666 16.2651L15.7901 15.3435C15.9503 15.1837 16.2047 14.9909 16.5015 14.9909C16.7936 14.9909 17.0338 15.1743 17.1799 15.3341C17.1846 15.3388 17.1846 15.3388 17.1893 15.3435L19.7852 17.9341C20.2704 18.4137 19.7899 19.4057 19.7899 19.4057Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>통화</span>
+            </button>
+          </div>
+          <div class="group-member">김재형</div>
+          <div class="group-member">이재형</div>
+          <div class="group-member">우재형</div>
+        </div>
+      </div>
+
+      <!-- E Team -->
+      <div class="group-tile group-purple">
+        <div class="group-tile-header">
+          <span class="group-tile-name">E Team</span>
+          <span class="group-tile-count">4 Members</span>
+        </div>
+        <div class="group-tile-members">
+          <div class="group-member leader">
+            <span>박재형</span>
+            <span class="group-leader-tag">조장</span>
+            <button class="group-call-btn" type="button" onclick="callPhone('01095955838', '박재형')" aria-label="박재형에게 전화">
+              <svg class="group-call-btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.3548 2.33301L22.2467 6.22487M22.2467 6.22487L18.8094 9.66567M22.2467 6.22487L13.4035 6.22487M19.7899 19.4057C19.7899 19.4057 18.598 20.5764 18.3059 20.9196C17.83 21.4274 17.2694 21.6672 16.5345 21.6672C16.4638 21.6672 16.3884 21.6672 16.3177 21.6625C14.9185 21.5731 13.6182 21.0277 12.643 20.5623C9.97643 19.274 7.63495 17.4451 5.68922 15.1272C4.08269 13.1949 3.00853 11.4083 2.29713 9.49002C1.85899 8.31932 1.69881 7.40721 1.76948 6.54682C1.81659 5.99673 2.0286 5.54068 2.41963 5.15045L4.02615 3.5472C4.257 3.33093 4.50199 3.21339 4.74226 3.21339C5.03907 3.21339 5.27934 3.39205 5.4301 3.5425C5.43481 3.5472 5.43952 3.5519 5.44423 3.55661C5.73162 3.8246 6.00487 4.10199 6.29225 4.39819C6.4383 4.54864 6.58906 4.69909 6.73982 4.85425L8.02598 6.13778C8.52537 6.63615 8.52537 7.09691 8.02598 7.59528C7.88936 7.73162 7.75744 7.86797 7.62082 7.99961C7.22507 8.40395 7.53595 8.09371 7.12608 8.46043C7.11665 8.46983 7.10723 8.47454 7.10252 8.48394C6.69735 8.88828 6.77273 9.28321 6.85754 9.5512C6.86225 9.56531 6.86696 9.57941 6.87167 9.59352C7.20617 10.4022 7.67729 11.1638 8.39339 12.0713L8.39811 12.076C9.6984 13.6745 11.0694 14.9204 12.5817 15.8748C12.7748 15.9971 12.9727 16.0958 13.1612 16.1899C13.3308 16.2745 13.4909 16.3544 13.6276 16.439C13.6464 16.4484 13.6653 16.4625 13.6841 16.472C13.8443 16.5519 13.995 16.5895 14.1505 16.5895C14.5415 16.5895 14.7865 16.345 14.8666 16.2651L15.7901 15.3435C15.9503 15.1837 16.2047 14.9909 16.5015 14.9909C16.7936 14.9909 17.0338 15.1743 17.1799 15.3341C17.1846 15.3388 17.1846 15.3388 17.1893 15.3435L19.7852 17.9341C20.2704 18.4137 19.7899 19.4057 19.7899 19.4057Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>통화</span>
+            </button>
+          </div>
+          <div class="group-member">김재형</div>
+          <div class="group-member">이재형</div>
+          <div class="group-member">우재형</div>
         </div>
       </div>
 
@@ -6613,101 +6020,6 @@ if (document.readyState === 'loading') {
   triggerReveal();
 }
 
-// ══════════════════════════════════════════
-// 좌표 검증 URL — 네이버 지도 핀 위치 바로보기
-// 추정 좌표가 실제 목적지와 일치하는지 확인용
-// ══════════════════════════════════════════
-function makeCoordVerifyUrl(lat, lng, name) {
-  // 네이버 지도에 해당 좌표를 중심으로 하는 지도 뷰 URL
-  // zoom 16 (약 200m 반경) — 건물 수준 식별 가능
-  var zoom = '16.00';
-  return 'https://map.naver.com/p/?c=' + zoom + ',0,0,0,0' +
-         '&lng=' + lng + '&lat=' + lat;
-}
-
-// ══════════════════════════════════════════
-// 단일 목적지 네비 URL 생성 — OS별 분기
-// 카카오맵 / 네이버지도 / T맵 3종 링크 반환
-// (경유지 없는 단일 목적지용)
-// ══════════════════════════════════════════
-function makeSingleDestHrefs(name, lat, lng) {
-  var ua = navigator.userAgent || '';
-  var isIOS = /iPad|iPhone|iPod/.test(ua);
-  var isAOS = /Android/.test(ua);
-  var n = encodeURIComponent(name);
-  var appname = encodeURIComponent((typeof location !== 'undefined' && location.host) || 'minirun-2026.local');
-  var kHref, nHref, tHref;
-
-  if (isIOS) {
-    kHref = 'kakaomap://route?ep=' + lat + ',' + lng + '&by=car';
-    nHref = 'nmap://route/car?dlat=' + lat + '&dlng=' + lng + '&dname=' + n + '&appname=' + appname;
-    tHref = 'tmap://route?rGoName=' + n + '&rGoX=' + lng + '&rGoY=' + lat;
-  } else if (isAOS) {
-    kHref = 'intent://route?ep=' + lat + ',' + lng + '&by=car' +
-      '#Intent;scheme=kakaomap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=net.daum.android.map;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') + ';end';
-    nHref = 'intent://route/car?dlat=' + lat + '&dlng=' + lng + '&dname=' + n + '&appname=' + appname +
-      '#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') + ';end';
-    tHref = 'intent://route?goalname=' + n + '&goalx=' + lng + '&goaly=' + lat +
-      '#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') + ';end';
-  } else {
-    kHref = 'https://map.kakao.com/link/to/' + n + ',' + lat + ',' + lng;
-    nHref = 'https://map.naver.com/p/directions/-/' + lng + ',' + lat + ',' + n + ',,PLACE_POI/-/car';
-    tHref = 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?goalname=' + n + '&goalx=' + lng + '&goaly=' + lat;
-  }
-  return { k: kHref, nv: nHref, t: tHref };
-}
-
-// ══════════════════════════════════════════
-// 다중 경유지 네비 URL 생성 — OS별 분기
-// 카카오: vp, vp2~vp5 (최대 5개) / 네이버: v1~v5 / T맵: 목적지만
-// dest : {name, lat, lng}
-// vias : [{name, lat, lng}, ...] (1~5개, 빈 좌표는 스킵)
-// ══════════════════════════════════════════
-function makeMultiPointHrefs(dest, vias) {
-  var ua = navigator.userAgent || '';
-  var isIOS = /iPad|iPhone|iPod/.test(ua);
-  var isAOS = /Android/.test(ua);
-  var dName = encodeURIComponent(dest.name);
-  var appname = encodeURIComponent((typeof location !== 'undefined' && location.host) || 'minirun-2026.local');
-
-  // 좌표 있는 경유지만 추출
-  var validVias = (vias || []).filter(function (v) { return v.lat && v.lng; });
-
-  // 카카오: 첫 번째는 vp, 그 다음은 vp2~vp5
-  var kakaoVp = validVias.map(function (v, i) {
-    var key = (i === 0) ? 'vp' : ('vp' + (i + 1));
-    return key + '=' + v.lat + ',' + v.lng;
-  }).join('&');
-  var kakaoQuery = (kakaoVp ? kakaoVp + '&' : '') + 'ep=' + dest.lat + ',' + dest.lng + '&by=car';
-
-  // 네이버: v1~v5
-  var naverV = validVias.map(function (v, i) {
-    var idx = i + 1;
-    return 'v' + idx + 'lat=' + v.lat + '&v' + idx + 'lng=' + v.lng + '&v' + idx + 'name=' + encodeURIComponent(v.name);
-  }).join('&');
-  var naverQuery = (naverV ? naverV + '&' : '') +
-    'dlat=' + dest.lat + '&dlng=' + dest.lng + '&dname=' + dName + '&appname=' + appname;
-
-  var k, nv, t;
-  if (isIOS) {
-    t  = 'tmap://route?rGoName=' + dName + '&rGoX=' + dest.lng + '&rGoY=' + dest.lat;
-    k  = 'kakaomap://route?' + kakaoQuery;
-    nv = 'nmap://route/car?' + naverQuery;
-  } else if (isAOS) {
-    t = 'intent://route?goalname=' + dName + '&goalx=' + dest.lng + '&goaly=' + dest.lat +
-      '#Intent;scheme=tmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.skt.tmap.ku;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.skt.tmap.ku') + ';end';
-    k = 'intent://route?' + kakaoQuery +
-      '#Intent;scheme=kakaomap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=net.daum.android.map;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=net.daum.android.map') + ';end';
-    nv = 'intent://route/car?' + naverQuery +
-      '#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;S.browser_fallback_url=' + encodeURIComponent('https://play.google.com/store/apps/details?id=com.nhn.android.nmap') + ';end';
-  } else {
-    t  = 'https://www.tmap.co.kr/tmap2/mobile/route.jsp?goalname=' + dName + '&goalx=' + dest.lng + '&goaly=' + dest.lat;
-    k  = 'https://m.map.kakao.com/scheme/route?' + kakaoQuery;
-    nv = 'https://map.naver.com/p/directions/-/' + dest.lng + ',' + dest.lat + ',' + dName + ',,PLACE_POI/-/car';
-  }
-  return { k: k, nv: nv, t: t };
-}
-
 // HTML 이스케이프 헬퍼 (innerHTML 주입 시 XSS 방어)
 function escapeHtml(str) {
   return String(str)
@@ -6836,19 +6148,6 @@ function legacyCopy(text) {
     document.execCommand('copy');
     document.body.removeChild(ta);
   } catch (e) {}
-}
-
-// 클립보드 복사 + 외부 앱 호출 (안내 문구 포함)
-function copyToClipboardAndOpen(text, appUrl) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).catch(function() { legacyCopy(text); });
-  } else {
-    legacyCopy(text);
-  }
-  alert('경유지 정보가 복사되었습니다:\\n\\n' + text + '\\n\\n카카오맵 검색창에 붙여넣고 길찾기를 진행하세요.');
-  setTimeout(function() {
-    window.location.href = appUrl;
-  }, 100);
 }
 
 // ── A팀/B팀 목적지 바로 카카오내비 실행 ──
