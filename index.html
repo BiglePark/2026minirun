@@ -2647,10 +2647,12 @@ body {
   background: var(--group-color, #888);
 }
 .group-tile-header {
-  display: flex; align-items: baseline; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
   margin-bottom: 18px;
   padding-bottom: 14px;
   border-bottom: 1px dashed rgba(255,255,255,0.08);
+  flex-wrap: wrap;
 }
 .group-tile-name {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
@@ -2659,10 +2661,54 @@ body {
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
+.group-tile-header-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
 .group-tile-count {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 11px; letter-spacing: 0.2em;
   color: var(--gray); text-transform: uppercase;
+}
+/* ── 그룹 단톡방 입장 버튼 ── */
+.group-tile-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(254,229,0,0.1);
+  border: 1px solid rgba(254,229,0,0.45);
+  border-radius: 20px;
+  color: #FEE500;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+}
+.group-tile-chat-btn:hover {
+  background: rgba(254,229,0,0.18);
+  border-color: #FEE500;
+}
+.group-tile-chat-btn:active {
+  transform: scale(0.97);
+}
+.group-tile-chat-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .group-tile-header { gap: 8px; }
+  .group-tile-chat-btn {
+    padding: 5px 10px;
+    font-size: 10.5px;
+  }
+  .group-tile-chat-btn svg { width: 12px; height: 12px; }
 }
 .group-tile-members {
   display: flex; flex-direction: column; gap: 10px;
@@ -4153,7 +4199,13 @@ a {
       <div class="group-tile group-red">
         <div class="group-tile-header">
           <span class="group-tile-name">A Group [쉬멍팀]</span>
-          <span class="group-tile-count">15 Members</span>
+          <div class="group-tile-header-right">
+            <span class="group-tile-count">15 Members</span>
+            <a class="group-tile-chat-btn" href="https://open.kakao.com/o/gKYabEvi" target="_blank" rel="noopener" aria-label="단톡방 입장">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span>단톡방</span>
+            </a>
+          </div>
         </div>
         <div class="group-tile-members">
           <div class="group-member leader">
@@ -4176,7 +4228,13 @@ a {
       <div class="group-tile group-blue">
         <div class="group-tile-header">
           <span class="group-tile-name">B Group [놀멍팀]</span>
-          <span class="group-tile-count">8 Members</span>
+          <div class="group-tile-header-right">
+            <span class="group-tile-count">8 Members</span>
+            <a class="group-tile-chat-btn" href="https://open.kakao.com/o/gKYabEvi" target="_blank" rel="noopener" aria-label="단톡방 입장">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span>단톡방</span>
+            </a>
+          </div>
         </div>
         <div class="group-tile-members">
           <div class="group-member leader">
@@ -4200,7 +4258,13 @@ a {
       <div class="group-tile group-yellow">
         <div class="group-tile-header">
           <span class="group-tile-name">C Group [놀멍팀]</span>
-          <span class="group-tile-count">12 Members</span>
+          <div class="group-tile-header-right">
+            <span class="group-tile-count">12 Members</span>
+            <a class="group-tile-chat-btn" href="https://open.kakao.com/o/gKYabEvi" target="_blank" rel="noopener" aria-label="단톡방 입장">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span>단톡방</span>
+            </a>
+          </div>
         </div>
         <div class="group-tile-members">
           <div class="group-member leader">
@@ -4224,7 +4288,13 @@ a {
       <div class="group-tile group-green">
         <div class="group-tile-header">
           <span class="group-tile-name">D  Group [쉬멍팀]</span>
-          <span class="group-tile-count">14 Members</span>
+          <div class="group-tile-header-right">
+            <span class="group-tile-count">14 Members</span>
+            <a class="group-tile-chat-btn" href="https://open.kakao.com/o/gKYabEvi" target="_blank" rel="noopener" aria-label="단톡방 입장">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span>단톡방</span>
+            </a>
+          </div>
         </div>
         <div class="group-tile-members">
           <div class="group-member leader">
@@ -4248,7 +4318,13 @@ a {
       <div class="group-tile group-purple">
         <div class="group-tile-header">
           <span class="group-tile-name">E Group [놀멍팀]</span>
-          <span class="group-tile-count">8 Members</span>
+          <div class="group-tile-header-right">
+            <span class="group-tile-count">8 Members</span>
+            <a class="group-tile-chat-btn" href="https://open.kakao.com/o/gKYabEvi" target="_blank" rel="noopener" aria-label="단톡방 입장">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 4C7 4 3 7.2 3 11.2C3 13.7 4.5 15.9 6.9 17.2L6 21L10 18.8C10.6 18.9 11.3 19 12 19C17 19 21 15.8 21 11.8C21 7.8 17 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span>단톡방</span>
+            </a>
+          </div>
         </div>
         <div class="group-tile-members">
           <div class="group-member leader">
