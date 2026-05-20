@@ -3068,6 +3068,167 @@ body {
   max-width: 480px; margin: 0 auto;
 }
 
+/* ── 일자별 탭 네비게이션 ── */
+.staff-day-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(245,200,66,0.15);
+}
+.staff-day-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  color: var(--gray);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.staff-day-tab:hover {
+  background: rgba(245,200,66,0.04);
+  border-color: rgba(245,200,66,0.2);
+  color: var(--white);
+}
+.staff-day-tab.active {
+  background: rgba(245,200,66,0.1);
+  border-color: rgba(245,200,66,0.5);
+  color: #f5c842;
+}
+.staff-day-tab-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.staff-day-tab-date {
+  font-size: 10.5px;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
+}
+
+/* ── 일자별 패널 ── */
+.staff-day-panel { display: none; }
+.staff-day-panel.active { display: block; }
+
+/* ── 일정 블록 (구분된 섹션) ── */
+.staff-block {
+  margin-bottom: 28px;
+  padding: 20px 22px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+}
+.staff-block-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(255,255,255,0.07);
+}
+.staff-block-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px; height: 28px;
+  padding: 0 7px;
+  background: rgba(245,200,66,0.12);
+  border: 1px solid rgba(245,200,66,0.35);
+  border-radius: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: #f5c842;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+.staff-block-title {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  margin: 0;
+}
+.staff-block-route {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--gray-lt);
+  margin-left: 6px;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  letter-spacing: 0;
+}
+
+/* ── 역할 테이블 ── */
+.staff-table { display: flex; flex-direction: column; gap: 8px; }
+.staff-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.staff-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  min-width: 0;
+}
+.staff-cell.role-park    { border-left: 3px solid #4da6ff; }
+.staff-cell.role-welcome { border-left: 3px solid #f5c842; }
+.staff-cell.role-ticket  { border-left: 3px solid #a855f7; }
+.staff-name {
+  font-size: 13px; font-weight: 700;
+  color: var(--white); letter-spacing: -0.01em;
+}
+.staff-task {
+  font-size: 12.5px; line-height: 1.5;
+  color: var(--gray-lt); font-weight: 400;
+}
+.staff-role-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-transform: uppercase;
+  width: fit-content;
+}
+.staff-role-tag.lead   { background: rgba(232,40,26,0.18);  color: #ff5a4a; }
+.staff-role-tag.mid    { background: rgba(245,200,66,0.18); color: #f5c842; }
+.staff-role-tag.tail   { background: rgba(168,85,247,0.18); color: #c084fc; }
+.staff-role-tag.patrol { background: rgba(77,166,255,0.18); color: #4da6ff; }
+.staff-role-tag.ot     { background: rgba(34,197,94,0.18);  color: #4ade80; }
+
+@media (max-width: 600px) {
+  .staff-day-tabs { gap: 6px; }
+  .staff-day-tab { padding: 10px 4px; }
+  .staff-day-tab-label { font-size: 12px; letter-spacing: 0.1em; }
+  .staff-day-tab-date { font-size: 9.5px; }
+  .staff-block { padding: 16px 14px; }
+  .staff-block-title { font-size: 14px; }
+  .staff-block-route { display: block; margin-left: 0; margin-top: 4px; font-size: 11.5px; }
+  .staff-row { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .staff-cell { padding: 8px 10px; }
+}
+
 /* 하단 시그니처 */
 .staffroll-signature {
   text-align: center;
@@ -4324,7 +4485,7 @@ a {
       <div class="staff-section-header">
         <span class="staff-section-label">⭐ STAFF</span>
       </div>
-      <h3 class="staff-section-title">STAFF</h3>
+      <h3 class="staff-section-title">미니런 운영진</h3>
       <p class="staff-section-desc">
         2026 MINI RUN을 준비하고 진행하는 운영진입니다. 일정 중 도움이 필요하시면 언제든 연락주세요.
       </p>
@@ -4606,16 +4767,160 @@ a {
     </div>
   </div>
 
-  <!-- 본문 — 스태프 일정 (추후 사용자가 공유 예정) -->
+  <!-- 본문 — 스태프 일정 (일자별 탭) -->
   <div class="staffroll-body">
-    <div class="staffroll-placeholder">
-      <span class="staffroll-placeholder-icon">📋</span>
-      <h2 class="staffroll-placeholder-title">스태프 일정 준비 중</h2>
-      <p class="staffroll-placeholder-desc">
-        운영진의 사전 답사 · 준비 일정 · 비하인드 스토리가<br>
-        곧 이 자리를 채울 예정입니다.
-      </p>
+
+    <!-- 일자별 탭 네비게이션 -->
+    <div class="staff-day-tabs" role="tablist">
+      <button class="staff-day-tab active" type="button" data-day="d1" onclick="switchStaffDay('d1')">
+        <span class="staff-day-tab-label">DAY 01</span>
+        <span class="staff-day-tab-date">06.03 (수)</span>
+      </button>
+      <button class="staff-day-tab" type="button" data-day="d2" onclick="switchStaffDay('d2')">
+        <span class="staff-day-tab-label">DAY 02</span>
+        <span class="staff-day-tab-date">06.04 (목)</span>
+      </button>
+      <button class="staff-day-tab" type="button" data-day="d3" onclick="switchStaffDay('d3')">
+        <span class="staff-day-tab-label">DAY 03</span>
+        <span class="staff-day-tab-date">06.05 (금)</span>
+      </button>
+      <button class="staff-day-tab" type="button" data-day="d4" onclick="switchStaffDay('d4')">
+        <span class="staff-day-tab-label">DAY 04</span>
+        <span class="staff-day-tab-date">06.06 (토)</span>
+      </button>
     </div>
+
+    <!-- DAY 01 — 출발 & 제주 도착 -->
+    <div class="staff-day-panel active" id="staff-d1">
+
+      <!-- 준비물 -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">01</span>
+          <h3 class="staff-block-title">준비물</h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell"><span class="staff-name">기영</span><span class="staff-task">자석 · 쇼핑백 · 마지막날 음료 구매</span></div>
+            <div class="staff-cell"><span class="staff-name">병훈이형</span><span class="staff-task">트럭</span></div>
+            <div class="staff-cell"><span class="staff-name">동훈</span><span class="staff-task">담요</span></div>
+            <div class="staff-cell"><span class="staff-name">재형</span><span class="staff-task">샌드위치</span></div>
+            <div class="staff-cell"><span class="staff-name">혜영</span><span class="staff-task">명찰</span></div>
+            <div class="staff-cell"><span class="staff-name">영선</span><span class="staff-task">스템프</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12:00 집결지 역할 -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">02</span>
+          <h3 class="staff-block-title">12:00 까지 집결 — 집결지 역할</h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell role-park">
+              <span class="staff-role-tag">주차</span>
+              <span class="staff-task">기영 · 영빈 · 성만</span>
+            </div>
+            <div class="staff-cell role-welcome">
+              <span class="staff-role-tag">웰컴킷 배포</span>
+              <span class="staff-task">혜영 · 써니 · 동훈 · 재형</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 드라이브 시작 (행담도 - 함평천지) -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">03</span>
+          <h3 class="staff-block-title">드라이브 시작 <span class="staff-block-route">행담도 → 함평천지</span></h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell"><span class="staff-role-tag lead">선두</span><span class="staff-task">동훈</span></div>
+            <div class="staff-cell"><span class="staff-role-tag mid">중간</span><span class="staff-task">혜영</span></div>
+            <div class="staff-cell"><span class="staff-role-tag tail">후미</span><span class="staff-task">재형</span></div>
+            <div class="staff-cell"><span class="staff-role-tag patrol">패트롤</span><span class="staff-task">기영 · 성만</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 드라이브 시작 (함평천지 - 목포항) -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">04</span>
+          <h3 class="staff-block-title">드라이브 시작 <span class="staff-block-route">함평천지 → 목포항</span></h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell"><span class="staff-role-tag lead">선두</span><span class="staff-task">동훈</span></div>
+            <div class="staff-cell"><span class="staff-role-tag patrol">패트롤</span><span class="staff-task">혜영 · 재형 · 기영 · 성만</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 목포항 -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">05</span>
+          <h3 class="staff-block-title">목포항</h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell"><span class="staff-role-tag lead">선두</span><span class="staff-task">동훈</span></div>
+            <div class="staff-cell role-welcome"><span class="staff-role-tag">웰컴킷 배포</span><span class="staff-task">혜영</span></div>
+            <div class="staff-cell role-ticket"><span class="staff-role-tag">티켓 배포</span><span class="staff-task">써니</span></div>
+            <div class="staff-cell role-park"><span class="staff-role-tag">주차</span><span class="staff-task">재형 · 기영 · 성만</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 제주도 도착 — 휴애리 주차장 확인 -->
+      <section class="staff-block">
+        <header class="staff-block-header">
+          <span class="staff-block-num">06</span>
+          <h3 class="staff-block-title">제주도 도착 <span class="staff-block-route">휴애리 주차장 확인</span></h3>
+        </header>
+        <div class="staff-table">
+          <div class="staff-row">
+            <div class="staff-cell role-park"><span class="staff-role-tag">호텔 주차</span><span class="staff-task">동훈 · 기영 · 성만</span></div>
+            <div class="staff-cell role-welcome"><span class="staff-role-tag">룸키 · 조식 식권 배포</span><span class="staff-task">혜영</span></div>
+            <div class="staff-cell"><span class="staff-role-tag ot">OT 준비</span><span class="staff-task">재형</span></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- DAY 02 (준비 중) -->
+    <div class="staff-day-panel" id="staff-d2">
+      <div class="staffroll-placeholder">
+        <span class="staffroll-placeholder-icon">📋</span>
+        <h2 class="staffroll-placeholder-title">DAY 02 일정 준비 중</h2>
+        <p class="staffroll-placeholder-desc">스탭 역할 분담이 곧 공유될 예정입니다.</p>
+      </div>
+    </div>
+
+    <!-- DAY 03 (준비 중) -->
+    <div class="staff-day-panel" id="staff-d3">
+      <div class="staffroll-placeholder">
+        <span class="staffroll-placeholder-icon">📋</span>
+        <h2 class="staffroll-placeholder-title">DAY 03 일정 준비 중</h2>
+        <p class="staffroll-placeholder-desc">스탭 역할 분담이 곧 공유될 예정입니다.</p>
+      </div>
+    </div>
+
+    <!-- DAY 04 (준비 중) -->
+    <div class="staff-day-panel" id="staff-d4">
+      <div class="staffroll-placeholder">
+        <span class="staffroll-placeholder-icon">📋</span>
+        <h2 class="staffroll-placeholder-title">DAY 04 일정 준비 중</h2>
+        <p class="staffroll-placeholder-desc">스탭 역할 분담이 곧 공유될 예정입니다.</p>
+      </div>
+    </div>
+
   </div>
 
   <!-- 시그니처 -->
@@ -6208,6 +6513,28 @@ function openDay(n) {
   showPage('page-day' + n);
 }
 
+// 스탭 일정 탭 전환
+function switchStaffDay(dayKey) {
+  // 탭 active 토글
+  var tabs = document.querySelectorAll('.staff-day-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i].getAttribute('data-day') === dayKey) {
+      tabs[i].classList.add('active');
+    } else {
+      tabs[i].classList.remove('active');
+    }
+  }
+  // 패널 active 토글
+  var panels = document.querySelectorAll('.staff-day-panel');
+  for (var j = 0; j < panels.length; j++) {
+    if (panels[j].id === 'staff-' + dayKey) {
+      panels[j].classList.add('active');
+    } else {
+      panels[j].classList.remove('active');
+    }
+  }
+}
+
 function goMain() {
   showPage('page-main');
   // Re-trigger reveals
@@ -6950,7 +7277,7 @@ function getInfoItemHtml() {
         '</div>' +
         '<div class="info-pack-item-body">' +
           '<div class="info-pack-item-title">집결지 도착 전 주유 가득 !!</div>' +
-          '<div class="info-pack-item-desc">목적지까지 무리 없이 갈 수 있도록 <span class="accent-red">주유를 가득</span> 채우고 오세요.</div>' +
+          '<div class="info-pack-item-desc">목포항까지 무리 없이 갈 수 있도록 <span class="accent-red">주유를 가득</span> 채우고 오세요.</div>' +
         '</div>' +
       '</div>' +
       // 2. 신분증 (강조) — urgent 박스 적용
@@ -6999,7 +7326,7 @@ function getInfoItemHtml() {
         '</div>' +
         '<div class="info-pack-item-body">' +
           '<div class="info-pack-item-title">선박 내 <span class="accent">샤워실</span>이 있습니다</div>' +
-          '<div class="info-pack-item-desc"><span class="accent">샤워 용품(수건 포함)을 미리 준비하시면</span> 이용 가능합니다. 제주행 · 목포행 모두 가능</div>' +
+          '<div class="info-pack-item-desc"><span class="accent">샤워 용품을 미리 준비하시면</span> 이용 가능합니다. 제주행 · 목포행 모두 가능</div>' +
         '</div>' +
       '</div>' +
       // 5. 뮤지엄 방문 — 이어폰 권장
