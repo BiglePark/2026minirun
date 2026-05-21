@@ -2983,6 +2983,11 @@ body {
   font-size: 11px; letter-spacing: 0.3em;
   color: #f5c842; text-transform: uppercase;
 }
+.staffroll-nav-spacer {
+  /* ← MAIN 버튼과 비슷한 폭을 차지해 타이틀을 정확한 가운데로 유지 */
+  display: inline-block;
+  min-width: 60px;
+}
 
 /* Hero — 영화 타이틀 풍 */
 .staffroll-hero {
@@ -4822,9 +4827,9 @@ a {
 
   <!-- 상단 네비 (간소화) -->
   <nav class="staffroll-nav">
-    <button class="staffroll-nav-back" onclick="showPage('page-theme')">← THEME</button>
+    <button class="staffroll-nav-back" onclick="goMain()">← MAIN</button>
     <span class="staffroll-nav-title">🎬 SECRET</span>
-    <button class="staffroll-nav-back" onclick="goMain()">MAIN →</button>
+    <span class="staffroll-nav-spacer" aria-hidden="true"></span>
   </nav>
 
   <!-- Hero — 영화 엔딩 크레딧 풍 -->
