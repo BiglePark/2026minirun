@@ -171,16 +171,35 @@ body {
   display: inline-flex; flex-direction: column;
   align-items: center; justify-content: center;
   width: 58px; height: 58px;
+  padding: 0;
   border: 1.5px solid var(--red);
   border-radius: 50%;
   position: relative;
   background: rgba(232,40,26,0.07);
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+}
+.hero-anniv-badge:hover {
+  background: rgba(232,40,26,0.18);
+  transform: scale(1.06);
+  box-shadow: 0 0 24px -2px rgba(232,40,26,0.45);
+}
+.hero-anniv-badge:hover::before {
+  border-color: rgba(232,40,26,0.6);
+}
+.hero-anniv-badge:active { transform: scale(0.96); }
+.hero-anniv-badge:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
 }
 .hero-anniv-badge::before {
   content: '';
   position: absolute; inset: 4px;
   border: 1px solid rgba(232,40,26,0.25);
   border-radius: 50%;
+  transition: border-color 0.3s;
 }
 .hero-anniv-num {
   font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
@@ -2935,21 +2954,6 @@ body {
   color: var(--red);
 }
 
-/* 비밀 칩 — 평소엔 일반 칩과 동일, hover 시 미세하게 빛남 */
-.td-chip-secret {
-  cursor: pointer;
-  position: relative;
-  transition: color 0.3s, border-color 0.3s, background 0.3s, letter-spacing 0.3s;
-  user-select: none;
-}
-.td-chip-secret:hover {
-  color: #f5c842;
-  border-color: rgba(245,200,66,0.5);
-  background: rgba(245,200,66,0.08);
-  letter-spacing: 0.12em;
-}
-.td-chip-secret:active { transform: scale(0.96); }
-
 /* ══════════════════════════════
    STAFF ROLL — 비밀 페이지 (영화 엔드 크레딧 풍)
 ══════════════════════════════ */
@@ -3671,10 +3675,10 @@ a {
 
       <!-- 20주년 배지 -->
       <div class="hero-anniversary">
-        <div class="hero-anniv-badge">
+        <button class="hero-anniv-badge" type="button" onclick="showPage('page-staffroll')" aria-label="STAFF ROLL 보기">
           <span class="hero-anniv-num">20</span>
           <span class="hero-anniv-th">th</span>
-        </div>
+        </button>
         <div class="hero-anniv-text">
           <span>Anniversary</span>
           <span>MINI RUN</span>
@@ -5283,7 +5287,7 @@ a {
       <span class="td-chip"># 여백</span>
       <span class="td-chip"># 평범하고</span>
       <span class="td-chip"># 소소한 순간</span>
-      <span class="td-chip td-chip-secret" onclick="showPage('page-staffroll')" title="">#&nbsp;20주년</span>
+      <span class="td-chip"># 20주년</span>
       <span class="td-chip"># 2006–2026</span>
     </div>
 
