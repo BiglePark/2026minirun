@@ -481,6 +481,95 @@ body {
 .day-card:hover .dc-arrow::after { transform: translateX(4px); }
 
 /* ══════════════════════════════
+   ── DAY TABS (탭 클릭 시 바로 상세 페이지로 이동) ──
+══════════════════════════════ */
+/* 탭 컨테이너 */
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 48px 80px;
+}
+/* 개별 탭 버튼 */
+.day-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 24px 24px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.25s;
+}
+.day-tab:hover {
+  background: rgba(232,40,26,0.06);
+  border-color: rgba(232,40,26,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(232,40,26,0.25);
+}
+.day-tab:hover .day-tab-num {
+  color: var(--red);
+}
+.day-tab:hover .day-tab-label {
+  color: var(--red);
+}
+.day-tab:active { transform: scale(0.99); }
+.day-tab:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+.day-tab-num {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: clamp(32px, 3.5vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(255,255,255,0.22);
+  transition: color 0.25s;
+}
+.day-tab-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.day-tab-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+.day-tab-date {
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--gray);
+  letter-spacing: 0.02em;
+}
+
+/* 반응형 */
+@media (max-width: 760px) {
+  .day-tabs { padding: 0 24px 60px; gap: 6px; }
+  .day-tab { padding: 16px 14px; }
+  .day-tab-num { font-size: 26px; }
+  .day-tab-label { font-size: 10px; letter-spacing: 0.16em; }
+  .day-tab-date { font-size: 10.5px; }
+}
+@media (max-width: 480px) {
+  .day-tab { padding: 14px 10px; }
+  .day-tab-num { font-size: 22px; }
+  .day-tab-meta { gap: 2px; }
+}
+
+
+/* ══════════════════════════════
    ── DETAIL PAGE ──
 ══════════════════════════════ */
 .detail-page { background: var(--black); }
@@ -3696,93 +3785,39 @@ a {
       <span class="days-label">Itinerary</span>
       <h2 class="days-title">4일간의 일정</h2>
     </div>
-    <div class="day-cards">
 
-      <!-- DAY 1 -->
-      <div class="day-card reveal" onclick="openDay(1)">
-        <div class="dc-top">
-          <div class="dc-num">01</div>
-          <div class="dc-day-label">DAY 1</div>
-          <div class="dc-title">시작,<br>그리고 제주</div>
-          <div class="dc-sub">여정의 시작<br>도착과 시작</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 03 (수)</div>
-          <div class="dc-spots">총 10개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">첫걸음</span>
-            <span class="dc-tag">제주</span>
-            <span class="dc-tag">닿다</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 2 -->
-      <div class="day-card reveal" onclick="openDay(2)">
-        <div class="dc-top">
-          <div class="dc-num">02</div>
-          <div class="dc-day-label">DAY 2</div>
-          <div class="dc-title">숲과 노을<br>그리고 별</div>
-          <div class="dc-sub">푸르른 오후<br>노을이 있는 저녁<br>그리고 쏟아지는 별</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 04 (목)</div>
-          <div class="dc-spots">총 10개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">머물고</span>
-            <span class="dc-tag">느끼고</span>
-            <span class="dc-tag">쉬다</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 3 -->
-      <div class="day-card reveal" onclick="openDay(3)">
-        <div class="dc-top">
-          <div class="dc-num">03</div>
-          <div class="dc-day-label">DAY 3</div>
-          <div class="dc-title">길 위의<br>제주</div>
-          <div class="dc-sub">MINI Drive,<br>바람과 길 사이</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 05 (금)</div>
-          <div class="dc-spots">총 15개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">바람</span>
-            <span class="dc-tag">파도</span>
-            <span class="dc-tag">MINI</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
-      <!-- DAY 4 -->
-      <div class="day-card reveal" onclick="openDay(4)">
-        <div class="dc-top">
-          <div class="dc-num">04</div>
-          <div class="dc-day-label">DAY 4</div>
-          <div class="dc-title">마침표,<br>그리고 기억</div>
-          <div class="dc-sub">마지막 제주<br>뜨거운 여운</div>
-        </div>
-        <div class="dc-bottom">
-          <div class="dc-line"></div>
-          <div class="dc-date">2026. 06. 06 (토)</div>
-          <div class="dc-spots">총 5개 일정</div>
-          <div class="dc-tags">
-            <span class="dc-tag">여정의 끝</span>
-            <span class="dc-tag">여운의 시작</span>
-            <span class="dc-tag">안녕</span>
-          </div>
-          <div class="dc-arrow">VIEW DETAIL</div>
-        </div>
-      </div>
-
+    <!-- 탭 버튼 4개 - 클릭 즉시 해당 day 상세 페이지로 이동 -->
+    <div class="day-tabs reveal" aria-label="4일간의 일정 선택">
+      <button class="day-tab" type="button" data-day="1" onclick="openDay(1)" aria-label="DAY 1 상세 보기">
+        <span class="day-tab-num">01</span>
+        <span class="day-tab-meta">
+          <span class="day-tab-label">DAY 1</span>
+          <span class="day-tab-date">06.03 (수)</span>
+        </span>
+      </button>
+      <button class="day-tab" type="button" data-day="2" onclick="openDay(2)" aria-label="DAY 2 상세 보기">
+        <span class="day-tab-num">02</span>
+        <span class="day-tab-meta">
+          <span class="day-tab-label">DAY 2</span>
+          <span class="day-tab-date">06.04 (목)</span>
+        </span>
+      </button>
+      <button class="day-tab" type="button" data-day="3" onclick="openDay(3)" aria-label="DAY 3 상세 보기">
+        <span class="day-tab-num">03</span>
+        <span class="day-tab-meta">
+          <span class="day-tab-label">DAY 3</span>
+          <span class="day-tab-date">06.05 (금)</span>
+        </span>
+      </button>
+      <button class="day-tab" type="button" data-day="4" onclick="openDay(4)" aria-label="DAY 4 상세 보기">
+        <span class="day-tab-num">04</span>
+        <span class="day-tab-meta">
+          <span class="day-tab-label">DAY 4</span>
+          <span class="day-tab-date">06.06 (토)</span>
+        </span>
+      </button>
     </div>
+
   </section>
 
   <!-- INFO CARD (2026 MINI RUN INFO) -->
